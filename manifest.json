@@ -1,17 +1,16 @@
 {
-  "name": "Prayerity OS",
+  "name": "Prayerity",
   "short_name": "Prayerity",
-  "start_url": "index.html",
+  "description": "Prayer Must be your FIRST priority!",
+  "start_url": "/Prayerity/",
   "display": "standalone",
   "background_color": "#030305",
   "theme_color": "#00f2ff",
-  "orientation": "portrait",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/2583/2583217.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "https://via.placeholder.com/192x192/030305/00f2ff?text=P",
+      "sizes": "192x192",
+      "type": "image/png"
     }
   ]
 }
