@@ -20,7 +20,7 @@
   --bg:#030305;--bg2:#08080f;--bg3:#0d0d1a;--bg4:#111122;
   --card:rgba(255,255,255,0.04);--card2:rgba(255,255,255,0.07);--card3:rgba(255,255,255,0.03);
   --border:rgba(0,242,255,0.18);--border2:rgba(255,255,255,0.07);--border3:rgba(188,19,254,0.2);
-  --text:#e2e8f0;--text2:#cbd5e1;--muted:#64748b;--muted2:#94a3b8;
+  --text:#e2e8f0;--text2:#cbd5e1;--muted:#8899aa;--muted2:#a8bccf;
   --danger:#ff4757;--gold:#ffd700;--green:#00ff88;--orange:#ff9500;
   --font-head:'Syncopate',sans-serif;--font-orb:'Orbitron',sans-serif;--font-body:'Outfit',sans-serif;
   --r6:6px;--r8:8px;--r12:12px;--r16:16px;--r20:20px;--r24:24px;
@@ -33,7 +33,7 @@
   --glass-border:rgba(255,255,255,0.08);
   --neon-text-cyan:0 0 8px rgba(0,242,255,0.8),0 0 20px rgba(0,242,255,0.4);
   --neon-text-purple:0 0 8px rgba(188,19,254,0.8),0 0 20px rgba(188,19,254,0.4);
-  --nav-h:72px;
+  --nav-h:68px;
   --menstruation-color:#ff4d6d;
   --menstruation-bg:rgba(255,77,109,0.08);
   --friday-gold:rgba(255,215,0,0.12);
@@ -41,15 +41,32 @@
 
 /* ══ DAY MODE — High-contrast inverted cyberpunk ══ */
 [data-theme="day"]{
-  --bg:#f0f0ff;--bg2:#e8e8ff;--bg3:#dcdcfa;--bg4:#d4d4f7;
-  --card:rgba(0,0,30,0.05);--card2:rgba(0,0,30,0.09);--card3:rgba(0,0,30,0.03);
-  --border:rgba(0,50,200,0.25);--border2:rgba(0,0,30,0.1);--border3:rgba(120,0,200,0.25);
-  --text:#06060f;--text2:#12121e;--muted:#4a4a6a;--muted2:#6a6a8a;
-  --cyan:#0050cc;--purple:#7700cc;--green:#007040;--gold:#8a6000;
-  --glass:rgba(0,0,30,0.05);--glass-border:rgba(0,0,30,0.1);
-  --glow-cyan:0 2px 12px rgba(0,80,200,0.15);--glow-purple:0 2px 12px rgba(119,0,200,0.15);
+  /* Android 15 Material You — light dynamic surface */
+  --bg:#f2f2f7;--bg2:#ffffff;--bg3:#e8e8ed;--bg4:#dddde3;
+  --card:rgba(255,255,255,0.9);--card2:rgba(255,255,255,1);--card3:rgba(255,255,255,0.7);
+  --border:rgba(0,0,0,0.12);--border2:rgba(0,0,0,0.08);--border3:rgba(100,0,180,0.2);
+  --text:#1c1c1e;--text2:#2c2c2e;--muted:#6c6c70;--muted2:#48484a;
+  --cyan:#0a60d0;--purple:#6200ea;--green:#1b7a3e;--gold:#8a5a00;
+  --danger:#d93025;
+  --glass:rgba(255,255,255,0.85);--glass-border:rgba(0,0,0,0.1);
+  --glow-cyan:0 2px 16px rgba(10,96,208,0.18);--glow-purple:0 2px 16px rgba(98,0,234,0.15);
   --neon-text-cyan:none;--neon-text-purple:none;
+  --card-shadow:0 1px 4px rgba(0,0,0,0.1),0 4px 16px rgba(0,0,0,0.06);
 }
+
+[data-theme="day"] nav{background:rgba(242,242,247,0.95);border-top-color:rgba(0,0,0,0.1);}
+[data-theme="day"] .xp-panel,[data-theme="day"] .prayer-card,[data-theme="day"] .stat-big-card,
+[data-theme="day"] .archive-card,[data-theme="day"] .note-card,[data-theme="day"] .settings-section,
+[data-theme="day"] .claim-card,[data-theme="day"] .stat-chart-card{
+  box-shadow:var(--card-shadow,none);
+  border-color:rgba(0,0,0,0.08);
+}
+[data-theme="day"] .xp-panel::before{background:linear-gradient(90deg,transparent,rgba(10,96,208,0.3),transparent);}
+[data-theme="day"] .stat-chip{background:rgba(0,0,0,0.04);}
+[data-theme="day"] .form-input,[data-theme="day"] .settings-input,[data-theme="day"] .note-textarea,[data-theme="day"] .note-input-title{background:#fff;border-color:rgba(0,0,0,0.15);color:#1c1c1e;}
+[data-theme="day"] .toast{background:rgba(242,242,247,0.98);color:#1c1c1e;border-color:rgba(0,0,0,0.12);}
+[data-theme="day"] .modal-box{background:#f2f2f7;}
+[data-theme="day"] #scanline{display:none;}
 
 /* ══════════════════════════════════════════════════════
    RESET & BASE
@@ -197,7 +214,7 @@ button{cursor:pointer;}
 /* ══════════════════════════════════════════════════════
    NAV BAR — Glassmorphism
 ══════════════════════════════════════════════════════ */
-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(3,3,5,.85);backdrop-filter:blur(32px) saturate(180%);-webkit-backdrop-filter:blur(32px) saturate(180%);border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom);}
+nav{position:fixed;bottom:8px;left:8px;right:8px;border-radius:20px;background:rgba(3,3,5,.92);backdrop-filter:blur(32px) saturate(180%);-webkit-backdrop-filter:blur(32px) saturate(180%);border:1px solid var(--border);display:flex;z-index:100;padding-bottom:0;overflow:hidden;}
 [data-theme="day"] nav{background:rgba(240,240,255,.9);}
 .nav-btn{flex:1;padding:.8rem .2rem .6rem;display:flex;flex-direction:column;align-items:center;gap:.2rem;background:none;border:none;color:var(--muted);transition:var(--trans);font-family:var(--font-head);font-size:.42rem;letter-spacing:.08em;text-transform:uppercase;position:relative;overflow:hidden;}
 .nav-btn svg{width:18px;height:18px;stroke-width:1.5;transition:var(--trans);}
@@ -363,7 +380,7 @@ body.friday-mode .xp-panel::before{background:linear-gradient(90deg,transparent,
 /* ══════════════════════════════════════════════════════
    PAGES
 ══════════════════════════════════════════════════════ */
-.page{display:none;flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + .5rem);}
+.page{display:none;flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 1.5rem);}
 .page.active{display:block;}
 .page-enter{animation:pageIn .35s cubic-bezier(.4,0,.2,1);}
 @keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -568,7 +585,7 @@ textarea.form-input{resize:none;}
 /* ══════════════════════════════════════════════════════
    TOAST
 ══════════════════════════════════════════════════════ */
-.toast{position:fixed;bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + .5rem);left:50%;transform:translateX(-50%) translateY(10px);background:rgba(10,10,20,.95);border:1px solid var(--border2);border-radius:var(--r12);padding:.6rem 1.1rem;font-size:.75rem;color:var(--text2);z-index:200;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;white-space:nowrap;max-width:calc(100vw - 2rem);text-align:center;backdrop-filter:blur(20px);}
+.toast{position:fixed;bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 1.5rem);left:50%;transform:translateX(-50%) translateY(10px);background:rgba(10,10,20,.95);border:1px solid var(--border2);border-radius:var(--r12);padding:.6rem 1.1rem;font-size:.75rem;color:var(--text2);z-index:200;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;white-space:nowrap;max-width:calc(100vw - 2rem);text-align:center;backdrop-filter:blur(20px);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 .toast.success{border-color:rgba(0,255,136,.3);color:var(--green);}
 .toast.error{border-color:rgba(255,71,87,.3);color:var(--danger);}
@@ -600,6 +617,11 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
 
 /* Local time display */
 .local-clock{font-family:var(--font-orb);font-size:.75rem;color:var(--muted2);letter-spacing:.08em;}
+
+/* UI Scale slider */
+.scale-slider{width:100%;-webkit-appearance:none;height:4px;border-radius:4px;background:var(--border2);outline:none;}
+.scale-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--cyan);cursor:pointer;box-shadow:0 0 8px rgba(0,242,255,.4);}
+.scale-preview{font-family:var(--font-head);font-size:.55rem;color:var(--cyan);text-align:right;margin-top:.3rem;letter-spacing:.1em;}
 </style>
 </head>
 <body>
@@ -767,14 +789,6 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
           <div class="ob-lang-flag">🇧🇩</div>
           <div><span class="ob-lang-name">BENGALI</span><span class="ob-lang-native">বাংলা</span></div>
         </div>
-        <div class="ob-lang-card" onclick="obSelectLang('ar',this)">
-          <div class="ob-lang-flag">🇸🇦</div>
-          <div><span class="ob-lang-name">ARABIC</span><span class="ob-lang-native">العربية</span></div>
-        </div>
-        <div class="ob-lang-card" onclick="obSelectLang('ur',this)">
-          <div class="ob-lang-flag">🇵🇰</div>
-          <div><span class="ob-lang-name">URDU</span><span class="ob-lang-native">اردو</span></div>
-        </div>
       </div>
       <div class="ob-actions">
         <button class="ob-cta ob-cta-secondary" onclick="obGoToSlide(2)">← Back</button>
@@ -814,7 +828,7 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
           <div class="level-num" id="levelNum">1</div>
           <div class="level-info">
             <div class="level-name" id="levelName">INITIATE</div>
-            <div class="level-label">RANK</div>
+            <div class="level-label" id="t-rank">RANK</div>
           </div>
         </div>
         <div class="xp-right">
@@ -826,19 +840,19 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
       <div class="stats-row">
         <div class="stat-chip">
           <span class="stat-v c-cyan" id="streakDisplay">0</span>
-          <span class="stat-l">STREAK</span>
+          <span class="stat-l" id="t-streak">STREAK</span>
         </div>
         <div class="stat-chip">
           <span class="stat-v c-purple" id="todayXpDisplay">0</span>
-          <span class="stat-l">TODAY XP</span>
+          <span class="stat-l" id="t-today-xp">TODAY XP</span>
         </div>
         <div class="stat-chip">
           <span class="stat-v c-gold" id="completedDisplay">0/6</span>
-          <span class="stat-l">PRAYERS</span>
+          <span class="stat-l" id="t-prayers">PRAYERS</span>
         </div>
         <div class="stat-chip">
           <span class="stat-v c-green" id="perfectDisplay">0</span>
-          <span class="stat-l">PERFECT</span>
+          <span class="stat-l" id="t-perfect">PERFECT</span>
         </div>
       </div>
     </div>
@@ -861,10 +875,10 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
     <div id="lockScreen" style="display:none" class="lock-screen-wrap">
       <div class="lock-screen">
         <span class="lock-icon-big">🔒</span>
-        <div class="lock-title">SYSTEM COOLING</div>
-        <div class="lock-sub">Today's sync complete. Navigate past days to backfill or view history.</div>
+        <div class="lock-title" id="t-cooling">SYSTEM COOLING</div>
+        <div class="lock-sub" id="t-lock-sub">Today's sync complete. Navigate past days to backfill or view history.</div>
         <div class="lock-timer-big" id="lockTimer">00:00:00</div>
-        <div class="lock-timer-lbl">TIME UNTIL NEXT CYCLE</div>
+        <div class="lock-timer-lbl" id="t-next-cycle">TIME UNTIL NEXT CYCLE</div>
         <div class="lock-prog-bg"><div class="lock-prog-fill" id="lockProgFill" style="width:0%"></div></div>
       </div>
     </div>
@@ -878,10 +892,10 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
       </div>
       <div id="prayerCards"></div>
       <div class="sync-section">
-        <button class="sync-btn" id="syncBtn" onclick="handleSync()">⟳ &nbsp;SYNC DAILY DATA</button>
+        <button class="sync-btn" id="syncBtn" onclick="handleSync()">⟳ &nbsp;<span id="t-sync-btn">SYNC DAILY DATA</span></button>
       </div>
       <div class="reset-section">
-        <button class="reset-btn" onclick="showResetModal()">⚠ HARD SYSTEM RESET</button>
+        <button class="reset-btn" onclick="showResetModal()">⚠ <span id="t-hard-reset">HARD SYSTEM RESET</span></button>
       </div>
     </div>
   </div>
@@ -951,7 +965,7 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
     </div>
 
     <div class="claim-card" id="claimCard">
-      <div class="claim-title">AUTHENTICATION CLAIM</div>
+      <div class="claim-title" id="t-auth-claim">AUTHENTICATION CLAIM</div>
       <div id="claimLocked">
         <div class="locked-msg">
           <span class="l-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
@@ -960,18 +974,18 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
       </div>
       <div id="claimUnlocked" style="display:none">
         <div class="form-group">
-          <label class="form-label">FULL NAME</label>
+          <label class="form-label" id="t-full-name">FULL NAME</label>
           <input class="form-input" id="claimName" type="text" placeholder="Your full name...">
         </div>
         <div class="form-group">
-          <label class="form-label">TESTIMONY</label>
+          <label class="form-label" id="t-testimony">TESTIMONY</label>
           <textarea class="form-input" id="claimTestimony" rows="3" placeholder="Your testimony..."></textarea>
         </div>
         <div class="form-group">
-          <label class="form-label">DATE ACHIEVED</label>
+          <label class="form-label" id="t-date-achieved">DATE ACHIEVED</label>
           <input class="form-input" id="claimDate" type="date">
         </div>
-        <button class="submit-btn" onclick="submitClaim()">SUBMIT AUTHENTICATION</button>
+        <button class="submit-btn" id="t-submit-auth" onclick="submitClaim()">SUBMIT AUTHENTICATION</button>
       </div>
     </div>
   </div>
@@ -1017,15 +1031,15 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
       <div class="header-sub">Personal reflections & reminders</div>
     </div>
     <div class="notes-toolbar" id="notesToolbar">
-      <button class="notes-filter-btn active" onclick="setNotesFilter('active',this)">ACTIVE</button>
-      <button class="notes-filter-btn" onclick="setNotesFilter('archived',this)">ARCHIVED</button>
-      <button class="notes-filter-btn" onclick="setNotesFilter('trash',this)">TRASH</button>
+      <button class="notes-filter-btn active" id="t-active" onclick="setNotesFilter('active',this)">ACTIVE</button>
+      <button class="notes-filter-btn" id="t-archived" onclick="setNotesFilter('archived',this)">ARCHIVED</button>
+      <button class="notes-filter-btn" id="t-trash" onclick="setNotesFilter('trash',this)">TRASH</button>
     </div>
     <div class="note-add-form" id="noteAddForm">
-      <div class="note-add-title">+ NEW NOTE</div>
+      <div class="note-add-title" id="t-new-note">+ NEW NOTE</div>
       <input class="note-input-title" id="noteTitle" placeholder="Title (optional)..." maxlength="60">
       <textarea class="note-textarea" id="noteText" placeholder="Write your reflection..."></textarea>
-      <button class="note-add-btn" onclick="addNote()">ADD NOTE</button>
+      <button class="note-add-btn" id="t-add-note" onclick="addNote()">ADD NOTE</button>
     </div>
     <div id="notesList"></div>
   </div>
@@ -1040,13 +1054,23 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
       </div>
       <div class="header-sub">System configuration</div>
     </div>
+    
+    <!-- UI Scale -->
+<div class="settings-section animate-in">
+  <div class="settings-section-title">UI SCALE</div>
+  <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:.6rem">
+    <div class="settings-row-label" id="t-ui-scale">Interface Size</div>
+    <input class="scale-slider" id="uiScaleSlider" type="range" min="85" max="115" value="100" step="5" oninput="applyScale(this.value)">
+    <div class="scale-preview" id="scalePreview">100%</div>
+  </div>
+</div>
 
     <!-- Theme -->
     <div class="settings-section animate-in">
-      <div class="settings-section-title">THEME ENGINE</div>
+      <div class="settings-section-title" id="t-theme-engine">THEME ENGINE</div>
       <div class="settings-row">
         <div class="settings-row-info">
-          <div class="settings-row-label">Interface Color Scheme</div>
+          <div class="settings-row-label" id="t-interface-color">Interface Color Scheme</div>
           <div class="settings-row-sub" id="themeDesc">Stealth Night active</div>
         </div>
         <div class="settings-row-action">
@@ -1061,18 +1085,16 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
 
     <!-- Language -->
     <div class="settings-section animate-in">
-      <div class="settings-section-title">LANGUAGE ENGINE</div>
+      <div class="settings-section-title" id="t-lang-engine">LANGUAGE ENGINE</div>
       <div class="settings-row">
         <div class="settings-row-info">
-          <div class="settings-row-label">Interface Language</div>
-          <div class="settings-row-sub">Prayer labels & UI text</div>
+          <div class="settings-row-label" id="t-interface-lang">Interface Language</div>
+          <div class="settings-row-sub" id="t-lang-sub">Prayer labels & UI text</div>
         </div>
         <div class="settings-row-action">
           <div class="lang-btn-row">
             <button class="lang-btn active" id="langEn" onclick="setLang('en')">EN</button>
-            <button class="lang-btn" id="langBn" onclick="setLang('bn')">বাং</button>
-            <button class="lang-btn" id="langAr" onclick="setLang('ar')">عر</button>
-            <button class="lang-btn" id="langUr" onclick="setLang('ur')">اردو</button>
+<button class="lang-btn" id="langBn" onclick="setLang('bn')">বাং</button>
           </div>
         </div>
       </div>
@@ -1080,7 +1102,7 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
 
     <!-- Data Management -->
     <div class="settings-section animate-in">
-      <div class="settings-section-title">DATA MANAGEMENT</div>
+      <div class="settings-section-title" id="t-data-title">DATA MANAGEMENT</div>
       <div class="settings-row" style="flex-direction:column;align-items:flex-start">
         <div class="settings-row-label" style="margin-bottom:.5rem">Export / Import / Reset</div>
         <div class="data-btn-row" style="width:100%">
@@ -1095,8 +1117,8 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
 
     <!-- Privacy & About -->
     <div class="settings-section animate-in">
-      <div class="settings-section-title">PRIVACY POLICY</div>
-      <div class="privacy-text">
+      <div class="settings-section-title" id="t-privacy-title">PRIVACY POLICY</div>
+      <div class="privacy-text" id="privacyText">
         <h3>DATA STORAGE</h3>
         All data is stored locally on your device using localStorage.No data is transmitted to any external server except for the optional Google Sheets progress sync.
         <h3>MENSTRUATION DATA</h3>
@@ -1109,18 +1131,18 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
     </div>
 
     <div class="settings-section animate-in">
-      <div class="settings-section-title">ABOUT</div>
-      <div class="privacy-text">
+      <div class="settings-section-title" id="t-about-title">ABOUT</div>
+      <div class="privacy-text" id="privacyText">
         <div class="about-logo">PRAYERITY</div>
         <div class="about-company">BY ELLIPPS — OWNER: ELLIUUREN</div>
-        <div class="about-text">
+        <div class="about-text" id="aboutText">
           Built with intention for the Ummah. A gamified tool to track, improve, and strengthen your daily ibadah.<br><br>
           Prayer Must be your FIRST priority!<br><br>
           <em style="color:var(--muted)">May Allah accept our prayers. آمين</em>
         </div>
         <div style="text-align:center;margin-top:.75rem">
           <div style="font-family:var(--font-head);font-size:.42rem;letter-spacing:.2em;color:var(--muted)">v6.0 — CYBER DEEN ULTRA</div>
-          <div style="font-size:.62rem;color:var(--muted);margin-top:.2rem">Terms: This app is provided as-is for religious practice support. Data accuracy is your responsibility.</div>
+          <div style="font-size:.62rem;color:var(--muted);margin-top:.2rem" id="aboutTerms">>Terms: This app is provided as-is for religious practice support. Data accuracy is your responsibility.</div>
         </div>
       </div>
     </div>
@@ -1174,48 +1196,188 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
 ═══════════════════════════════════════════════════════ */
 const STRINGS = {
   en:{
+    // Prayer names
     FAJR:'FAJR',DHUHR:'DHUHR',ASR:'ASR',MAGHRIB:'MAGHRIB',ISHA:'ISHA',WITR:'WITR',JUMUAH:"JUMU'AH",
+    // Task labels
     'Sunnah (2)':'Sunnah (2 Rak\'ah)','Fard (2)':'Fard (2 Rak\'ah)',
     'Sunnah (4)':'Sunnah (4 Rak\'ah)','Fard (4)':'Fard (4 Rak\'ah)',
     'Fard (3)':'Fard (3 Rak\'ah)','Sunnah (2b)':'Sunnah (2 Rak\'ah) After',
     'Waazib (3)':'Waazib (3 Rak\'ah)','OnTime':'On Time','Jamah':'Congregation','Mosque':'Mosque',
     'Khutbah':'Khutbah (Sermon)','Jumuah Fard':'Fard (2 Rak\'ah)',
     MANDATORY_GROUP:'MANDATORY — FARD',OPTIONAL_GROUP:'OPTIONAL — XP REWARDS',
-    daily_prayers:'DAILY PRAYERS',sync_btn:'SYNC DAILY DATA',
-    greeting_m:'Brother','greeting_f':'Sister',
+    // Header
+    greeting_m:'Brother',greeting_f:'Sister',
+    daily_prayers:'DAILY PRAYERS',
+    // XP panel
+    rank:'RANK',streak:'STREAK',today_xp:'TODAY XP',prayers:'PRAYERS',perfect:'PERFECT',
+    next_label:'Next',
+    // Date nav
+    today:'TODAY',yesterday:'YESTERDAY',
+    // Lock screen
+    system_cooling:'SYSTEM COOLING',lock_sub:'Today\'s sync complete. Navigate past days to backfill or view history.',
+    next_cycle:'TIME UNTIL NEXT CYCLE',
+    // Buttons
+    sync_btn:'SYNC DAILY DATA',hard_reset:'⚠ HARD SYSTEM RESET',
+    // Pages
+    history_title:'HISTORY',history_sub:'Your prayer consistency at a glance',
+    shield_title:'SHIELD',shield_sub:'Maintain streak to unlock the Shield Protocol.',
+    of_days:'OF DAYS REQUIRED',
+    achievements:'ACHIEVEMENTS',
+    auth_claim:'AUTHENTICATION CLAIM',auth_locked:'consecutive days to unlock authentication.',
+    full_name:'FULL NAME',testimony:'TESTIMONY',date_achieved:'DATE ACHIEVED',submit_auth:'SUBMIT AUTHENTICATION',
+    guide_title:'PRAYER GUIDE',guide_sub:'Step-by-step ritual protocol documentation',
+    stats_title:'STATISTICS',stats_sub:'Your detailed prayer performance',
+    notes_title:'NOTEPAD',notes_sub:'Personal reflections & reminders',
+    active:'ACTIVE',archived:'ARCHIVED',trash:'TRASH',
+    add_note:'ADD NOTE',note_title_ph:'Title (optional)...',note_text_ph:'Write your reflection...',
+    new_note:'+ NEW NOTE',
+    settings_title:'SETTINGS',settings_sub:'System configuration',
+    theme_engine:'THEME ENGINE',interface_color:'Interface Color Scheme',
+    lang_engine:'LANGUAGE ENGINE',interface_lang:'Interface Language',lang_sub:'Prayer labels & UI text',
+    athan_title:'ATHAN NOTIFICATIONS',athan_label:'Prayer Time Alerts',athan_sub:'Browser notification for Athan times',
+    data_title:'DATA MANAGEMENT',data_sub:'Export / Import / Reset',
+    export_btn:'📤 EXPORT JSON',import_btn:'📥 IMPORT JSON',
+    privacy_title:'PRIVACY POLICY',about_title:'ABOUT',
+    // Stats
+    current_streak:'CURRENT STREAK',total_xp:'TOTAL XP',days_logged:'DAYS LOGGED',perfect_rate:'PERFECT RATE',
+    last7:'LAST 7 DAYS — PRAYERS COMPLETED',overview:'OVERVIEW',
+    avg_xp:'Avg XP/Day',perfect_days:'Perfect Days',best_streak:'Best Streak',fajr_ontime:'Fajr On-Time',
+    // Notes
+    trash_empty:'Trash is empty.',no_archived:'No archived notes.',no_notes:'No notes yet. Write your first reflection.',
+    // Shield
+    menses_tracker:'MENSTRUATION TRACKER',standard_track:'Standard track',extended_track:'Extended track',
+    menses_ongoing:'Menstruation currently ongoing',
+    shield_unlocked:'🛡 SHIELD PROTOCOL UNLOCKED!',shield_begin:'Begin your journey today.',
+    // Sync/modal
+    incomplete_prayers:'INCOMPLETE PRAYERS',incomplete_body:'Not all mandatory prayers are complete. Sync anyway? Your streak may be affected.',
+    go_back:'GO BACK',sync_anyway:'SYNC ANYWAY',
+    reset_title:'HARD SYSTEM RESET',reset_body:'This will permanently wipe ALL data: XP, Streak, History, Notes. This CANNOT be undone.',
+    cancel:'CANCEL',wipe:'WIPE EVERYTHING',
+    // Menses skip
+    skipping_menses:'Skipping — menses',
+    // Toast
+    already_synced:'Already synced today!',
+    // Guide nav
+    guide_nav:'GUIDE',
+    // Calendar locked
+    cal_locked:'Complete your first prayer day and sync to see your calendar history.',
+    // Athan
+    athan_enabled:'Prayer reminders enabled!',athan_disabled:'Prayer reminders disabled',athan_denied:'Notification permission denied',
+    // Claim
+    complete:'Complete',
+    // Onboarding
+    ob_feat1_title:'PRAYER TRACKER',ob_feat1_desc:'Track all 5 daily prayers with Sunnah, Fard and optional Rakaat — complete with XP rewards and streak protection.',
+    ob_feat2_title:'STREAK & XP SYSTEM',ob_feat2_desc:'Earn XP for every prayer, build daily streaks, and level up from Initiate to Deen Master through consistent worship.',
+    ob_feat3_title:'40-DAY SHIELD',ob_feat3_desc:'Maintain a 40-day perfect streak to unlock the Shield Protocol — an authentication of spiritual discipline.',
+    ob_feat4_title:'STATISTICS',ob_feat4_desc:'Detailed charts and analytics showing your weekly consistency, perfect-day rate, Fajr on-time count, and overall progress.',
+    ob_feat5_title:'PERSONAL NOTEPAD',ob_feat5_desc:'Write daily reflections, duas, and reminders. Archive or trash notes and keep your spiritual thoughts organised.',
+    ob_name_title:"What's your name?",ob_name_sub:'Personalise your prayer journey with a name',ob_name_label:'Your name',
+    ob_gender_title:'Select your gender',ob_gender_sub:'Unlocks gender-aware features for your journey',
+    ob_male_label:'MALE',ob_male_sub:"Jumu'ah on Fridays",ob_female_label:'FEMALE',ob_female_sub:'Menstruation tracking',
+    ob_female_unlock:'Menstruation tracking unlocked. Prayers during this period can be individually skipped with no streak or XP loss.',
+    ob_lang_title:'Choose language',ob_lang_sub:'Interface and prayer label language',
+    ob_get_started:'GET STARTED →',ob_continue:'Continue →',ob_back:'← Back',ob_launch:'Launch Prayerity →',
+    ob_step1:'STEP 1 OF 2',ob_step2:'STEP 2 OF 2',
+    // Privacy
+    priv_storage_h:'DATA STORAGE',priv_storage_p:'All data is stored locally on your device using localStorage. No data is transmitted to any external server except for the optional Google Sheets progress sync.',
+    priv_menses_h:'MENSTRUATION DATA',priv_menses_p:'Menstruation tracking data is stored ONLY on your device and is never sent to any server, including Google Sheets.',
+    priv_sheets_h:'GOOGLE SHEETS SYNC',priv_sheets_p:'Only Streak count, XP total, and completion status are synced. No personal or sensitive data is included.',
+    priv_analytics_h:'NO ANALYTICS',priv_analytics_p:'This app contains zero tracking, analytics, or advertising. Your worship data is private and yours alone.',
+    about_built:'Built with intention for the Ummah. A gamified tool to track, improve, and strengthen your daily ibadah.',
+    about_motto:'Prayer Must be your FIRST priority!',about_dua:'May Allah accept our prayers. آمين',
+    about_terms:'Terms: This app is provided as-is for religious practice support. Data accuracy is your responsibility.',
   },
   bn:{
+    // Prayer names
     FAJR:'ফজর',DHUHR:'যোহর',ASR:'আসর',MAGHRIB:'মাগরিব',ISHA:'ইশা',WITR:'বিতর',JUMUAH:'জুমু\'আহ',
+    // Task labels
     'Sunnah (2)':'সুন্নত (২ রাকাত)','Fard (2)':'ফরজ (২ রাকাত)',
     'Sunnah (4)':'সুন্নত (৪ রাকাত)','Fard (4)':'ফরজ (৪ রাকাত)',
     'Fard (3)':'ফরজ (৩ রাকাত)','Sunnah (2b)':'সুন্নত (২ রাকাত) পরে',
     'Waazib (3)':'ওয়াজিব (৩ রাকাত)','OnTime':'সময়মতো','Jamah':'জামায়াত','Mosque':'মসজিদ',
     'Khutbah':'খুতবা','Jumuah Fard':'ফরজ (২ রাকাত)',
     MANDATORY_GROUP:'ফরজ — বাধ্যতামূলক',OPTIONAL_GROUP:'ঐচ্ছিক — XP পুরস্কার',
-    daily_prayers:'দৈনিক নামাজ',sync_btn:'ডেটা সিঙ্ক করুন',
-    greeting_m:'ভাই','greeting_f':'আপু',
-  },
-  ar:{
-    FAJR:'الفجر',DHUHR:'الظهر',ASR:'العصر',MAGHRIB:'المغرب',ISHA:'العشاء',WITR:'الوتر',JUMUAH:'الجمعة',
-    'Sunnah (2)':'سنة (٢ ركعة)','Fard (2)':'فرض (٢ ركعة)',
-    'Sunnah (4)':'سنة (٤ ركعة)','Fard (4)':'فرض (٤ ركعة)',
-    'Fard (3)':'فرض (٣ ركعة)','Sunnah (2b)':'سنة بعدية (٢ ركعة)',
-    'Waazib (3)':'واجب (٣ ركعة)','OnTime':'في وقتها','Jamah':'جماعة','Mosque':'المسجد',
-    'Khutbah':'الخطبة','Jumuah Fard':'فرض (٢ ركعة)',
-    MANDATORY_GROUP:'فرض — واجب',OPTIONAL_GROUP:'اختياري — نقاط',
-    daily_prayers:'الصلوات اليومية',sync_btn:'مزامنة البيانات',
-    greeting_m:'أخي','greeting_f':'أختي',
-  },
-  ur:{
-    FAJR:'فجر',DHUHR:'ظہر',ASR:'عصر',MAGHRIB:'مغرب',ISHA:'عشاء',WITR:'وتر',JUMUAH:'جمعہ',
-    'Sunnah (2)':'سنت (۲ رکعت)','Fard (2)':'فرض (۲ رکعت)',
-    'Sunnah (4)':'سنت (۴ رکعت)','Fard (4)':'فرض (۴ رکعت)',
-    'Fard (3)':'فرض (۳ رکعت)','Sunnah (2b)':'سنت بعدیہ (۲ رکعت)',
-    'Waazib (3)':'واجب (۳ رکعت)','OnTime':'وقت پر','Jamah':'جماعت','Mosque':'مسجد',
-    'Khutbah':'خطبہ','Jumuah Fard':'فرض (۲ رکعت)',
-    MANDATORY_GROUP:'فرض — لازمی',OPTIONAL_GROUP:'اختیاری — XP انعام',
-    daily_prayers:'روزانہ نماز',sync_btn:'ڈیٹا سنک کریں',
-    greeting_m:'بھائی','greeting_f':'بہن',
+    // Header
+    greeting_m:'ভাই',greeting_f:'আপু',
+    daily_prayers:'দৈনিক নামাজ',
+    // XP panel
+    rank:'পদমর্যাদা',streak:'ধারাবাহিক',today_xp:'আজকের XP',prayers:'নামাজ',perfect:'নিখুঁত',
+    next_label:'পরবর্তী',
+    // Date nav
+    today:'আজ',yesterday:'গতকাল',
+    // Lock screen
+    system_cooling:'সিস্টেম কুলিং',lock_sub:'সিঙ্ক সম্পন্ন। পূর্ববর্তী দিন নেভিগেট করুন।',
+    next_cycle:'পরের চক্র পর্যন্ত',
+    // Buttons
+    sync_btn:'ডেটা সিঙ্ক করুন',hard_reset:'⚠ সিস্টেম রিসেট',
+    // Pages
+    history_title:'ইতিহাস',history_sub:'আপনার নামাজের ধারাবাহিকতা এক নজরে',
+    shield_title:'শিল্ড',shield_sub:'শিল্ড প্রোটোকল আনলক করতে ধারাবাহিক স্ট্রিক বজায় রাখুন।',
+    of_days:'দিনের মধ্যে',
+    achievements:'অর্জনসমূহ',
+    auth_claim:'অথেনটিকেশন ক্লেইম',auth_locked:'ধারাবাহিক দিন সম্পন্ন করুন।',
+    full_name:'পুরো নাম',testimony:'প্রশংসাপত্র',date_achieved:'অর্জনের তারিখ',submit_auth:'জমা দিন',
+    guide_title:'নামাজের গাইড',guide_sub:'ধাপে ধাপে নামাজের নির্দেশিকা',
+    stats_title:'পরিসংখ্যান',stats_sub:'আপনার বিস্তারিত নামাজের অগ্রগতি',
+    notes_title:'নোটপ্যাড',notes_sub:'ব্যক্তিগত প্রতিফলন ও অনুস্মারক',
+    active:'সক্রিয়',archived:'আর্কাইভ',trash:'ট্র্যাশ',
+    add_note:'নোট যোগ করুন',note_title_ph:'শিরোনাম (ঐচ্ছিক)...',note_text_ph:'আপনার চিন্তা লিখুন...',
+    new_note:'+ নতুন নোট',
+    settings_title:'সেটিংস',settings_sub:'সিস্টেম কনফিগারেশন',
+    theme_engine:'থিম ইঞ্জিন',interface_color:'ইন্টারফেস রঙ স্কিম',
+    lang_engine:'ভাষা ইঞ্জিন',interface_lang:'ইন্টারফেস ভাষা',lang_sub:'নামাজের লেবেল ও UI টেক্সট',
+    athan_title:'আযান নোটিফিকেশন',athan_label:'নামাজের সময় অ্যালার্ট',athan_sub:'নামাজের সময়ে ব্রাউজার নোটিফিকেশন',
+    data_title:'ডেটা ম্যানেজমেন্ট',data_sub:'এক্সপোর্ট / ইম্পোর্ট / রিসেট',
+    export_btn:'📤 এক্সপোর্ট JSON',import_btn:'📥 ইম্পোর্ট JSON',
+    privacy_title:'গোপনীয়তা নীতি',about_title:'সম্পর্কে',
+    // Stats
+    current_streak:'বর্তমান স্ট্রিক',total_xp:'মোট XP',days_logged:'লগ করা দিন',perfect_rate:'নিখুঁত হার',
+    last7:'গত ৭ দিন — সম্পন্ন নামাজ',overview:'সারসংক্ষেপ',
+    avg_xp:'গড় XP/দিন',perfect_days:'নিখুঁত দিন',best_streak:'সেরা স্ট্রিক',fajr_ontime:'ফজর সময়মতো',
+    // Notes
+    trash_empty:'ট্র্যাশ খালি।',no_archived:'কোনো আর্কাইভ নেই।',no_notes:'এখনো কোনো নোট নেই। আপনার প্রথম চিন্তা লিখুন।',
+    // Shield
+    menses_tracker:'মাসিক ট্র্যাকার',standard_track:'স্ট্যান্ডার্ড ট্র্যাক',extended_track:'এক্সটেন্ডেড ট্র্যাক',
+    menses_ongoing:'মাসিক চলমান',
+    shield_unlocked:'🛡 শিল্ড প্রোটোকল আনলক!',shield_begin:'আজ থেকে আপনার যাত্রা শুরু করুন।',
+    // Sync/modal
+    incomplete_prayers:'অসম্পূর্ণ নামাজ',incomplete_body:'সব ফরজ নামাজ সম্পন্ন হয়নি। তবুও সিঙ্ক করবেন? স্ট্রিক প্রভাবিত হতে পারে।',
+    go_back:'ফিরে যান',sync_anyway:'তবুও সিঙ্ক করুন',
+    reset_title:'সিস্টেম রিসেট',reset_body:'এটি সব ডেটা মুছে ফেলবে: XP, স্ট্রিক, ইতিহাস, নোট। এটি পূর্বাবস্থায় ফেরানো যাবে না।',
+    cancel:'বাতিল',wipe:'সব মুছুন',
+    // Menses skip
+    skipping_menses:'মাসিকের কারণে বাদ দেওয়া হয়েছে',
+    // Toast
+    already_synced:'আজকের ডেটা ইতিমধ্যে সিঙ্ক হয়েছে!',
+    // Guide nav
+    guide_nav:'গাইড',
+    // Calendar locked
+    cal_locked:'প্রথম নামাজের দিন সম্পন্ন করুন এবং সিঙ্ক করুন।',
+    // Athan
+    athan_enabled:'নামাজের রিমাইন্ডার চালু!',athan_disabled:'নামাজের রিমাইন্ডার বন্ধ',athan_denied:'নোটিফিকেশনের অনুমতি দেওয়া হয়নি',
+    // Claim
+    complete:'সম্পন্ন করুন',
+    // Onboarding
+    ob_feat1_title:'নামাজ ট্র্যাকার',ob_feat1_desc:'সুন্নত, ফরজ সহ সব নামাজ ট্র্যাক করুন — XP পুরস্কার এবং স্ট্রিক সুরক্ষা সহ।',
+    ob_feat2_title:'স্ট্রিক ও XP সিস্টেম',ob_feat2_desc:'প্রতিটি নামাজে XP অর্জন করুন, স্ট্রিক গড়ুন এবং Initiate থেকে Deen Master পর্যন্ত লেভেল আপ করুন।',
+    ob_feat3_title:'৪০ দিনের শিল্ড',ob_feat3_desc:'৪০ দিনের নিখুঁত স্ট্রিক বজায় রাখলে শিল্ড প্রোটোকল আনলক হবে।',
+    ob_feat4_title:'পরিসংখ্যান',ob_feat4_desc:'সাপ্তাহিক ধারাবাহিকতা, নিখুঁত দিনের হার এবং সামগ্রিক অগ্রগতির বিস্তারিত চার্ট।',
+    ob_feat5_title:'ব্যক্তিগত নোটপ্যাড',ob_feat5_desc:'দৈনিক প্রতিফলন, দোয়া এবং অনুস্মারক লিখুন। নোট আর্কাইভ বা ট্র্যাশ করুন।',
+    ob_name_title:'আপনার নাম কী?',ob_name_sub:'আপনার নামাজের যাত্রা ব্যক্তিগত করুন',ob_name_label:'আপনার নাম',
+    ob_gender_title:'লিঙ্গ নির্বাচন করুন',ob_gender_sub:'আপনার পছন্দ অনুযায়ী ফিচার আনলক হবে',
+    ob_male_label:'পুরুষ',ob_male_sub:'শুক্রবারে জুমু\'আহ',ob_female_label:'মহিলা',ob_female_sub:'মাসিক ট্র্যাকিং',
+    ob_female_unlock:'মাসিক ট্র্যাকিং চালু হবে। এই সময়ে নামাজ বাদ দেওয়া যাবে — কোনো স্ট্রিক বা XP হারাবে না।',
+    ob_lang_title:'ভাষা বেছে নিন',ob_lang_sub:'ইন্টারফেস ও নামাজের লেবেলের ভাষা',
+    ob_get_started:'শুরু করুন →',ob_continue:'পরবর্তী →',ob_back:'← পেছনে',ob_launch:'Prayerity চালু করুন →',
+    ob_step1:'ধাপ ১ / ২',ob_step2:'ধাপ ২ / ২',
+    // Privacy
+    priv_storage_h:'ডেটা সংরক্ষণ',priv_storage_p:'সমস্ত ডেটা আপনার ডিভাইসে localStorage-এ সংরক্ষিত। ঐচ্ছিক Google Sheets সিঙ্ক ছাড়া কোনো সার্ভারে পাঠানো হয় না।',
+    priv_menses_h:'মাসিক ডেটা',priv_menses_p:'মাসিক ট্র্যাকিং ডেটা শুধুমাত্র আপনার ডিভাইসে থাকে। Google Sheets সহ কোনো সার্ভারে পাঠানো হয় না।',
+    priv_sheets_h:'Google Sheets সিঙ্ক',priv_sheets_p:'শুধুমাত্র স্ট্রিক, XP এবং সম্পন্নের তথ্য সিঙ্ক হয়। কোনো ব্যক্তিগত তথ্য অন্তর্ভুক্ত নয়।',
+    priv_analytics_h:'কোনো অ্যানালিটিক্স নেই',priv_analytics_p:'এই অ্যাপে কোনো ট্র্যাকিং, অ্যানালিটিক্স বা বিজ্ঞাপন নেই। আপনার ইবাদতের তথ্য সম্পূর্ণ ব্যক্তিগত।',
+    about_built:'উম্মাহর জন্য নির্মিত। আপনার দৈনিক ইবাদত ট্র্যাক, উন্নত এবং শক্তিশালী করার একটি গেমিফাইড টুল।',
+    about_motto:'নামাজ হোক আপনার প্রথম অগ্রাধিকার!',about_dua:'আল্লাহ আমাদের নামাজ কবুল করুন। আমিন',
+    about_terms:'শর্তাবলী: এই অ্যাপটি ধর্মীয় অনুশীলন সহায়তার জন্য প্রদান করা হয়েছে। ডেটার নির্ভুলতার দায়িত্ব আপনার।',
   }
 };
 function T(key){return (STRINGS[state.lang]||STRINGS.en)[key]||STRINGS.en[key]||key;}
@@ -1294,25 +1456,28 @@ const LEVELS=[
   {level:9,name:'CHAMPION',minXp:30000},
   {level:10,name:'DEEN MASTER',minXp:42000},
 ];
-const ACHIEVEMENTS=[
-  {id:'first_sync',icon:'⚡',name:'FIRST SYNC',req:'First day synced',condition:s=>s.streak>=1},
-  {id:'week1',icon:'🔥',name:'7-DAY FORTRESS',req:'7-day streak',condition:s=>s.streak>=7},
-  {id:'fortnight',icon:'🌙',name:'LUNAR CORE',req:'14-day streak',condition:s=>s.streak>=14},
-  {id:'month30',icon:'💎',name:'30-DAY DIAMOND',req:'30-day streak',condition:s=>s.streak>=30},
-  {id:'shield40',icon:'🛡',name:'SHIELD BEARER',req:'40-day streak',condition:s=>s.streak>=40},
-  {id:'xp1000',icon:'✨',name:'XP SURGE',req:'1000 total XP',condition:s=>s.totalXp>=1000},
-  {id:'xp5000',icon:'🏆',name:'CYBER MUAZZIN',req:'5000 total XP',condition:s=>s.totalXp>=5000},
-  {id:'level5',icon:'⚔️',name:'GUARDIAN RANK',req:'Reach Level 5',condition:s=>getLevelForXp(s.totalXp).level>=5},
-  {id:'perfect_week',icon:'💯',name:'PERFECT WEEK',req:'7 perfect days',condition:s=>s.perfectDays>=7},
-  {id:'fajr_hero',icon:'🌄',name:'FAJR HERO',req:'30 Fajr on time',condition:s=>(s.fajrOnTime||0)>=30},
-];
+function getAchievements(){
+  const isBn=state.lang==='bn';
+  return [
+    {id:'first_sync',icon:'⚡',name:'FIRST SYNC',req:isBn?'প্রথম দিন সিঙ্ক':'First day synced',condition:s=>s.streak>=1},
+    {id:'week1',icon:'🔥',name:'7-DAY FORTRESS',req:isBn?'৭ দিনের স্ট্রিক':'7-day streak',condition:s=>s.streak>=7},
+    {id:'fortnight',icon:'🌙',name:'LUNAR CORE',req:isBn?'১৪ দিনের স্ট্রিক':'14-day streak',condition:s=>s.streak>=14},
+    {id:'month30',icon:'💎',name:'30-DAY DIAMOND',req:isBn?'৩০ দিনের স্ট্রিক':'30-day streak',condition:s=>s.streak>=30},
+    {id:'shield40',icon:'🛡',name:'SHIELD BEARER',req:isBn?'৪০ দিনের স্ট্রিক':'40-day streak',condition:s=>s.streak>=40},
+    {id:'xp1000',icon:'✨',name:'XP SURGE',req:isBn?'মোট ১০০০ XP':'1000 total XP',condition:s=>s.totalXp>=1000},
+    {id:'xp5000',icon:'🏆',name:'CYBER MUAZZIN',req:isBn?'মোট ৫০০০ XP':'5000 total XP',condition:s=>s.totalXp>=5000},
+    {id:'level5',icon:'⚔️',name:'GUARDIAN RANK',req:isBn?'লেভেল ৫ অর্জন':'Reach Level 5',condition:s=>getLevelForXp(s.totalXp).level>=5},
+    {id:'perfect_week',icon:'💯',name:'PERFECT WEEK',req:isBn?'৭টি নিখুঁত দিন':'7 perfect days',condition:s=>s.perfectDays>=7},
+    {id:'fajr_hero',icon:'🌄',name:'FAJR HERO',req:isBn?'৩০ বার ফজর সময়মতো':'30 Fajr on time',condition:s=>(s.fajrOnTime||0)>=30},
+  ];
+}
 
 /* ═══════════════════════════════════════════════════════
    STATE
 ═══════════════════════════════════════════════════════ */
 let state = {
   totalXp:0,streak:0,history:{},notes:[],
-  lang:'en',theme:'night',
+  lang:'en',theme:'night',uiScale:100,
   unlockedAchievements:[],perfectDays:0,fajrOnTime:0,
   name:'',gender:'',
   mensesActive:false,mensesChallenge:40,
@@ -1340,11 +1505,20 @@ function loadState(){
 function exportData(){
   playSound('tap');
   const data={...state};
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const json=JSON.stringify(data,null,2);
+  const blob=new Blob([json],{type:'application/json'});
   const url=URL.createObjectURL(blob);
+  // Mobile-safe download
   const a=document.createElement('a');
-  a.href=url;a.download=`prayerity-backup-${todayStr()}.json`;a.click();
-  URL.revokeObjectURL(url);
+  a.href=url;
+  a.download=`prayerity-backup-${todayStr()}.json`;
+  a.style.display='none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(()=>{
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  },1000);
   showToast('Data exported!','success');
 }
 function importDataPrompt(){document.getElementById('importFileInput').click();}
@@ -1378,6 +1552,12 @@ async function syncToSheets(){
     };
     await fetch(state.sheetsUrl,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)});
   }catch(e){console.log('Sheets sync skipped:',e.message);}
+}
+
+function applyScale(v){
+  document.documentElement.style.fontSize=v+'%';
+  document.getElementById('scalePreview').textContent=v+'%';
+  state.uiScale=v;saveState();
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1739,15 +1919,61 @@ playSound('tap');
   const descs={auto:'System auto active',day:'Day high-contrast active',night:'Stealth night active'};
   const el=document.getElementById('themeDesc');if(el)el.textContent=descs[t];
 }
+function applyTranslations(){
+  const s=id=>document.getElementById(id);
+  const set=(id,key)=>{const el=s(id);if(el)el.textContent=T(key);};
+  // XP Panel
+  set('t-rank','rank');set('t-streak','streak');
+  set('t-today-xp','today_xp');set('t-prayers','prayers');set('t-perfect','perfect');
+  // Lock screen
+  set('t-cooling','system_cooling');set('t-lock-sub','lock_sub');set('t-next-cycle','next_cycle');
+  // Buttons
+  set('t-sync-btn','sync_btn');set('t-hard-reset','hard_reset');
+  // Daily prayers label
+  set('dailyPrayersLabel','daily_prayers');
+  // Notes
+  set('t-active','active');set('t-archived','archived');set('t-trash','trash');
+  set('t-new-note','new_note');set('t-add-note','add_note');
+  // Notes placeholders
+  const nt=s('noteTitle');if(nt)nt.placeholder=T('note_title_ph');
+  const ntx=s('noteText');if(ntx)ntx.placeholder=T('note_text_ph');
+  // Settings
+  set('t-theme-engine','theme_engine');set('t-interface-color','interface_color');
+  set('t-lang-engine','lang_engine');set('t-interface-lang','interface_lang');set('t-lang-sub','lang_sub');
+  set('t-athan-title','athan_title');set('t-athan-label','athan_label');set('t-athan-sub','athan_sub');
+  set('t-data-title','data_title');
+  set('t-privacy-title','privacy_title');set('t-about-title','about_title');
+  // Shield/Claim
+  set('t-auth-claim','auth_claim');set('t-full-name','full_name');
+  set('t-testimony','testimony');set('t-date-achieved','date_achieved');set('t-submit-auth','submit_auth');
+  // Page headers via renderAll handles dynamically rendered content
+  // Menses section
+  const mo=s('globalMensesToggle');
+  const ml=mo?.parentElement?.previousElementSibling;
+  if(ml)ml.textContent=T('menses_ongoing');
+  // Privacy text
+  const priv=s('privacyText');
+  if(priv)priv.innerHTML=`
+    <h3>${T('priv_storage_h')}</h3>${T('priv_storage_p')}
+    <h3>${T('priv_menses_h')}</h3>${T('priv_menses_p')}
+    <h3>${T('priv_sheets_h')}</h3>${T('priv_sheets_p')}
+    <h3>${T('priv_analytics_h')}</h3>${T('priv_analytics_p')}`;
+  // About text
+  const abt=s('aboutText');
+  if(abt)abt.innerHTML=`${T('about_built')}<br><br>${T('about_motto')}<br><br><em style="color:var(--muted)">${T('about_dua')}</em>`;
+  const abtTerms=s('aboutTerms');
+  if(abtTerms)abtTerms.textContent=T('about_terms');
+}
 function setLang(l){
   state.lang=l;saveState();
 playSound('tap');
-  ['langEn','langBn','langAr','langUr'].forEach(id=>{
+  ['langEn','langBn'].forEach(id=>{
     const el=document.getElementById(id);if(el)el.classList.remove('active');
   });
-  const map={en:'langEn',bn:'langBn',ar:'langAr',ur:'langUr'};
+  const map={en:'langEn',bn:'langBn'};
   const el=document.getElementById(map[l]);if(el)el.classList.add('active');
   renderAll();
+  applyTranslations();
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1814,6 +2040,14 @@ function renderAll(){
   // Name header
   updateGreeting();
   initIntersectionObserver();
+  if(state.uiScale){
+  document.documentElement.style.fontSize=state.uiScale+'%';
+  const sl=document.getElementById('uiScaleSlider');
+  if(sl)sl.value=state.uiScale;
+  const sp=document.getElementById('scalePreview');
+  if(sp)sp.textContent=state.uiScale+'%';
+}
+  applyTranslations();
 }
 function updateGreeting(){
   const el=document.getElementById('greetingName');
@@ -2025,17 +2259,17 @@ function updateXPDisplay(){
 ═══════════════════════════════════════════════════════ */
 function handleSync(){
   const ds=todayStr();const day=getDayData(ds);
-  if(day.synced){showToast('Already synced today!','warn');return;}
+  if(day.synced){showToast(T('already_synced'),'warn');return;}
   const total=allMandatoryDone(ds);
   if(!total){ playSound('warn');
     showModal({
-      icon:'⚠️',title:'INCOMPLETE PRAYERS',titleClass:'',
-      body:'Not all mandatory prayers are complete. Sync anyway? Your streak may be affected.',
-      actions:[
-        {label:'GO BACK',cls:'cancel',fn:()=>{}},
-        {label:'SYNC ANYWAY',cls:'confirm',fn:()=>doSync(ds)},
-      ]
-    });
+  icon:'💀',title:T('reset_title'),titleClass:'danger',
+  body:T('reset_body'),
+  actions:[
+    {label:T('cancel'),cls:'cancel',fn:()=>{}},
+    {label:T('wipe'),cls:'confirm-danger',fn:()=>hardReset()},
+  ]
+});
   }else{doSync(ds);}
 }
 function doSync(ds){
@@ -2106,9 +2340,9 @@ function renderShield(){
   const el=id=>document.getElementById(id);
   if(el('shieldDays'))el('shieldDays').textContent=streak;
   if(el('fortyBar'))el('fortyBar').style.width=pct+'%';
-  if(el('shieldStatusTxt'))el('shieldStatusTxt').textContent=streak>=target?'🛡 SHIELD PROTOCOL UNLOCKED!':
-    streak===0?'Begin your journey today.':
-    `${target-streak} more day${target-streak!==1?'s':''} to unlock the Shield.`;
+  if(el('shieldStatusTxt'))el('shieldStatusTxt').textContent=streak>=target?T('shield_unlocked'):
+  streak===0?T('shield_begin'):
+  state.lang==='bn'?`শিল্ড আনলক করতে আরো ${target-streak} দিন বাকি।`:`${target-streak} more day${target-streak!==1?'s':''} to unlock the Shield.`;
   // Milestone dots
   const mg=el('milestoneGrid');
   if(mg){
@@ -2136,7 +2370,7 @@ function renderShield(){
    ACHIEVEMENTS
 ═══════════════════════════════════════════════════════ */
 function checkAchievements(){
-  ACHIEVEMENTS.forEach(a=>{
+  getAchievements().forEach(a=>{
     if(!state.unlockedAchievements.includes(a.id)&&a.condition(state)){
       state.unlockedAchievements.push(a.id);
       playSound('unlock');
@@ -2147,7 +2381,7 @@ showToast(`🏆 Achievement unlocked: ${a.name}`,'success');
 function renderAchievements(){
   const grid=document.getElementById('achievementsGrid');if(!grid)return;
   grid.innerHTML='';
-  ACHIEVEMENTS.forEach((a,i)=>{
+  getAchievements().forEach((a,i)=>{
     const unlocked=state.unlockedAchievements.includes(a.id);
     const card=document.createElement('div');
     card.className=`badge-card${unlocked?' unlocked':''}`;
@@ -2174,7 +2408,7 @@ function renderCalendar(){
   if(!hasSynced){
     content.innerHTML=`<div style="text-align:center;padding:3rem 1rem;color:var(--muted);font-size:.8rem;line-height:1.7">
       <div style="font-size:2rem;margin-bottom:.7rem">📅</div>
-      Complete your first prayer day and sync to see your calendar history.
+      ${T('cal_locked')}
     </div>`;return;
   }
   const now=new Date();const year=now.getFullYear();const month=now.getMonth();
@@ -2221,58 +2455,58 @@ function countCompletedPrayersForDate(ds){
 /* ═══════════════════════════════════════════════════════
    PRAYER GUIDE / MANUAL
 ═══════════════════════════════════════════════════════ */
-const PRAYER_GUIDE=[
-  {id:'wudu',icon:'💧',name:'WUDU — ABLUTION',steps:[
-    {t:'Intention (Niyyah)',b:'Make the intention in your heart to perform wudu for the purpose of worship.'},
-    {t:'Bismillah',b:'Say <strong>Bismillah</strong> (In the name of Allah) before starting.'},
-    {t:'Wash Hands',b:'Wash both hands up to the wrists <strong>3 times</strong>, starting with the right.'},
-    {t:'Rinse Mouth',b:'Take water into the mouth and rinse thoroughly <strong>3 times</strong>.'},
-    {t:'Rinse Nose',b:'Sniff water into the nose and blow it out <strong>3 times</strong>.'},
-    {t:'Wash Face',b:'Wash the entire face from hairline to chin, ear to ear <strong>3 times</strong>.'},
-    {t:'Wash Arms',b:'Wash the right arm up to the elbow <strong>3 times</strong>, then the left.'},
-    {t:'Wipe Head',b:'Wipe the entire head with wet hands <strong>once</strong>, from front to back and back to front.'},
-    {t:'Wipe Ears',b:'Wipe the inside of ears with index fingers and outside with thumbs <strong>once</strong>.'},
-    {t:'Wash Feet',b:'Wash the right foot up to the ankle <strong>3 times</strong>, then the left, ensuring water reaches between toes.'},
-  ],note:'Wudu is invalidated by: using the toilet, passing wind, deep sleep, bleeding, or loss of consciousness.'},
-  {id:'fajr',icon:'🌅',name:'FAJR — DAWN PRAYER',steps:[
-    {t:'Time',b:'From true dawn (Fajr) until just before sunrise.'},
-    {t:'Sunnah (2 Rak\'ah)',b:'Pray 2 Rak\'ah Sunnah Mu\'akkadah before the Fard. This is highly emphasized.'},
-    {t:'Fard (2 Rak\'ah)',b:'Pray 2 Rak\'ah Fard. Recite Surah Al-Fatiha and another Surah aloud in both Rak\'ah.'},
-    {t:'Structure',b:'<strong>Rak\'ah 1:</strong> Niyyah → Takbir → Thana → Fatiha → Surah → Ruku → Sujud ×2<br><strong>Rak\'ah 2:</strong> Fatiha → Surah → Ruku → Sujud ×2 → Tashahhud → Salaam'},
-  ],note:'Do not miss Fajr — the Prophet (ﷺ) said the angels of the night and day both witness the Fajr prayer.'},
-  {id:'dhuhr',icon:'☀️',name:'DHUHR — MIDDAY PRAYER',steps:[
-    {t:'Time',b:'After the sun passes its zenith until the shadow of an object equals its length.'},
-    {t:'Sunnah (4 Rak\'ah)',b:'Pray 4 Rak\'ah Sunnah before the Fard.'},
-    {t:'Fard (4 Rak\'ah)',b:'Pray 4 Rak\'ah Fard. Recitation is silent (sirr).'},
-    {t:'Sunnah (2 Rak\'ah)',b:'Pray 2 Rak\'ah Sunnah after the Fard.'},
-    {t:'Structure',b:'4 Rak\'ah: After 2nd Rak\'ah sit for first Tashahhud, then complete 3rd and 4th, then final Tashahhud and Salaam.'},
-  ],note:'On Fridays, male Muslims replace Dhuhr with Jumu\'ah — 2 Rak\'ah Fard after the Khutbah.'},
-  {id:'asr',icon:'🌤',name:'ASR — AFTERNOON PRAYER',steps:[
-    {t:'Time',b:'When shadow equals object length (Hanafi: twice the length) until sunset.'},
-    {t:'Sunnah (4 Rak\'ah)',b:'Pray 4 Rak\'ah Sunnah Ghair Mu\'akkadah (optional but rewarding).'},
-    {t:'Fard (4 Rak\'ah)',b:'Pray 4 Rak\'ah Fard. Recitation is silent.'},
-  ],note:'The Prophet (ﷺ) warned severely against missing Asr — it is the "middle prayer" mentioned in the Quran (2:238).'},
-  {id:'maghrib',icon:'🌆',name:'MAGHRIB — SUNSET PRAYER',steps:[
-    {t:'Time',b:'Immediately after sunset until twilight disappears. Time is short — pray promptly.'},
-    {t:'Fard (3 Rak\'ah)',b:'Pray 3 Rak\'ah Fard. First 2 Rak\'ah recitation is aloud, 3rd is silent.'},
-    {t:'Sunnah (2 Rak\'ah)',b:'Pray 2 Rak\'ah Sunnah after the Fard.'},
-    {t:'Structure',b:'After 2nd Rak\'ah sit for Tashahhud, then stand for 3rd Rak\'ah (Fatiha only), then final Tashahhud and Salaam.'},
-  ],note:'Maghrib time is short. Delay is disliked. The Prophet (ﷺ) would pray Maghrib before even tying his camel.'},
-  {id:'isha',icon:'🌃',name:'ISHA — NIGHT PRAYER',steps:[
-    {t:'Time',b:'After twilight disappears until midnight (preferred) or dawn.'},
-    {t:'Fard (4 Rak\'ah)',b:'Pray 4 Rak\'ah Fard. First 2 Rak\'ah aloud, last 2 silent.'},
-    {t:'Sunnah (2 Rak\'ah)',b:'Pray 2 Rak\'ah Sunnah after the Fard.'},
-  ],note:'Praying Isha in congregation is equal to praying half the night. Combining with Tahajjud covers the whole night.'},
-  {id:'witr',icon:'⭐',name:'WITR — NIGHT PRAYER',steps:[
-    {t:'Time',b:'After Isha until Fajr. Best to pray last before sleeping.'},
-    {t:'Waajib (3 Rak\'ah)',b:'Hanafi: 3 Rak\'ah Waajib with Dua Qunoot in 3rd Rak\'ah before Ruku.'},
-    {t:'Dua Qunoot',b:'Raise hands and recite Dua Qunoot: <em>Allahumma inna nasta\'inuka...</em>'},
-  ],note:'Witr is Waajib (obligatory) according to Hanafi madhab. Never miss it — make it up if you sleep through it.'},
-];
+function getPrayerGuide(){
+const isBn=state.lang==='bn';
+return [
+  {id:'wudu',icon:'💧',name:isBn?'উযু — পবিত্রতা অর্জন':'WUDU — ABLUTION',steps:[
+    {t:isBn?'নিয়ত':'Intention (Niyyah)',b:isBn?'ইবাদতের উদ্দেশ্যে মনে মনে উযুর নিয়ত করুন।':'Make the intention in your heart to perform wudu for the purpose of worship.'},
+    {t:isBn?'বিসমিল্লাহ':'Bismillah',b:isBn?'শুরুতে <strong>বিসমিল্লাহ</strong> বলুন।':'Say <strong>Bismillah</strong> (In the name of Allah) before starting.'},
+    {t:isBn?'হাত ধোয়া':'Wash Hands',b:isBn?'ডান হাত থেকে শুরু করে উভয় হাত কব্জি পর্যন্ত <strong>৩ বার</strong> ধুন।':'Wash both hands up to the wrists <strong>3 times</strong>, starting with the right.'},
+    {t:isBn?'কুলি করা':'Rinse Mouth',b:isBn?'মুখে পানি নিয়ে ভালোভাবে কুলি করুন <strong>৩ বার</strong>।':'Take water into the mouth and rinse thoroughly <strong>3 times</strong>.'},
+    {t:isBn?'নাক পরিষ্কার':'Rinse Nose',b:isBn?'নাকে পানি দিয়ে <strong>৩ বার</strong> পরিষ্কার করুন।':'Sniff water into the nose and blow it out <strong>3 times</strong>.'},
+    {t:isBn?'মুখ ধোয়া':'Wash Face',b:isBn?'কপালের চুলের সীমা থেকে থুতনি পর্যন্ত এবং এক কান থেকে অন্য কান পর্যন্ত <strong>৩ বার</strong> ধুন।':'Wash the entire face from hairline to chin, ear to ear <strong>3 times</strong>.'},
+    {t:isBn?'হাত কনুই পর্যন্ত':'Wash Arms',b:isBn?'ডান হাত কনুই পর্যন্ত <strong>৩ বার</strong> ধুন, তারপর বাম হাত।':'Wash the right arm up to the elbow <strong>3 times</strong>, then the left.'},
+    {t:isBn?'মাথা মাসেহ':'Wipe Head',b:isBn?'ভেজা হাতে পুরো মাথা <strong>একবার</strong> মাসেহ করুন।':'Wipe the entire head with wet hands <strong>once</strong>.'},
+    {t:isBn?'কান মাসেহ':'Wipe Ears',b:isBn?'বুড়ো আঙুল দিয়ে কানের বাইরে এবং তর্জনী দিয়ে ভেতরে মাসেহ করুন।':'Wipe the inside of ears with index fingers and outside with thumbs <strong>once</strong>.'},
+    {t:isBn?'পা ধোয়া':'Wash Feet',b:isBn?'ডান পা গোড়ালি পর্যন্ত <strong>৩ বার</strong> ধুন, আঙুলের ফাঁকে পানি পৌঁছান।':'Wash the right foot up to the ankle <strong>3 times</strong>, then the left.'},
+  ],note:isBn?'উযু ভাঙে: টয়লেট ব্যবহার, বায়ু নির্গমন, গভীর ঘুম, রক্তপাত বা চেতনা হারানোতে।':'Wudu is invalidated by: using the toilet, passing wind, deep sleep, bleeding, or loss of consciousness.'},
+  {id:'fajr',icon:'🌅',name:isBn?'ফজর — ফজরের নামাজ':'FAJR — DAWN PRAYER',steps:[
+    {t:isBn?'সময়':'Time',b:isBn?'সত্যিকারের ফজর থেকে সূর্যোদয়ের আগ পর্যন্ত।':'From true dawn (Fajr) until just before sunrise.'},
+    {t:isBn?'সুন্নত (২ রাকাত)':'Sunnah (2 Rak\'ah)',b:isBn?'ফরজের আগে ২ রাকাত সুন্নত মুয়াক্কাদা পড়ুন।':'Pray 2 Rak\'ah Sunnah Mu\'akkadah before the Fard. This is highly emphasized.'},
+    {t:isBn?'ফরজ (২ রাকাত)':'Fard (2 Rak\'ah)',b:isBn?'২ রাকাত ফরজ পড়ুন — উভয় রাকাতে সূরা ফাতেহা ও অন্য সূরা সশব্দে পড়ুন।':'Pray 2 Rak\'ah Fard. Recite Surah Al-Fatiha and another Surah aloud in both Rak\'ah.'},
+    {t:isBn?'কাঠামো':'Structure',b:isBn?'<strong>১ম রাকাত:</strong> নিয়ত → তাকবির → সানা → ফাতেহা → সূরা → রুকু → সেজদা ×২<br><strong>২য় রাকাত:</strong> ফাতেহা → সূরা → রুকু → সেজদা ×২ → তাশাহহুদ → সালাম':'<strong>Rak\'ah 1:</strong> Niyyah → Takbir → Thana → Fatiha → Surah → Ruku → Sujud ×2<br><strong>Rak\'ah 2:</strong> Fatiha → Surah → Ruku → Sujud ×2 → Tashahhud → Salaam'},
+  ],note:isBn?'ফজর মিস করবেন না — রাসুল (ﷺ) বলেছেন ফজরের নামাজে রাতের ও দিনের ফেরেশতারা উপস্থিত থাকেন।':'Do not miss Fajr — the Prophet (ﷺ) said the angels of the night and day both witness the Fajr prayer.'},
+  {id:'dhuhr',icon:'☀️',name:isBn?'যোহর — দুপুরের নামাজ':'DHUHR — MIDDAY PRAYER',steps:[
+    {t:isBn?'সময়':'Time',b:isBn?'সূর্য মধ্যগগনে পৌঁছানোর পর থেকে ছায়া সমান দীর্ঘ হওয়া পর্যন্ত।':'After the sun passes its zenith until the shadow of an object equals its length.'},
+    {t:isBn?'সুন্নত (৪ রাকাত)':'Sunnah (4 Rak\'ah)',b:isBn?'ফরজের আগে ৪ রাকাত সুন্নত পড়ুন।':'Pray 4 Rak\'ah Sunnah before the Fard.'},
+    {t:isBn?'ফরজ (৪ রাকাত)':'Fard (4 Rak\'ah)',b:isBn?'৪ রাকাত ফরজ পড়ুন — নীরবে পড়ুন।':'Pray 4 Rak\'ah Fard. Recitation is silent (sirr).'},
+    {t:isBn?'সুন্নত (২ রাকাত)':'Sunnah (2 Rak\'ah)',b:isBn?'ফরজের পর ২ রাকাত সুন্নত পড়ুন।':'Pray 2 Rak\'ah Sunnah after the Fard.'},
+  ],note:isBn?'শুক্রবারে পুরুষ মুসলিমরা যোহরের পরিবর্তে জুমু\'আহ পড়বেন।':'On Fridays, male Muslims replace Dhuhr with Jumu\'ah — 2 Rak\'ah Fard after the Khutbah.'},
+  {id:'asr',icon:'🌤',name:isBn?'আসর — বিকেলের নামাজ':'ASR — AFTERNOON PRAYER',steps:[
+    {t:isBn?'সময়':'Time',b:isBn?'ছায়া বস্তুর সমান দীর্ঘ হলে থেকে সূর্যাস্ত পর্যন্ত।':'When shadow equals object length until sunset.'},
+    {t:isBn?'সুন্নত (৪ রাকাত)':'Sunnah (4 Rak\'ah)',b:isBn?'৪ রাকাত সুন্নত গায়রে মুয়াক্কাদা (ঐচ্ছিক কিন্তু সওয়াবের)।':'Pray 4 Rak\'ah Sunnah Ghair Mu\'akkadah (optional but rewarding).'},
+    {t:isBn?'ফরজ (৪ রাকাত)':'Fard (4 Rak\'ah)',b:isBn?'৪ রাকাত ফরজ পড়ুন — নীরবে।':'Pray 4 Rak\'ah Fard. Recitation is silent.'},
+  ],note:isBn?'রাসুল (ﷺ) আসর মিস করা সম্পর্কে কঠোর সতর্কবাণী দিয়েছেন — এটি কুরআনে উল্লিখিত "মধ্যবর্তী নামাজ"।':'The Prophet (ﷺ) warned severely against missing Asr — it is the "middle prayer" mentioned in the Quran (2:238).'},
+  {id:'maghrib',icon:'🌆',name:isBn?'মাগরিব — সন্ধ্যার নামাজ':'MAGHRIB — SUNSET PRAYER',steps:[
+    {t:isBn?'সময়':'Time',b:isBn?'সূর্যাস্তের পরপরই থেকে আকাশের লাল আভা মিলিয়ে যাওয়া পর্যন্ত। সময় কম — দ্রুত পড়ুন।':'Immediately after sunset until twilight disappears. Time is short — pray promptly.'},
+    {t:isBn?'ফরজ (৩ রাকাত)':'Fard (3 Rak\'ah)',b:isBn?'৩ রাকাত ফরজ — প্রথম ২ রাকাত সশব্দে, ৩য় রাকাত নীরবে।':'Pray 3 Rak\'ah Fard. First 2 aloud, 3rd silent.'},
+    {t:isBn?'সুন্নত (২ রাকাত)':'Sunnah (2 Rak\'ah)',b:isBn?'ফরজের পর ২ রাকাত সুন্নত পড়ুন।':'Pray 2 Rak\'ah Sunnah after the Fard.'},
+  ],note:isBn?'মাগরিবের সময় সংক্ষিপ্ত। রাসুল (ﷺ) উট বাঁধার আগেও মাগরিব পড়তেন।':'Maghrib time is short. The Prophet (ﷺ) would pray Maghrib before even tying his camel.'},
+  {id:'isha',icon:'🌃',name:isBn?'ইশা — রাতের নামাজ':'ISHA — NIGHT PRAYER',steps:[
+    {t:isBn?'সময়':'Time',b:isBn?'সন্ধ্যার লাল আভা মিলিয়ে যাওয়ার পর থেকে মধ্যরাত (পছন্দনীয়) বা ফজর পর্যন্ত।':'After twilight disappears until midnight (preferred) or dawn.'},
+    {t:isBn?'ফরজ (৪ রাকাত)':'Fard (4 Rak\'ah)',b:isBn?'৪ রাকাত ফরজ — প্রথম ২ সশব্দে, শেষ ২ নীরবে।':'Pray 4 Rak\'ah Fard. First 2 aloud, last 2 silent.'},
+    {t:isBn?'সুন্নত (২ রাকাত)':'Sunnah (2 Rak\'ah)',b:isBn?'ফরজের পর ২ রাকাত সুন্নত পড়ুন।':'Pray 2 Rak\'ah Sunnah after the Fard.'},
+  ],note:isBn?'জামাতে ইশা পড়া অর্ধরাত ইবাদতের সমান।':'Praying Isha in congregation is equal to praying half the night.'},
+  {id:'witr',icon:'⭐',name:isBn?'বিতর — রাতের বিশেষ নামাজ':'WITR — NIGHT PRAYER',steps:[
+    {t:isBn?'সময়':'Time',b:isBn?'ইশার পর থেকে ফজর পর্যন্ত। ঘুমানোর আগে শেষে পড়া উত্তম।':'After Isha until Fajr. Best to pray last before sleeping.'},
+    {t:isBn?'ওয়াজিব (৩ রাকাত)':'Waajib (3 Rak\'ah)',b:isBn?'হানাফি: ৩ রাকাত ওয়াজিব — ৩য় রাকাতে রুকুর আগে দোয়া কুনুত পড়ুন।':'Hanafi: 3 Rak\'ah Waajib with Dua Qunoot in 3rd Rak\'ah before Ruku.'},
+    {t:isBn?'দোয়া কুনুত':'Dua Qunoot',b:isBn?'হাত তুলে দোয়া কুনুত পড়ুন: <em>আল্লাহুম্মা ইন্না নাস্তাঈনুকা...</em>':'Raise hands and recite Dua Qunoot: <em>Allahumma inna nasta\'inuka...</em>'},
+  ],note:isBn?'হানাফি মাযহাব অনুযায়ী বিতর ওয়াজিব। মিস হলে পরে কাযা পড়ুন।':'Witr is Waajib (obligatory) according to Hanafi madhab. Make it up if you sleep through it.'},
+];}
 
 function renderArchive(){
   const content=document.getElementById('archiveContent');if(!content)return;
-  content.innerHTML=PRAYER_GUIDE.map(p=>`
+  content.innerHTML=getPrayerGuide().map(p=>`
     <div class="archive-card animate-in">
       <div class="archive-header" onclick="toggleArchive('${p.id}',this)">
         <div class="archive-icon">${p.icon}</div>
@@ -2329,22 +2563,22 @@ function renderStats(){
 
   content.innerHTML=`
   <div class="stat-grid-2">
-    <div class="stat-big-card animate-in"><div class="stat-big-num">${state.streak}</div><div class="stat-big-lbl">CURRENT STREAK</div></div>
-    <div class="stat-big-card animate-in"><div class="stat-big-num">${state.totalXp.toLocaleString()}</div><div class="stat-big-lbl">TOTAL XP</div></div>
-    <div class="stat-big-card animate-in"><div class="stat-big-num">${totalSynced}</div><div class="stat-big-lbl">DAYS LOGGED</div></div>
-    <div class="stat-big-card animate-in"><div class="stat-big-num">${completion}%</div><div class="stat-big-lbl">PERFECT RATE</div></div>
+    <div class="stat-big-card animate-in"><div class="stat-big-num">${state.streak}</div><div class="stat-big-lbl">${T('current_streak')}</div></div>
+    <div class="stat-big-card animate-in"><div class="stat-big-num">${state.totalXp.toLocaleString()}</div><div class="stat-big-lbl">${T('total_xp')}</div></div>
+    <div class="stat-big-card animate-in"><div class="stat-big-num">${totalSynced}</div><div class="stat-big-lbl">${T('days_logged')}</div></div>
+    <div class="stat-big-card animate-in"><div class="stat-big-num">${completion}%</div><div class="stat-big-lbl">${T('perfect_rate')}</div></div>
   </div>
   <div class="stat-chart-card animate-in">
-    <div class="stat-chart-title">LAST 7 DAYS — PRAYERS COMPLETED</div>
+    <div class="stat-chart-title">${T('last7')}</div>
     <div class="bar-chart">${barHTML}</div>
   </div>
   <div class="stat-chart-card animate-in">
-    <div class="stat-chart-title">OVERVIEW</div>
+    <div class="stat-chart-title">${T('overview')}</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.3rem">
-      <div><div style="font-size:.65rem;color:var(--muted);margin-bottom:.2rem">Avg XP/Day</div><div style="font-family:var(--font-orb);font-size:1rem;color:var(--cyan)">${avgXpPerDay}</div></div>
-      <div><div style="font-size:.65rem;color:var(--muted);margin-bottom:.2rem">Perfect Days</div><div style="font-family:var(--font-orb);font-size:1rem;color:var(--green)">${totalPerfect}</div></div>
-      <div><div style="font-size:.65rem;color:var(--muted);margin-bottom:.2rem">Best Streak</div><div style="font-family:var(--font-orb);font-size:1rem;color:var(--gold)">${state.streak}</div></div>
-      <div><div style="font-size:.65rem;color:var(--muted);margin-bottom:.2rem">Fajr On-Time</div><div style="font-family:var(--font-orb);font-size:1rem;color:var(--purple)">${state.fajrOnTime||0}</div></div>
+      <div><div style="font-size:.65rem;color:var(--muted);margin-bottom:.2rem">${T('avg_xp')}</div><div style="font-family:var(--font-orb);font-size:1rem;color:var(--cyan)">${avgXpPerDay}</div></div>
+      <div><div style="font-size:.65rem;color:var(--muted);margin-bottom:.2rem">${T('perfect_days')}</div><div style="font-family:var(--font-orb);font-size:1rem;color:var(--green)">${totalPerfect}</div></div>
+      <div><div style="font-size:.65rem;color:var(--muted);margin-bottom:.2rem">${T('best_streak')}</div><div style="font-family:var(--font-orb);font-size:1rem;color:var(--gold)">${state.streak}</div></div>
+      <div><div style="font-size:.65rem;color:var(--muted);margin-bottom:.2rem">${T('fajr_ontime')}</div><div style="font-family:var(--font-orb);font-size:1rem;color:var(--purple)">${state.fajrOnTime||0}</div></div>
     </div>
   </div>`;
   setTimeout(()=>document.querySelectorAll('#statsContent .animate-in').forEach(el=>el.classList.add('visible')),80);
@@ -2550,23 +2784,13 @@ function updateClock(){
 /* ═══════════════════════════════════════════════════════
    BOOT SEQUENCE
 ═══════════════════════════════════════════════════════ */
-const BOOT_MSGS=['INITIALIZING NEURAL CORE...','LOADING PRAYER MATRIX...','CALIBRATING XP ENGINE...','PRAYERITY READY'];
+const BOOT_MSGS=()=>state.lang==='bn'
+  ?['নিউরাল কোর চালু হচ্ছে...','নামাজ ম্যাট্রিক্স লোড হচ্ছে...','XP ইঞ্জিন ক্যালিব্রেট হচ্ছে...','PRAYERITY প্রস্তুত']
+  :['INITIALIZING NEURAL CORE...','LOADING PRAYER MATRIX...','CALIBRATING XP ENGINE...','PRAYERITY READY'];
 let _bi=0;
 let _bootAudioUnlocked=false;
 
 // Unlock audio on first touch
-document.addEventListener('touchstart',()=>{
-  if(!_bootAudioUnlocked){
-    _bootAudioUnlocked=true;
-    playBootSequence();
-  }
-},{once:true});
-document.addEventListener('click',()=>{
-  if(!_bootAudioUnlocked){
-    _bootAudioUnlocked=true;
-    playBootSequence();
-  }
-},{once:true});
 
 function playBootSequence(){
   // Staggered cyberpunk boot sounds matching each message
@@ -2612,7 +2836,7 @@ function playBootSequence(){
 
 const _biv=setInterval(()=>{
   _bi++;const el=document.getElementById('bootStatus');
-  if(el&&_bi<BOOT_MSGS.length)el.textContent=BOOT_MSGS[_bi];
+  if(el&&_bi<BOOT_MSGS().length)el.textContent=BOOT_MSGS()[_bi];
 },480);
 
 window.addEventListener('DOMContentLoaded',()=>{
