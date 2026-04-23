@@ -4,7 +4,7 @@
 Prayerity is an open-source, mobile-first productivity tool designed to help students and professionals build consistent, life-long habits through a 40-day challenge. We don't just track tasks; we build character.
 
 ### 🚀 Live Demo
-[Click here to use DeenOS](https://elliuuren.github.io/Prayerity/)
+[Click here to use Prayerity](https://elliuuren.github.io/Prayerity/)
 
 ### Why Prayerity?
 In a world of distraction, discipline is a superpower. Prayerity is a lightweight, offline-compatible PWA (Progressive Web App) that turns spiritual discipline into a measurable, daily "Operating System" for your life.
