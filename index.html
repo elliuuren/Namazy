@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#030305">
-<meta name="description" content="Prayer Must be your FIRST priority! — Prayerity by Ellipps">
-<title>Prayerity — by Ellipps</title>
+<meta name="description" content="Prayer Must be your FIRST priority! — Prayerity by Elliuuren">
+<title>Prayerity — The 40 Day Prayer Challenge</title>
 <link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Outfit:wght@300;400;500;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
@@ -622,6 +622,71 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
 .scale-slider{width:100%;-webkit-appearance:none;height:4px;border-radius:4px;background:var(--border2);outline:none;}
 .scale-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--cyan);cursor:pointer;box-shadow:0 0 8px rgba(0,242,255,.4);}
 .scale-preview{font-family:var(--font-head);font-size:.55rem;color:var(--cyan);text-align:right;margin-top:.3rem;letter-spacing:.1em;}
+/* ══ WELCOME POPUP ══ */
+.welcome-backdrop{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
+.welcome-backdrop.show{opacity:1;pointer-events:all;}
+.welcome-sheet{background:var(--bg3);border:1px solid var(--border2);border-radius:24px 24px 0 0;padding:0 1.25rem max(1.5rem,env(safe-area-inset-bottom));width:100%;max-width:500px;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.3,0.64,1);}
+.welcome-backdrop.show .welcome-sheet{transform:translateY(0);}
+.welcome-handle{width:36px;height:4px;border-radius:2px;background:var(--border);margin:14px auto 1rem;}
+.welcome-title{font-family:var(--font-head);font-size:.68rem;letter-spacing:.18em;color:var(--cyan);margin-bottom:.3rem;}
+.welcome-sub{font-size:.76rem;color:var(--text2);margin-bottom:1rem;line-height:1.5;}
+.welcome-steps{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.1rem;}
+.welcome-step{display:flex;align-items:flex-start;gap:.7rem;padding:.6rem .75rem;background:var(--card);border:1px solid var(--border2);border-radius:12px;}
+.welcome-num{width:20px;height:20px;border-radius:50%;background:var(--cyan);color:#030305;font-size:.52rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem;}
+.welcome-step-text{font-size:.75rem;color:var(--text2);line-height:1.55;}
+.welcome-step-text strong{color:var(--text);font-weight:600;}
+.welcome-btn-main{width:100%;padding:.85rem;background:linear-gradient(135deg,var(--cyan),var(--purple));border:none;border-radius:12px;font-family:var(--font-head);font-size:.6rem;letter-spacing:.15em;color:#030305;font-weight:700;cursor:pointer;margin-bottom:.55rem;}
+.welcome-btn-skip{width:100%;padding:.7rem;background:transparent;border:1px solid var(--border2);border-radius:12px;font-family:var(--font-head);font-size:.52rem;letter-spacing:.12em;color:var(--muted);cursor:pointer;}
+/* ══ HELP PANEL ══ */
+.help-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(12px);z-index:400;display:flex;flex-direction:column;overflow:hidden;}
+.help-overlay.hidden{display:none;}
+.help-panel{background:var(--bg3);border-top:1px solid var(--border);flex:1;overflow-y:auto;padding-bottom:2rem;}
+.help-header{display:flex;align-items:center;justify-content:space-between;padding:max(3rem,calc(1.5rem + env(safe-area-inset-top))) 1.25rem 1rem;background:linear-gradient(180deg,rgba(0,242,255,.05),transparent);position:sticky;top:0;backdrop-filter:blur(20px);z-index:1;border-bottom:1px solid var(--border2);}
+.help-title{font-family:var(--font-orb);font-size:1rem;font-weight:700;letter-spacing:.1em;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.help-close{width:34px;height:34px;border-radius:var(--r8);background:var(--card2);border:1px solid var(--border2);color:var(--muted2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.help-section{margin:.75rem 1rem 0;}
+.help-section-title{font-family:var(--font-head);font-size:.55rem;letter-spacing:.25em;color:var(--cyan);margin-bottom:.5rem;padding-bottom:.35rem;border-bottom:1px solid rgba(0,242,255,.1);}
+.help-item{background:var(--card);border:1px solid var(--border2);border-radius:var(--r12);padding:.8rem 1rem;margin-bottom:.5rem;cursor:pointer;transition:var(--trans);}
+.help-item:hover{border-color:rgba(0,242,255,.2);}
+.help-item-header{display:flex;align-items:center;gap:.65rem;}
+.help-item-icon{width:32px;height:32px;border-radius:var(--r8);background:linear-gradient(135deg,rgba(0,242,255,.1),rgba(188,19,254,.1));display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;}
+.help-item-title{font-family:var(--font-head);font-size:.56rem;letter-spacing:.12em;color:var(--text);flex:1;}
+.help-item-chev{color:var(--muted);transition:transform .3s;font-size:.75rem;}
+.help-item-chev.open{transform:rotate(180deg);}
+.help-item-body{font-size:.78rem;color:var(--text2);line-height:1.75;margin-top:.65rem;padding-top:.65rem;border-top:1px solid rgba(255,255,255,.04);display:none;}
+.help-item-body.open{display:block;}
+.help-item-body strong{color:var(--cyan);font-weight:500;}
+.help-item-body ul{padding-left:1.1rem;margin:.3rem 0;}
+.help-item-body li{margin-bottom:.25rem;}
+.help-tip{background:rgba(188,19,254,.06);border-left:2px solid var(--purple);padding:.45rem .65rem;border-radius:0 8px 8px 0;font-size:.7rem;color:var(--muted2);margin-top:.5rem;line-height:1.6;}
+/* ══ ADMIN PANEL ══ */
+.admin-overlay{position:fixed;inset:0;background:#000;z-index:9000;display:flex;flex-direction:column;overflow:hidden;}
+.admin-overlay.hidden{display:none;}
+.admin-header{background:#0a0a0a;border-bottom:1px solid #1a1a2e;padding:max(3rem,calc(1.5rem + env(safe-area-inset-top))) 1.25rem 1rem;display:flex;align-items:center;justify-content:space-between;}
+.admin-title{font-family:var(--font-orb);font-size:.85rem;font-weight:700;letter-spacing:.15em;color:#ff0040;}
+.admin-body{flex:1;overflow-y:auto;padding:1rem;}
+.admin-card{background:#0d0d0d;border:1px solid #1a1a2e;border-radius:12px;padding:1rem;margin-bottom:.75rem;}
+.admin-card-title{font-family:var(--font-head);font-size:.55rem;letter-spacing:.2em;color:#ff0040;margin-bottom:.75rem;}
+.admin-stat{display:flex;justify-content:space-between;align-items:center;padding:.45rem 0;border-bottom:1px solid #111;}
+.admin-stat:last-child{border:none;}
+.admin-stat-label{font-size:.72rem;color:#666;}
+.admin-stat-value{font-family:var(--font-orb);font-size:.78rem;color:#fff;}
+.admin-btn{width:100%;padding:.7rem;background:#0d0d0d;border:1px solid #ff0040;border-radius:8px;color:#ff0040;font-family:var(--font-head);font-size:.55rem;letter-spacing:.15em;margin-bottom:.5rem;transition:all .2s;}
+.admin-btn:hover{background:rgba(255,0,64,.1);}
+.admin-btn.green{border-color:#00ff88;color:#00ff88;}
+.admin-btn.green:hover{background:rgba(0,255,136,.1);}
+.admin-close{background:#0d0d0d;border:1px solid #333;border-radius:8px;padding:.4rem .75rem;color:#666;font-family:var(--font-head);font-size:.5rem;letter-spacing:.12em;}
+.admin-msg-area{width:100%;background:#080808;border:1px solid #1a1a2e;border-radius:8px;padding:.6rem .75rem;color:#fff;font-family:var(--font-body);font-size:.8rem;min-height:80px;resize:none;outline:none;margin-bottom:.5rem;}
+/* Gate screen */
+.admin-gate{position:fixed;inset:0;background:#000;z-index:9001;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;}
+.admin-gate.hidden{display:none;}
+.admin-gate-title{font-family:var(--font-orb);font-size:1rem;color:#ff0040;margin-bottom:.5rem;letter-spacing:.15em;}
+.admin-gate-clue{font-size:.78rem;color:#444;text-align:center;margin-bottom:2rem;line-height:1.6;font-family:var(--font-head);letter-spacing:.08em;}
+.admin-gate-input{width:100%;max-width:300px;background:#0d0d0d;border:1px solid #333;border-radius:10px;padding:.75rem 1rem;color:#fff;font-family:var(--font-body);font-size:.9rem;outline:none;text-align:center;margin-bottom:1rem;letter-spacing:.15em;}
+.admin-gate-input:focus{border-color:#ff0040;}
+.admin-gate-btn{width:100%;max-width:300px;padding:.8rem;background:transparent;border:1px solid #ff0040;border-radius:10px;color:#ff0040;font-family:var(--font-head);font-size:.6rem;letter-spacing:.2em;}
+.admin-gate-err{font-size:.7rem;color:#ff0040;margin-top:.5rem;opacity:0;transition:opacity .3s;text-align:center;}
+.admin-gate-err.show{opacity:1;}
 </style>
 </head>
 <body>
@@ -637,7 +702,7 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
 <div id="boot">
   <div>
     <div class="boot-logo">PRAYERITY</div>
-    <div class="boot-company">BY ELLIPPS</div>
+    <div class="boot-company">BY ELLIUUREN</div>
   </div>
   <div class="boot-bar-wrap"><div class="boot-bar"></div></div>
   <div class="boot-status" id="bootStatus">INITIALIZING...</div>
@@ -658,7 +723,7 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
     <div class="ob-hero">
       <div class="ob-hero-logo">PRAYERITY</div>
       <div class="ob-hero-motto">PRAYER MUST BE YOUR FIRST PRIORITY</div>
-      <div class="ob-hero-by">BY ELLIPPS</div>
+      <div class="ob-hero-by">BY ELLIUUREN</div>
     </div>
 
     <div class="ob-carousel-wrap">
@@ -715,7 +780,7 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
       <div class="ob-dot" onclick="goToFeat(5)"></div>
     </div>
 
-   <button class="ob-cta-large" onclick="playSound('launch');obGoToSlide(1)">GET STARTED &nbsp;→</button>
+   <button class="ob-cta-large" onclick="playSound('launch');obGoToSlide(1)">START THE CHALLENGE &nbsp;→</button>
   </div>
 
   <!-- SLIDE 1: Name -->
@@ -793,6 +858,9 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
       <div class="ob-actions">
         <button class="ob-cta ob-cta-secondary" onclick="obGoToSlide(2)">← Back</button>
         <button class="ob-cta ob-cta-primary" id="ob-lang-btn" onclick="finishOnboarding()" disabled>Launch Prayerity →</button>
+        <div style="text-align:center;margin-top:1.5rem;">
+  <span onclick="openAdminGate()" style="font-size:.4rem;color:rgba(255,255,255,0.3);font-family:var(--font-head);letter-spacing:.3em;user-select:none;">⬡</span>
+</div>
       </div>
     </div>
   </div>
@@ -815,9 +883,12 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
           <div class="header-sub"><span id="greetingName">Welcome</span> &mdash; <span class="local-clock" id="localClock">--:--</span></div>
         </div>
         <div class="header-actions">
-          <div class="version-badge" id="fridayBadge" style="display:none">JUMU'AH</div>
-          <div class="version-badge">v6.0</div>
-        </div>
+  <div class="version-badge" id="fridayBadge" style="display:none">JUMU'AH</div>
+  <div class="version-badge">v6.0</div>
+  <button class="header-icon-btn" onclick="openHelp()" title="Help">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+  </button>
+</div>
       </div>
     </div>
 
@@ -899,6 +970,7 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
       </div>
     </div>
   </div>
+  
 
   <!-- ════════════════
        PAGE: CALENDAR
@@ -1134,7 +1206,7 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
       <div class="settings-section-title" id="t-about-title">ABOUT</div>
       <div class="privacy-text" id="privacyText">
         <div class="about-logo">PRAYERITY</div>
-        <div class="about-company">BY ELLIPPS — OWNER: ELLIUUREN</div>
+        <div class="about-company">BY ELLIUUREN</div>
         <div class="about-text" id="aboutText">
           Built with intention for the Ummah. A gamified tool to track, improve, and strengthen your daily ibadah.<br><br>
           Prayer Must be your FIRST priority!<br><br>
@@ -1145,6 +1217,9 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
           <div style="font-size:.62rem;color:var(--muted);margin-top:.2rem" id="aboutTerms">>Terms: This app is provided as-is for religious practice support. Data accuracy is your responsibility.</div>
         </div>
       </div>
+      <div style="text-align:center;padding:.5rem;margin-top:.5rem;">
+  <span onclick="openAdminGate()" style="font-size:.5rem;color:rgba(255,255,255,0.3);font-family:var(--font-head);letter-spacing:.5em;">· · ·</span>
+</div>
     </div>
 
     <div style="height:1rem"></div>
@@ -1186,9 +1261,93 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
 </div>
 
 <!-- MODAL CONTAINER -->
-<div id="modalContainer"></div>
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
+  <div id="modalContainer"></div>
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+  
+  <!-- WELCOME POPUP -->
+<div class="welcome-backdrop" id="welcomeBackdrop" onclick="closeWelcome()">
+  <div class="welcome-sheet" onclick="event.stopPropagation()">
+    <div class="welcome-handle"></div>
+    <div class="welcome-title" id="wt-title">HOW TO USE PRAYERITY</div>
+    <div class="welcome-sub" id="wt-sub">Get started in 30 seconds.</div>
+    <div class="welcome-steps" id="wt-steps"></div>
+    <button class="welcome-btn-main" id="wt-guide" onclick="closeWelcomeOpenHelp()">Open Full Guide →</button>
+    <button class="welcome-btn-skip" id="wt-skip" onclick="closeWelcome()">Got it, let's go</button>
+  </div>
+</div>
+
+  <!-- HELP PANEL -->
+  <div class="help-overlay hidden" id="helpOverlay">
+    <div class="help-panel" id="helpPanel">
+      <div class="help-header">
+        <div class="help-title">KNOWLEDGE BANK</div>
+        <button class="help-close" onclick="closeHelp()">✕</button>
+      </div>
+      <div id="helpContent"></div>
+    </div>
+  </div>
+  
+  <!-- ════ ADMIN GATE ════ -->
+<div class="admin-gate hidden" id="adminGate">
+  <div class="admin-gate-title">⬡ ADMIN ACCESS</div>
+  <div class="admin-gate-clue" id="adminClueText"></div>
+  <input class="admin-gate-input" id="adminAnswer" type="password" placeholder="••••••••" maxlength="32" onkeydown="if(event.key==='Enter')checkAdminAnswer()">
+  <button class="admin-gate-btn" onclick="checkAdminAnswer()">VERIFY IDENTITY →</button>
+  <div class="admin-gate-err" id="adminGateErr">Access denied. Wrong answer.</div>
+  <button style="margin-top:1.5rem;background:transparent;border:none;color:#333;font-family:var(--font-head);font-size:.45rem;letter-spacing:.15em" onclick="closeAdminGate()">← EXIT</button>
+</div>
+
+<!-- ════ ADMIN PANEL ════ -->
+<div class="admin-overlay hidden" id="adminPanel">
+  <div class="admin-header">
+    <div class="admin-title">⬡ PRAYERITY ADMIN</div>
+    <button class="admin-close" onclick="closeAdmin()">EXIT ×</button>
+  </div>
+  <div class="admin-body">
+
+    <!-- Stats overview -->
+    <div class="admin-card">
+      <div class="admin-card-title">SYSTEM OVERVIEW</div>
+      <div class="admin-stat"><span class="admin-stat-label">Total Users (Sheet)</span><span class="admin-stat-value" id="ad-users">—</span></div>
+      <div class="admin-stat"><span class="admin-stat-label">App Version</span><span class="admin-stat-value">v6.0</span></div>
+      <div class="admin-stat"><span class="admin-stat-label">Shield Completions</span><span class="admin-stat-value" id="ad-shields">—</span></div>
+      <div class="admin-stat"><span class="admin-stat-label">Admin</span><span class="admin-stat-value">ELLIUUREN</span></div>
+    </div>
+
+    <!-- Database actions -->
+    <div class="admin-card">
+      <div class="admin-card-title">DATABASE</div>
+      <button class="admin-btn green" onclick="adminOpenSheet()">OPEN GOOGLE SHEET ↗</button>
+      <button class="admin-btn" onclick="adminExportAll()">EXPORT FULL BACKUP</button>
+    </div>
+
+    <!-- Cert requests -->
+    <div class="admin-card">
+      <div class="admin-card-title">CERTIFICATION INBOX</div>
+      <button class="admin-btn green" onclick="adminOpenEmail()">OPEN EMAIL INBOX ↗</button>
+      <div style="font-size:.68rem;color:#444;margin-top:.3rem">easanians@yahoo.com</div>
+    </div>
+
+    <!-- Broadcast message -->
+    <div class="admin-card">
+      <div class="admin-card-title">NOTES / LOG</div>
+      <textarea class="admin-msg-area" id="adminNote" placeholder="Write admin notes here..."></textarea>
+      <button class="admin-btn green" onclick="saveAdminNote()">SAVE NOTE</button>
+    </div>
+
+    <!-- Unlock features -->
+    <div class="admin-card">
+      <div class="admin-card-title">OVERRIDE CONTROLS</div>
+      <button class="admin-btn green" onclick="adminUnlockShield()">FORCE UNLOCK SHIELD</button>
+      <button class="admin-btn green" onclick="adminSetXP()">SET XP TO 42000 (MAX)</button>
+      <button class="admin-btn" onclick="adminResetStreak()">RESET STREAK TO 0</button>
+    </div>
+
+  </div>
+</div>
+
+</div>
 
 <script>
 /* ═══════════════════════════════════════════════════════
@@ -1204,7 +1363,7 @@ const STRINGS = {
     'Fard (3)':'Fard (3 Rak\'ah)','Sunnah (2b)':'Sunnah (2 Rak\'ah) After',
     'Waazib (3)':'Waazib (3 Rak\'ah)','OnTime':'On Time','Jamah':'Congregation','Mosque':'Mosque',
     'Khutbah':'Khutbah (Sermon)','Jumuah Fard':'Fard (2 Rak\'ah)',
-    MANDATORY_GROUP:'MANDATORY — FARD',OPTIONAL_GROUP:'OPTIONAL — XP REWARDS',
+    MANDATORY_GROUP:'MANDATORY',OPTIONAL_GROUP:'OPTIONAL — XP REWARDS',
     // Header
     greeting_m:'Brother',greeting_f:'Sister',
     daily_prayers:'DAILY PRAYERS',
@@ -1260,7 +1419,7 @@ const STRINGS = {
     // Guide nav
     guide_nav:'GUIDE',
     // Calendar locked
-    cal_locked:'Complete your first prayer day and sync to see your calendar history.',
+    cal_locked:'To enable this section, complete all prayers for at least one day and sync them. Then you will be able to see your previous day prayer count here.',
     // Athan
     athan_enabled:'Prayer reminders enabled!',athan_disabled:'Prayer reminders disabled',athan_denied:'Notification permission denied',
     // Claim
@@ -1279,11 +1438,11 @@ const STRINGS = {
     ob_get_started:'GET STARTED →',ob_continue:'Continue →',ob_back:'← Back',ob_launch:'Launch Prayerity →',
     ob_step1:'STEP 1 OF 2',ob_step2:'STEP 2 OF 2',
     // Privacy
-    priv_storage_h:'DATA STORAGE',priv_storage_p:'All data is stored locally on your device using localStorage. No data is transmitted to any external server except for the optional Google Sheets progress sync.',
+    priv_storage_h:'DATA STORAGE',priv_storage_p:'All data is stored on the local storage of your device. No information other than your challenge information is sent to any server.',
     priv_menses_h:'MENSTRUATION DATA',priv_menses_p:'Menstruation tracking data is stored ONLY on your device and is never sent to any server, including Google Sheets.',
-    priv_sheets_h:'GOOGLE SHEETS SYNC',priv_sheets_p:'Only Streak count, XP total, and completion status are synced. No personal or sensitive data is included.',
+    priv_sheets_h:'DATABASE SYNC',priv_sheets_p:'Only Streak count, XP total, and completion status are synced. No personal or sensitive data is included.',
     priv_analytics_h:'NO ANALYTICS',priv_analytics_p:'This app contains zero tracking, analytics, or advertising. Your worship data is private and yours alone.',
-    about_built:'Built with intention for the Ummah. A gamified tool to track, improve, and strengthen your daily ibadah.',
+    about_built:'Built with intention for the Ummah.This is our small effort to ensure that you never become careless in your prayers. Moreover, this is a gamified tool to track, improve, and strengthen your daily ibadah.',
     about_motto:'Prayer Must be your FIRST priority!',about_dua:'May Allah accept our prayers. آمين',
     about_terms:'Terms: This app is provided as-is for religious practice support. Data accuracy is your responsibility.',
   },
@@ -1296,7 +1455,7 @@ const STRINGS = {
     'Fard (3)':'ফরজ (৩ রাকাত)','Sunnah (2b)':'সুন্নত (২ রাকাত) পরে',
     'Waazib (3)':'ওয়াজিব (৩ রাকাত)','OnTime':'সময়মতো','Jamah':'জামায়াত','Mosque':'মসজিদ',
     'Khutbah':'খুতবা','Jumuah Fard':'ফরজ (২ রাকাত)',
-    MANDATORY_GROUP:'ফরজ — বাধ্যতামূলক',OPTIONAL_GROUP:'ঐচ্ছিক — XP পুরস্কার',
+    MANDATORY_GROUP:'বাধ্যতামূলক',OPTIONAL_GROUP:'ঐচ্ছিক — XP পুরস্কার',
     // Header
     greeting_m:'ভাই',greeting_f:'আপু',
     daily_prayers:'দৈনিক নামাজ',
@@ -1352,7 +1511,7 @@ const STRINGS = {
     // Guide nav
     guide_nav:'গাইড',
     // Calendar locked
-    cal_locked:'প্রথম নামাজের দিন সম্পন্ন করুন এবং সিঙ্ক করুন।',
+    cal_locked:'এই সেকশনটি চালু করতে হলে কমপক্ষে একদিন সবগুলো নামাজ সম্পন্ন করুন এবং সিঙ্ক করুন। তাহলে আপনি এখানে আপনার বিগত দিনের নামাজের হিসাব দেখতে পারবেন।',
     // Athan
     athan_enabled:'নামাজের রিমাইন্ডার চালু!',athan_disabled:'নামাজের রিমাইন্ডার বন্ধ',athan_denied:'নোটিফিকেশনের অনুমতি দেওয়া হয়নি',
     // Claim
@@ -1371,11 +1530,11 @@ const STRINGS = {
     ob_get_started:'শুরু করুন →',ob_continue:'পরবর্তী →',ob_back:'← পেছনে',ob_launch:'Prayerity চালু করুন →',
     ob_step1:'ধাপ ১ / ২',ob_step2:'ধাপ ২ / ২',
     // Privacy
-    priv_storage_h:'ডেটা সংরক্ষণ',priv_storage_p:'সমস্ত ডেটা আপনার ডিভাইসে localStorage-এ সংরক্ষিত। ঐচ্ছিক Google Sheets সিঙ্ক ছাড়া কোনো সার্ভারে পাঠানো হয় না।',
+    priv_storage_h:'ডেটা সংরক্ষণ',priv_storage_p:'সমস্ত ডেটা আপনার ডিভাইসের নিজস্ব স্টোরেজে সংরক্ষিত। শুধুমাত্র আপনার চ্যালেঞ্জের তথ্য ছাড়া অন্য তথ্য কোনো সার্ভারে পাঠানো হয় না।',
     priv_menses_h:'মাসিক ডেটা',priv_menses_p:'মাসিক ট্র্যাকিং ডেটা শুধুমাত্র আপনার ডিভাইসে থাকে। Google Sheets সহ কোনো সার্ভারে পাঠানো হয় না।',
-    priv_sheets_h:'Google Sheets সিঙ্ক',priv_sheets_p:'শুধুমাত্র স্ট্রিক, XP এবং সম্পন্নের তথ্য সিঙ্ক হয়। কোনো ব্যক্তিগত তথ্য অন্তর্ভুক্ত নয়।',
+    priv_sheets_h:'ডেটাবেজ সিঙ্ক',priv_sheets_p:'শুধুমাত্র স্ট্রিক, XP এবং সম্পন্নের তথ্য সিঙ্ক হয়। কোনো ব্যক্তিগত তথ্য অন্তর্ভুক্ত নয়।',
     priv_analytics_h:'কোনো অ্যানালিটিক্স নেই',priv_analytics_p:'এই অ্যাপে কোনো ট্র্যাকিং, অ্যানালিটিক্স বা বিজ্ঞাপন নেই। আপনার ইবাদতের তথ্য সম্পূর্ণ ব্যক্তিগত।',
-    about_built:'উম্মাহর জন্য নির্মিত। আপনার দৈনিক ইবাদত ট্র্যাক, উন্নত এবং শক্তিশালী করার একটি গেমিফাইড টুল।',
+    about_built:'উম্মাহর জন্য নির্মিত। আপনি যাতে কখনোই নামাজ থেকে গাফেল না হন, সেলক্ষ্যেই আমাদের এই ক্ষুদ্র প্রয়াস। তাছাড়া, এটা হলো আপনার দৈনিক ইবাদত ট্র্যাক, উন্নত এবং শক্তিশালী করার একটি গেমিফাইড টুল।',
     about_motto:'নামাজ হোক আপনার প্রথম অগ্রাধিকার!',about_dua:'আল্লাহ আমাদের নামাজ কবুল করুন। আমিন',
     about_terms:'শর্তাবলী: এই অ্যাপটি ধর্মীয় অনুশীলন সহায়তার জন্য প্রদান করা হয়েছে। ডেটার নির্ভুলতার দায়িত্ব আপনার।',
   }
@@ -1477,7 +1636,7 @@ function getAchievements(){
 ═══════════════════════════════════════════════════════ */
 let state = {
   totalXp:0,streak:0,history:{},notes:[],
-  lang:'en',theme:'night',uiScale:100,
+  lang:'en',theme:'night',uiScale:100,certEmailSent:false,
   unlockedAchievements:[],perfectDays:0,fajrOnTime:0,
   name:'',gender:'',
   mensesActive:false,mensesChallenge:40,
@@ -1485,6 +1644,7 @@ athanEnabled:false,sheetsUrl:'https://script.google.com/macros/s/AKfycbxRPfT2BDL
   onboarded:false,
 };
 let currentDateOffset = 0;
+let openCards = new Set();
 let notesFilter = 'active';
 
 /* ═══════════════════════════════════════════════════════
@@ -1558,6 +1718,329 @@ function applyScale(v){
   document.documentElement.style.fontSize=v+'%';
   document.getElementById('scalePreview').textContent=v+'%';
   state.uiScale=v;saveState();
+}
+
+/* ═══════════════════════════════════════════════════════
+   HELP / KNOWLEDGE BANK
+═══════════════════════════════════════════════════════ */
+function getHelpData(){
+  const isBn=state.lang==='bn';
+  return {
+    sections:[
+      {
+        title:isBn?'শুরু করুন':'GETTING STARTED',
+        items:[
+          {icon:'🚀',title:isBn?'Prayerity কী?':'What is Prayerity?',body:isBn?
+            '<strong>Prayerity</strong> হল একটি গেমিফাইড নামাজ ট্র্যাকিং অ্যাপ। প্রতিদিনের ৫ ওয়াক্ত নামাজ ট্র্যাক করুন, XP অর্জন করুন, স্ট্রিক বজায় রাখুন এবং ৪০ দিনের শিল্ড প্রোটোকল আনলক করুন।<div class="help-tip">নামাজ হোক আপনার প্রথম অগ্রাধিকার!</div>':
+            '<strong>Prayerity</strong> is a gamified Islamic prayer tracker. Track all 5 daily prayers, earn XP, maintain streaks, and unlock the 40-Day Shield Protocol.<div class="help-tip">Prayer Must be your FIRST priority!</div>'},
+          {icon:'👤',title:isBn?'প্রোফাইল ও লিঙ্গ':'Profile & Gender',body:isBn?
+            'অ্যাপ সেটআপের সময় আপনার নাম ও লিঙ্গ নির্বাচন করুন। <strong>পুরুষ</strong> ব্যবহারকারীরা শুক্রবারে যোহরের পরিবর্তে জুমু\'আহ পাবেন। <strong>মহিলা</strong> ব্যবহারকারীরা মাসিক ট্র্যাকিং ফিচার পাবেন।':
+            'Set your name and gender during setup. <strong>Male</strong> users get Jumu\'ah on Fridays instead of Dhuhr. <strong>Female</strong> users unlock the Menstruation Tracking feature.'},
+          {icon:'🌐',title:isBn?'ভাষা পরিবর্তন':'Changing Language',body:isBn?
+            'সেটিংস → Language Engine → EN বা বাং বাটন ট্যাপ করুন। সম্পূর্ণ অ্যাপ সাথে সাথে অনুবাদ হয়ে যাবে।':
+            'Go to Settings → Language Engine → tap EN or বাং. The entire app translates instantly.'},
+        ]
+      },
+      {
+        title:isBn?'নামাজ ট্র্যাকিং':'PRAYER TRACKING',
+        items:[
+          {icon:'🕌',title:isBn?'প্রার্থনা কার্ড কিভাবে ব্যবহার করবেন':'How to use Prayer Cards',body:isBn?
+            'প্রতিটি নামাজের কার্ডে ট্যাপ করলে টাস্ক প্যানেল খুলবে। ভেতরে <strong>ফরজ</strong> (বাধ্যতামূলক) এবং <strong>ঐচ্ছিক</strong> টাস্ক আছে। প্রতিটি টাস্কে ট্যাপ করে চেক করুন।<ul><li>সব টাস্ক চেক হলে প্যানেল স্বয়ংক্রিয়ভাবে বন্ধ হয়।</li><li>বৃত্তাকার প্রোগ্রেস ইন্ডিকেটর সম্পূর্ণতা দেখায়।</li></ul>':
+            'Tap any prayer card to expand its task panel. Inside you\'ll find <strong>Fard</strong> (mandatory) and <strong>optional</strong> tasks. Tap each task to check it off.<ul><li>Panel auto-collapses only when ALL tasks are checked.</li><li>The circular progress indicator shows completion %.</li></ul>'},
+          {icon:'📅',title:isBn?'তারিখ নেভিগেশন':'Date Navigation',body:isBn?
+            'প্রার্থনা পৃষ্ঠায় তীরচিহ্ন দিয়ে গত ৩০ দিন পর্যন্ত নেভিগেট করুন। গত দিনের নামাজও পূরণ করা যাবে — তবে সিঙ্ক করতে হবে।<div class="help-tip">আজকের ডেটা সিঙ্ক হয়ে গেলে শুধু দেখা যাবে, পরিবর্তন করা যাবে না।</div>':
+            'Use the arrow buttons to navigate up to 30 past days. You can backfill missed prayer data.<div class="help-tip">Once today\'s data is synced, it becomes read-only.</div>'},
+          {icon:'⟳',title:isBn?'ডেটা সিঙ্ক':'Daily Sync',body:isBn?
+            'দিনের শেষে <strong>SYNC DAILY DATA</strong> বাটন চাপুন। এটি আপনার XP যোগ করে, স্ট্রিক আপডেট করে এবং Google Sheets-এ ডেটা পাঠায়। সব ফরজ নামাজ শেষ না হলে সতর্কবার্তা দেখাবে।':
+            'Press <strong>SYNC DAILY DATA</strong> at the end of the day. This adds your XP, updates your streak, and syncs to the database. If not all Fard prayers are complete, you\'ll get a warning.'},
+          {icon:'🌸',title:isBn?'মাসিক স্কিপ (মহিলাদের জন্য)':'Menstruation Skip (Female)',body:isBn?
+            'প্রতিটি নামাজ কার্ডে নিচে মাসিক টগল আছে। চালু করলে সেই নামাজ স্কিপ হয় — কোনো স্ট্রিক বা XP হারাবে না। শিল্ড পৃষ্ঠায় গ্লোবাল টগলও আছে।':
+            'Each prayer card has a menstruation skip toggle at the bottom. Enabling it skips that prayer with no streak or XP loss. A global toggle is also available on the Shield page.'},
+        ]
+      },
+      {
+        title:isBn?'XP ও লেভেল সিস্টেম':'XP & LEVEL SYSTEM',
+        items:[
+          {icon:'⚡',title:isBn?'XP কিভাবে অর্জন করবেন':'How to earn XP',body:isBn?
+            '<ul><li><strong>ফরজ নামাজ:</strong> ৬০ XP</li><li><strong>সুন্নত:</strong> ৩০–৩৫ XP</li><li><strong>সময়মতো:</strong> +৪০ XP</li><li><strong>জামায়াতে:</strong> +৫০ XP</li><li><strong>মসজিদে:</strong> +৫০ XP</li><li><strong>জুমু\'আহ ফরজ:</strong> ৮০ XP</li></ul>':
+            '<ul><li><strong>Fard prayer:</strong> 60 XP</li><li><strong>Sunnah:</strong> 30–35 XP</li><li><strong>On Time:</strong> +40 XP</li><li><strong>Congregation:</strong> +50 XP</li><li><strong>Mosque:</strong> +50 XP</li><li><strong>Jumu\'ah Fard:</strong> 80 XP</li></ul>'},
+          {icon:'🏅',title:isBn?'লেভেল র‍্যাংক':'Level Ranks',body:isBn?
+            '<ul><li>লেভেল ১: INITIATE (০ XP)</li><li>লেভেল ২: SEEKER (৫০০ XP)</li><li>লেভেল ৩: DEVOTEE (১৫০০ XP)</li><li>লেভেল ৪: FAITHFUL (৩০০০ XP)</li><li>লেভেল ৫: GUARDIAN (৫৫০০ XP)</li><li>লেভেল ৬: PROTECTOR (৯০০০ XP)</li><li>লেভেল ৭: WARRIOR (১৪০০০ XP)</li><li>লেভেল ৮: SENTINEL (২১০০০ XP)</li><li>লেভেল ৯: CHAMPION (৩০০০০ XP)</li><li>লেভেল ১০: DEEN MASTER (৪২০০০ XP)</li></ul>':
+            '<ul><li>Level 1: INITIATE (0 XP)</li><li>Level 2: SEEKER (500 XP)</li><li>Level 3: DEVOTEE (1500 XP)</li><li>Level 4: FAITHFUL (3000 XP)</li><li>Level 5: GUARDIAN (5500 XP)</li><li>Level 6: PROTECTOR (9000 XP)</li><li>Level 7: WARRIOR (14000 XP)</li><li>Level 8: SENTINEL (21000 XP)</li><li>Level 9: CHAMPION (30000 XP)</li><li>Level 10: DEEN MASTER (42000 XP)</li></ul>'},
+          {icon:'🔥',title:isBn?'স্ট্রিক সিস্টেম':'Streak System',body:isBn?
+            'প্রতিদিন সব ফরজ নামাজ সম্পন্ন করে সিঙ্ক করলে স্ট্রিক বাড়ে। একদিন মিস হলে স্ট্রিক শূন্যে নেমে আসে। <strong>মাসিক স্কিপ করা নামাজ স্ট্রিক ভাঙে না।</strong>':
+            'Your streak increases each day you complete all Fard prayers and sync. Missing one day resets it to zero. <strong>Menstruation-skipped prayers do not break your streak.</strong>'},
+        ]
+      },
+      {
+        title:isBn?'শিল্ড প্রোটোকল':'SHIELD PROTOCOL',
+        items:[
+          {icon:'🛡',title:isBn?'শিল্ড কী?':'What is the Shield?',body:isBn?
+            '৪০ দিন (বা মহিলাদের জন্য ৩০/৪০ দিন নির্বাচনযোগ্য) ধারাবাহিকভাবে সব ফরজ নামাজ সম্পন্ন করলে <strong>শিল্ড প্রোটোকল</strong> আনলক হয়। এটি আপনার আধ্যাত্মিক শৃঙ্খলার একটি সত্যতা প্রমাণ।':
+            'Complete all Fard prayers for <strong>40 consecutive days</strong> (females can choose 30 or 40) to unlock the Shield Protocol — a certificate of spiritual discipline.'},
+          {icon:'📜',title:isBn?'অথেনটিকেশন ক্লেইম':'Authentication Claim',body:isBn?
+            '৪০ দিন পূর্ণ হলে শিল্ড পৃষ্ঠায় একটি ফর্ম আনলক হয়। নাম, প্রশংসাপত্র এবং তারিখ দিয়ে জমা দিন। এটি আপনার ব্যক্তিগত মাইলস্টোন।':
+            'Once 40 days are complete, a form unlocks on the Shield page. Submit your name, testimony, and date achieved. This is your personal milestone record.'},
+          {icon:'🏆',title:isBn?'অর্জন ব্যাজ':'Achievement Badges',body:isBn?
+            'শিল্ড পৃষ্ঠায় ১০টি ব্যাজ আছে। নির্দিষ্ট লক্ষ্য পূরণ করলে আনলক হয়:<ul><li>প্রথম সিঙ্ক, ৭/১৪/৩০/৪০ দিনের স্ট্রিক</li><li>১০০০ ও ৫০০০ XP</li><li>লেভেল ৫</li><li>৭টি নিখুঁত দিন</li><li>৩০ বার ফজর সময়মতো</li></ul>':
+            'There are 10 achievement badges on the Shield page. Unlock them by hitting specific goals:<ul><li>First sync, 7/14/30/40-day streaks</li><li>1000 & 5000 XP</li><li>Reach Level 5</li><li>7 perfect days</li><li>30 Fajr on-time</li></ul>'},
+        ]
+      },
+      {
+        title:isBn?'ক্যালেন্ডার ও পরিসংখ্যান':'CALENDAR & STATISTICS',
+        items:[
+          {icon:'📅',title:isBn?'ক্যালেন্ডার বোঝা':'Reading the Calendar',body:isBn?
+            'ইতিহাস পৃষ্ঠায় রঙিন ক্যালেন্ডার দেখুন:<ul><li><span style="color:var(--green)">■</span> সবুজ = সব নামাজ সম্পন্ন</li><li><span style="color:var(--gold)">■</span> হলুদ = আংশিক সম্পন্ন</li><li><span style="color:var(--danger)">■</span> লাল = মিস</li></ul>প্রথম সিঙ্কের আগে ক্যালেন্ডার লক থাকে।':
+            'The History page shows a color-coded calendar:<ul><li><span style="color:var(--green)">■</span> Green = All prayers done</li><li><span style="color:var(--gold)">■</span> Yellow = Partial</li><li><span style="color:var(--danger)">■</span> Red = Missed</li></ul>Calendar is locked until your first sync.'},
+          {icon:'📊',title:isBn?'পরিসংখ্যান পৃষ্ঠা':'Statistics Page',body:isBn?
+            'গত ৭ দিনের বার চার্ট, মোট XP, নিখুঁত দিনের হার, গড় XP এবং ফজর সময়মতো কাউন্ট দেখুন।':
+            'View the last 7 days bar chart, total XP, perfect day rate, average XP, and Fajr on-time count.'},
+        ]
+      },
+      {
+        title:isBn?'নোটপ্যাড':'NOTEPAD',
+        items:[
+          {icon:'📝',title:isBn?'নোট যোগ করা':'Adding Notes',body:isBn?
+            'নোটপ্যাড পৃষ্ঠায় শিরোনাম ও টেক্সট লিখুন এবং <strong>ADD NOTE</strong> চাপুন। দীর্ঘ নোট স্বয়ংক্রিয়ভাবে সংকুচিত হয় — "SEE MORE" দিয়ে পূর্ণ দেখুন।':
+            'On the Notepad page, write a title and text then press <strong>ADD NOTE</strong>. Long notes auto-truncate — tap "SEE MORE" to expand.'},
+          {icon:'📦',title:isBn?'আর্কাইভ ও ট্র্যাশ':'Archive & Trash',body:isBn?
+            '<ul><li><strong>📦 আর্কাইভ:</strong> নোট রাখুন কিন্তু মূল তালিকা থেকে সরান।</li><li><strong>🗑 ট্র্যাশ:</strong> সাময়িকভাবে সরান।</li><li><strong>💀 স্থায়ী মুছুন:</strong> ট্র্যাশ থেকে চিরতরে মুছুন।</li></ul>ফিল্টার বাটন দিয়ে ACTIVE / ARCHIVED / TRASH দেখুন।':
+            '<ul><li><strong>📦 Archive:</strong> Keep but remove from main view.</li><li><strong>🗑 Trash:</strong> Temporarily remove.</li><li><strong>💀 Delete Forever:</strong> Permanently delete from Trash.</li></ul>Use filter buttons to view ACTIVE / ARCHIVED / TRASH.'},
+        ]
+      },
+      {
+        title:isBn?'সেটিংস ও ডেটা':'SETTINGS & DATA',
+        items:[
+          {icon:'🎨',title:isBn?'থিম পরিবর্তন':'Changing Theme',body:isBn?
+            'Settings → Theme Engine → AUTO (সিস্টেম অনুযায়ী) / DAY (উজ্জ্বল) / NIGHT (সাইবারপাংক ডার্ক)।':
+            'Settings → Theme Engine → AUTO (follows system) / DAY (bright Android-style) / NIGHT (cyberpunk dark).'},
+          {icon:'🔤',title:isBn?'UI স্কেল':'UI Scale',body:isBn?
+            'Settings → UI Scale স্লাইডার দিয়ে ৮৫% থেকে ১১৫% পর্যন্ত সম্পূর্ণ UI সাইজ পরিবর্তন করুন।':
+            'Settings → UI Scale slider adjusts the entire interface from 85% to 115%.'},
+          {icon:'📤',title:isBn?'ডেটা এক্সপোর্ট / ইম্পোর্ট':'Export / Import Data',body:isBn?
+            '<strong>EXPORT JSON</strong> চাপলে আপনার সব ডেটা JSON ফাইলে ডাউনলোড হয়। <strong>IMPORT JSON</strong> দিয়ে পুরনো ব্যাকআপ পুনরুদ্ধার করুন। নতুন ডিভাইসে ডেটা ট্রান্সফারের জন্য ব্যবহার করুন।':
+            'Press <strong>EXPORT JSON</strong> to download all your data. Use <strong>IMPORT JSON</strong> to restore a backup. Perfect for transferring data to a new device.'},
+          {icon:'⚠️',title:isBn?'হার্ড রিসেট':'Hard Reset',body:isBn?
+            'Settings → HARD SYSTEM RESET সব ডেটা স্থায়ীভাবে মুছে দেয় — XP, স্ট্রিক, ইতিহাস, নোট সব। <strong>এটি পূর্বাবস্থায় ফেরানো যাবে না।</strong> রিসেটের আগে অবশ্যই এক্সপোর্ট করুন।<div class="help-tip">রিসেটের আগে সবসময় EXPORT JSON করুন।</div>':
+            'Settings → HARD SYSTEM RESET permanently deletes all data — XP, streak, history, notes. <strong>This cannot be undone.</strong><div class="help-tip">Always EXPORT JSON before resetting.</div>'},
+        ]
+      },
+      {
+        title:isBn?'নামাজের গাইড':'PRAYER GUIDE',
+        items:[
+          {icon:'💧',title:isBn?'গাইড পৃষ্ঠা কোথায়?':'Where is the Prayer Guide?',body:isBn?
+            'নিচের নেভিগেশনে <strong>GUIDE</strong> বাটন ট্যাপ করুন। ওযু, ফজর, যোহর, আসর, মাগরিব, ইশা এবং বিতরের ধাপে ধাপে নির্দেশিকা পাবেন। প্রতিটি কার্ড ট্যাপ করলে বিস্তারিত দেখা যায়।':
+            'Tap the <strong>GUIDE</strong> button in the bottom navigation. You\'ll find step-by-step instructions for Wudu, Fajr, Dhuhr, Asr, Maghrib, Isha, and Witr. Tap each card to expand.'},
+        ]
+      },
+    ]
+  };
+}
+
+function showWelcome(){
+  const isBn=state.lang==='bn';
+  const t=id=>document.getElementById(id);
+  if(t('wt-title'))t('wt-title').textContent=isBn?'PRAYERITY কিভাবে ব্যবহার করবেন':'HOW TO USE PRAYERITY';
+  if(t('wt-sub'))t('wt-sub').textContent=isBn?'৩০ সেকেন্ডে শুরু করুন।':'Get started in 30 seconds.';
+  const steps=isBn?[
+    {b:'নামাজ কার্ডে ট্যাপ করুন',r:'প্যানেল খুলবে। আজকের সম্পন্ন টাস্কগুলো চেক করুন।'},
+    {b:'মধ্যরাতের আগে সিঙ্ক করুন',r:'XP ও স্ট্রিক লক হয়ে যাবে। ফরজ মিস হলে স্ট্রিক রিসেট।'},
+    {b:'← → তীরচিহ্ন ব্যবহার করুন',r:'১৪ দিন পর্যন্ত পেছনে গিয়ে মিস করা নামাজ পূরণ করুন।'},
+    {b:'জামায়াত ও মসজিদ',r:'বোনাস XP পাবেন। ৪০ দিনের স্ট্রিকে শিল্ড আনলক হবে।'},
+  ]:[
+    {b:'Tap a prayer card',r:'to expand it, then tick each task you completed today.'},
+    {b:'Sync before midnight',r:'to lock in your XP and streak. Missing a Fard resets your streak.'},
+    {b:'Use ← → arrows',r:'to go back up to 14 days and fill in any missed prayers.'},
+    {b:'Jamah & Mosque',r:'give bonus XP. Build your streak to unlock the Shield Protocol.'},
+  ];
+  if(t('wt-steps'))t('wt-steps').innerHTML=steps.map((s,i)=>`
+    <div class="welcome-step">
+      <div class="welcome-num">${i+1}</div>
+      <div class="welcome-step-text"><strong>${s.b}</strong> ${s.r}</div>
+    </div>`).join('');
+  if(t('wt-guide'))t('wt-guide').textContent=isBn?'সম্পূর্ণ গাইড খুলুন →':'Open Full Guide →';
+  if(t('wt-skip'))t('wt-skip').textContent=isBn?'বুঝেছি, চলুন শুরু করি':'Got it, let\'s go';
+  document.getElementById('welcomeBackdrop').classList.add('show');
+}
+function closeWelcome(){
+  document.getElementById('welcomeBackdrop').classList.remove('show');
+  sessionStorage.setItem('wp_shown','1');
+}
+function closeWelcomeOpenHelp(){
+  closeWelcome();
+  setTimeout(()=>openHelp(), 320);
+}
+
+function openHelp(){
+  playSound('tap');
+  const overlay=document.getElementById('helpOverlay');
+  const content=document.getElementById('helpContent');
+  overlay.classList.remove('hidden');
+  const data=getHelpData();
+  content.innerHTML=data.sections.map((sec,si)=>`
+    <div class="help-section">
+      <div class="help-section-title">${sec.title}</div>
+      ${sec.items.map((item,ii)=>`
+        <div class="help-item" onclick="toggleHelp(${si},${ii})">
+          <div class="help-item-header">
+            <div class="help-item-icon">${item.icon}</div>
+            <div class="help-item-title">${item.title}</div>
+            <span class="help-item-chev" id="hchev-${si}-${ii}">▼</span>
+          </div>
+          <div class="help-item-body" id="hbody-${si}-${ii}">${item.body}</div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+function closeHelp(){
+  playSound('tap');
+  document.getElementById('helpOverlay').classList.add('hidden');
+}
+function toggleHelp(si,ii){
+  const body=document.getElementById(`hbody-${si}-${ii}`);
+  const chev=document.getElementById(`hchev-${si}-${ii}`);
+  if(!body)return;
+  const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  if(chev)chev.classList.toggle('open',!open);
+  playSound('tap');
+}
+
+/* ═══════════════════════════════════════════════════════
+   ADMIN PANEL
+═══════════════════════════════════════════════════════ */
+// SECRET: The clue is "What is the first word of the app motto in Bengali?" → answer: "নামাজ"
+// Change ADMIN_ANSWER to whatever secret you want
+const ADMIN_ANSWER='elliuuren2024';
+const ADMIN_CLUE='The creator\'s name + the year this app was born.\n(all lowercase, no spaces)';
+const SHEET_URL='https://docs.google.com/spreadsheets/d/1dJbuz1bZpp_SyRzLbyFedos4Za6X7L7u4q7-3Gqshxw/edit?usp=drivesdk';
+
+let adminAttempts=0;
+
+function openAdminGate(){
+  document.getElementById('adminGate').classList.remove('hidden');
+  document.getElementById('adminClueText').textContent=ADMIN_CLUE;
+  document.getElementById('adminAnswer').value='';
+  document.getElementById('adminGateErr').classList.remove('show');
+  playSound('tap');
+}
+function closeAdminGate(){
+  document.getElementById('adminGate').classList.add('hidden');
+}
+function checkAdminAnswer(){
+  const ans=document.getElementById('adminAnswer').value.trim().toLowerCase();
+  if(ans===ADMIN_ANSWER.toLowerCase()){
+    closeAdminGate();
+    openAdmin();
+  }else{
+    adminAttempts++;
+    document.getElementById('adminGateErr').classList.add('show');
+    document.getElementById('adminAnswer').value='';
+    playSound('warn');
+    if(adminAttempts>=5){
+      document.getElementById('adminGateErr').textContent='Too many attempts. Come back later.';
+      setTimeout(closeAdminGate,2000);
+      adminAttempts=0;
+    }
+  }
+}
+function openAdmin(){
+  document.getElementById('adminPanel').classList.remove('hidden');
+  // Load saved note
+  const note=localStorage.getItem('prayerity_admin_note')||'';
+  document.getElementById('adminNote').value=note;
+  // Load sheet stats
+  document.getElementById('ad-users').textContent='Open sheet to view';
+  document.getElementById('ad-shields').textContent=state.streak>=40?'This device: YES':'This device: NO';
+  playSound('unlock');
+}
+function closeAdmin(){
+  document.getElementById('adminPanel').classList.add('hidden');
+  playSound('tap');
+}
+function adminOpenSheet(){
+  window.open(SHEET_URL,'_blank');
+}
+function adminOpenEmail(){
+  window.open('https://mail.yahoo.com','_blank');
+}
+function adminExportAll(){
+  exportData();
+}
+function showCertModal(){
+  const isBn=state.lang==='bn';
+  playSound('unlock');
+  showModal({
+    icon:'🛡',
+    title:isBn?'শিল্ড সম্পন্ন!':'SHIELD COMPLETE!',
+    titleClass:'success',
+    body:isBn?
+      `অভিনন্দন ${state.name}! আপনি ৪০ দিনের চ্যালেঞ্জ সম্পন্ন করেছেন। একটি প্রিমিয়াম ফিজিক্যাল সার্টিফিকেটের জন্য আবেদন করুন — মাত্র ১০০ টাকা অনুদানে।`:
+      `Congratulations ${state.name}! You completed the 40-Day Challenge. Claim your premium physical certificate with a 100 Taka donation.`,
+    actions:[
+      {
+        label:isBn?'সার্টিফিকেট আবেদন করুন':'CLAIM CERTIFICATE',
+        cls:'confirm',
+        fn:()=>sendCertEmail()
+      },
+      {
+        label:isBn?'পরে':'LATER',
+        cls:'cancel',
+        fn:()=>{}
+      }
+    ]
+  });
+}
+
+function sendCertEmail(){
+  const isBn=state.lang==='bn';
+  const subject=encodeURIComponent('Prayerity 40-Day Shield Certificate Claim');
+  const body=encodeURIComponent(
+`Assalamu Alaikum,
+
+I have completed the Prayerity 40-Day Shield Challenge and would like to claim my premium physical certificate.
+
+--- My Details ---
+Name: ${state.name}
+Streak Achieved: ${state.streak} days
+Total XP: ${state.totalXp}
+Date Completed: ${todayStr()}
+Language: ${state.lang==='bn'?'Bengali':'English'}
+
+I am willing to make a 100 Taka donation for the premium certificate.
+Please guide me on the payment process.
+
+If unable to donate, I would like to inquire about the economy certification option.
+
+JazakAllah Khair,
+${state.name}
+
+Sent from Prayerity App by Ellipps`
+  );
+  const mailto=`mailto:easanians@yahoo.com?subject=${subject}&body=${body}`;
+  window.location.href=mailto;
+  showToast(isBn?'ইমেইল অ্যাপ খোলা হচ্ছে...':'Opening email app...','success');
+}
+function saveAdminNote(){
+  const note=document.getElementById('adminNote').value;
+  localStorage.setItem('prayerity_admin_note',note);
+  showToast('Admin note saved','success');
+  playSound('sync');
+}
+function adminUnlockShield(){
+  state.streak=40;saveState();renderAll();renderShield();
+  showToast('Shield unlocked','success');
+  playSound('unlock');
+}
+function adminSetXP(){
+  state.totalXp=42000;saveState();renderAll();
+  showToast('XP set to max','success');
+  playSound('sync');
+}
+function adminResetStreak(){
+  state.streak=0;saveState();renderAll();renderShield();
+  showToast('Streak reset','success');
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1853,6 +2336,7 @@ function finishOnboarding(){
     renderAll();
     initParticles();
     initAthanSystem();
+    if(!sessionStorage.getItem('wp_shown')) showWelcome();
     playSound('welcome');
   },560);
 }
@@ -2145,6 +2629,13 @@ function renderPrayerCards(){
     `;
     container.appendChild(card);
     setTimeout(()=>card.classList.add('revealed'),40+idx*60);
+    // Restore open state
+if(openCards.has(prayer.id)){
+  const body=document.getElementById(`tasks-${prayer.id}`);
+  const chev=document.getElementById(`chev-${prayer.id}`);
+  if(body)body.style.display='block';
+  if(chev)chev.classList.add('open');
+}
   });
 
   // Show/hide sync
@@ -2179,7 +2670,7 @@ function renderTask(task,checked,synced){
         <svg viewBox="0 0 12 12" fill="none" stroke="#030305" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg>
       </div>
       <div class="task-label">${T(task.labelKey)}${task.mandatory?'<span class="m-dot"></span>':''}</div>
-      <div class="task-xp${task.mandatory?' m-lbl':''}">${task.mandatory?'FARD':'+'+task.xp+' XP'}</div>
+      <div class="task-xp${task.mandatory?' m-lbl':''}">${task.mandatory?'Mandatory':'+'+task.xp+' XP'}</div>
     </div>`;
 }
 
@@ -2188,6 +2679,7 @@ function toggleCard(id){
   const chev=document.getElementById(`chev-${id}`);
   if(!body)return;
   const vis=body.style.display!=='none';
+  if(vis){openCards.delete(id);}else{openCards.add(id);}
   body.style.display=vis?'none':'block';
   if(chev)chev.classList.toggle('open',!vis);
   playSound('tap');
@@ -2196,10 +2688,24 @@ function toggleTask(taskId){
   const ds=getDateString(currentDateOffset);
   const day=getDayData(ds);
   if(day.synced)return;
+  // Find which prayer this task belongs to
+  const prayer=getPrayers().find(p=>p.tasks.some(t=>t.id===taskId));
   day.taskStates[taskId]=!day.taskStates[taskId];
   setDayData(ds,day);saveState();
+  // Auto-collapse only if ALL tasks of this prayer are done
+  if(prayer){
+    const allDone=prayer.tasks.every(t=>day.taskStates[t.id]);
+    if(allDone){
+      openCards.delete(prayer.id);
+      playSound('sync');
+    } else {
+      // Keep it open
+      openCards.add(prayer.id);
+    }
+  }
   renderPrayerCards();updateXPDisplay();
-  triggerHaptic('success-mini');playSound('check');}
+  triggerHaptic('success-mini');playSound('check');
+}
 function toggleMensesSkip(prayerId,val){
   const ds=getDateString(currentDateOffset);
   const day=getDayData(ds);
@@ -2299,6 +2805,13 @@ function doSync(ds){
   checkAchievements();
   saveState();
   syncToSheets();
+  // Auto cert trigger at exactly 40 days
+const target=state.mensesChallenge||40;
+if(state.streak===target&&!state.certEmailSent){
+  state.certEmailSent=true;
+  saveState();
+  setTimeout(()=>showCertModal(),1500);
+}
   // UI
   triggerHaptic('success');playSound('sync');
   showToast(`✅ Synced! +${gainedXp} XP`,'success');
@@ -2461,17 +2974,17 @@ return [
   {id:'wudu',icon:'💧',name:isBn?'উযু — পবিত্রতা অর্জন':'WUDU — ABLUTION',steps:[
     {t:isBn?'নিয়ত':'Intention (Niyyah)',b:isBn?'ইবাদতের উদ্দেশ্যে মনে মনে উযুর নিয়ত করুন।':'Make the intention in your heart to perform wudu for the purpose of worship.'},
     {t:isBn?'বিসমিল্লাহ':'Bismillah',b:isBn?'শুরুতে <strong>বিসমিল্লাহ</strong> বলুন।':'Say <strong>Bismillah</strong> (In the name of Allah) before starting.'},
-    {t:isBn?'হাত ধোয়া':'Wash Hands',b:isBn?'ডান হাত থেকে শুরু করে উভয় হাত কব্জি পর্যন্ত <strong>৩ বার</strong> ধুন।':'Wash both hands up to the wrists <strong>3 times</strong>, starting with the right.'},
+    {t:isBn?'হাত ধোয়া':'Wash Hands',b:isBn?'ডান হাত থেকে শুরু করে উভয় হাত কব্জি পর্যন্ত <strong>৩ বার</strong> ধুয়ে নিন।':'Wash both hands up to the wrists <strong>3 times</strong>, starting with the right.'},
     {t:isBn?'কুলি করা':'Rinse Mouth',b:isBn?'মুখে পানি নিয়ে ভালোভাবে কুলি করুন <strong>৩ বার</strong>।':'Take water into the mouth and rinse thoroughly <strong>3 times</strong>.'},
     {t:isBn?'নাক পরিষ্কার':'Rinse Nose',b:isBn?'নাকে পানি দিয়ে <strong>৩ বার</strong> পরিষ্কার করুন।':'Sniff water into the nose and blow it out <strong>3 times</strong>.'},
-    {t:isBn?'মুখ ধোয়া':'Wash Face',b:isBn?'কপালের চুলের সীমা থেকে থুতনি পর্যন্ত এবং এক কান থেকে অন্য কান পর্যন্ত <strong>৩ বার</strong> ধুন।':'Wash the entire face from hairline to chin, ear to ear <strong>3 times</strong>.'},
-    {t:isBn?'হাত কনুই পর্যন্ত':'Wash Arms',b:isBn?'ডান হাত কনুই পর্যন্ত <strong>৩ বার</strong> ধুন, তারপর বাম হাত।':'Wash the right arm up to the elbow <strong>3 times</strong>, then the left.'},
+    {t:isBn?'মুখ ধোয়া':'Wash Face',b:isBn?'কপালের চুলের সীমা থেকে থুতনি পর্যন্ত এবং এক কান থেকে অন্য কান পর্যন্ত <strong>৩ বার</strong> ধুয়ে নিন।':'Wash the entire face from hairline to chin, ear to ear <strong>3 times</strong>.'},
+    {t:isBn?'হাত কনুই পর্যন্ত':'Wash Arms',b:isBn?'ডান হাত কনুই পর্যন্ত <strong>৩ বার</strong> ধুয়ে নিন, তারপর বাম হাত।':'Wash the right arm up to the elbow <strong>3 times</strong>, then the left.'},
     {t:isBn?'মাথা মাসেহ':'Wipe Head',b:isBn?'ভেজা হাতে পুরো মাথা <strong>একবার</strong> মাসেহ করুন।':'Wipe the entire head with wet hands <strong>once</strong>.'},
     {t:isBn?'কান মাসেহ':'Wipe Ears',b:isBn?'বুড়ো আঙুল দিয়ে কানের বাইরে এবং তর্জনী দিয়ে ভেতরে মাসেহ করুন।':'Wipe the inside of ears with index fingers and outside with thumbs <strong>once</strong>.'},
-    {t:isBn?'পা ধোয়া':'Wash Feet',b:isBn?'ডান পা গোড়ালি পর্যন্ত <strong>৩ বার</strong> ধুন, আঙুলের ফাঁকে পানি পৌঁছান।':'Wash the right foot up to the ankle <strong>3 times</strong>, then the left.'},
+    {t:isBn?'পা ধোয়া':'Wash Feet',b:isBn?'ডান পা গোড়ালি পর্যন্ত <strong>৩ বার</strong> ধুয়ে নিন, আঙুলের ফাঁকে পানি পৌঁছান।':'Wash the right foot up to the ankle <strong>3 times</strong>, then the left.'},
   ],note:isBn?'উযু ভাঙে: টয়লেট ব্যবহার, বায়ু নির্গমন, গভীর ঘুম, রক্তপাত বা চেতনা হারানোতে।':'Wudu is invalidated by: using the toilet, passing wind, deep sleep, bleeding, or loss of consciousness.'},
-  {id:'fajr',icon:'🌅',name:isBn?'ফজর — ফজরের নামাজ':'FAJR — DAWN PRAYER',steps:[
-    {t:isBn?'সময়':'Time',b:isBn?'সত্যিকারের ফজর থেকে সূর্যোদয়ের আগ পর্যন্ত।':'From true dawn (Fajr) until just before sunrise.'},
+  {id:'fajr',icon:'🌅',name:isBn?'ফজর — ভোরের নামাজ':'FAJR — DAWN PRAYER',steps:[
+    {t:isBn?'সময়':'Time',b:isBn?'সুবহে সাদিক থেকে সূর্যোদয়ের আগ পর্যন্ত।':'From true dawn (Fajr) until just before sunrise.'},
     {t:isBn?'সুন্নত (২ রাকাত)':'Sunnah (2 Rak\'ah)',b:isBn?'ফরজের আগে ২ রাকাত সুন্নত মুয়াক্কাদা পড়ুন।':'Pray 2 Rak\'ah Sunnah Mu\'akkadah before the Fard. This is highly emphasized.'},
     {t:isBn?'ফরজ (২ রাকাত)':'Fard (2 Rak\'ah)',b:isBn?'২ রাকাত ফরজ পড়ুন — উভয় রাকাতে সূরা ফাতেহা ও অন্য সূরা সশব্দে পড়ুন।':'Pray 2 Rak\'ah Fard. Recite Surah Al-Fatiha and another Surah aloud in both Rak\'ah.'},
     {t:isBn?'কাঠামো':'Structure',b:isBn?'<strong>১ম রাকাত:</strong> নিয়ত → তাকবির → সানা → ফাতেহা → সূরা → রুকু → সেজদা ×২<br><strong>২য় রাকাত:</strong> ফাতেহা → সূরা → রুকু → সেজদা ×২ → তাশাহহুদ → সালাম':'<strong>Rak\'ah 1:</strong> Niyyah → Takbir → Thana → Fatiha → Surah → Ruku → Sujud ×2<br><strong>Rak\'ah 2:</strong> Fatiha → Surah → Ruku → Sujud ×2 → Tashahhud → Salaam'},
