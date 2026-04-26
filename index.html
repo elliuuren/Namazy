@@ -103,6 +103,7 @@ button{cursor:pointer;}
 .ob-slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;padding-top:max(2.5rem,env(safe-area-inset-top));will-change:transform,opacity;backface-visibility:hidden;opacity:0;transform:translateX(60px);transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1);pointer-events:none;}
 .ob-slide.active{opacity:1;transform:translateX(0);pointer-events:auto;}
 .ob-slide.exit-left{opacity:0;transform:translateX(-60px);}
+.ob-slide.exit-right{opacity:0;transform:translateX(60px);}
 
 /* Feature showcase */
 .ob-hero{text-align:center;width:100%;max-width:420px;margin-bottom:2rem;}
@@ -211,20 +212,47 @@ button{cursor:pointer;}
 #app{display:none;min-height:100dvh;flex-direction:column;position:relative;z-index:1;}
 #app.visible{display:flex;}
 
+/* ── Custom dropdown ── */
+.ob-dropdown-wrap{position:relative;width:100%;margin-bottom:.75rem;}
+.ob-dropdown-trigger{width:100%;padding:.9rem 1rem;background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:12px;color:var(--text);font-size:.82rem;text-align:left;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:border-color .2s;}
+.ob-dropdown-trigger.open{border-color:var(--cyan);}
+.ob-dropdown-trigger-label{color:var(--muted);font-size:.75rem;}
+.ob-dropdown-trigger-label.chosen{color:var(--text);}
+.ob-dropdown-trigger svg{width:14px;height:14px;stroke:var(--muted);transition:transform .25s;}
+.ob-dropdown-trigger.open svg{transform:rotate(180deg);}
+.ob-dropdown-list{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg2);border:1px solid var(--border2);border-radius:12px;z-index:200;overflow:hidden;max-height:0;opacity:0;transition:max-height .3s cubic-bezier(.4,0,.2,1),opacity .2s;pointer-events:none;}
+.ob-dropdown-list.open{max-height:220px;opacity:1;pointer-events:all;overflow-y:auto;}
+.ob-dropdown-item{padding:.75rem 1rem;font-size:.8rem;color:var(--text);cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:.5rem;}
+.ob-dropdown-item:active,.ob-dropdown-item:hover{background:rgba(0,242,255,.06);}
+.ob-dropdown-item.selected{color:var(--cyan);}
+.ob-dropdown-item-check{width:14px;height:14px;flex-shrink:0;}
+.ob-dropdown-separator{height:1px;background:var(--border2);margin:.2rem 0;}
+.ob-new-academy-field{padding:.5rem .75rem .75rem;border-top:1px solid var(--border2);}
+.ob-new-academy-field input{width:100%;padding:.6rem .75rem;background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.78rem;outline:none;}
+.ob-new-academy-field input:focus{border-color:var(--cyan);}
+
 /* ══════════════════════════════════════════════════════
    NAV BAR — Glassmorphism
 ══════════════════════════════════════════════════════ */
-nav{position:fixed;bottom:8px;left:8px;right:8px;border-radius:20px;background:rgba(3,3,5,.92);backdrop-filter:blur(32px) saturate(180%);-webkit-backdrop-filter:blur(32px) saturate(180%);border:1px solid var(--border);display:flex;z-index:100;padding-bottom:0;overflow:hidden;}
+nav{position:fixed;bottom:8px;left:8px;right:8px;border-radius:20px;background:rgba(3,3,5,.20);backdrop-filter:blur(32px) saturate(180%);-webkit-backdrop-filter:blur(32px) saturate(180%);border:1px solid var(--border);display:flex;z-index:100;padding-bottom:0;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;-webkit-mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);}
+nav::-webkit-scrollbar{display:none;}
 [data-theme="day"] nav{background:rgba(240,240,255,.9);}
-.nav-btn{flex:1;padding:.8rem .2rem .6rem;display:flex;flex-direction:column;align-items:center;gap:.2rem;background:none;border:none;color:var(--muted);transition:var(--trans);font-family:var(--font-head);font-size:.42rem;letter-spacing:.08em;text-transform:uppercase;position:relative;overflow:hidden;}
+.nav-btn{flex:0 0 calc(100%/5);min-width:calc(100%/5);padding:.8rem .2rem .6rem;display:flex;flex-direction:column;align-items:center;gap:.2rem;background:none;border:none;color:var(--muted);transition:var(--trans);font-family:var(--font-head);font-size:.42rem;letter-spacing:.08em;text-transform:uppercase;position:relative;overflow:hidden;}
 .nav-btn svg{width:18px;height:18px;stroke-width:1.5;transition:var(--trans);}
+.nav-btn.active svg{width:22px;height:22px;}
 .nav-btn::before{content:'';position:absolute;inset:0;background:rgba(0,242,255,.04);opacity:0;transition:opacity .3s;}
 .nav-btn:hover::before{opacity:1;}
 .nav-btn.active{color:var(--cyan);}
+.nav-btn.active::before{content:'';position:absolute;top:.3rem;left:50%;transform:translateX(-50%);width:36px;height:36px;border-radius:10px;background:rgba(0,242,255,.10);z-index:0;}
+.nav-btn.active svg,.nav-btn.active span{position:relative;z-index:1;}
 .nav-btn.active svg{filter:drop-shadow(0 0 5px var(--cyan));}
 .nav-btn::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));border-radius:2px 2px 0 0;transition:width .35s cubic-bezier(.4,0,.2,1);}
 .nav-btn.active::after{width:70%;}
 .nav-btn:active{transform:scale(.9);}
+.prayer-card{transition:transform .12s ease,box-shadow .2s ease;}
+.prayer-card:active{transform:scale(.985);}
+.ob-gender-card:active{transform:scale(.96);}
+.ob-lang-card:active{transform:scale(.96);}
 .nav-badge{position:absolute;top:.55rem;right:calc(50% - 14px);background:var(--danger);color:#fff;font-size:.38rem;font-weight:700;border-radius:99px;min-width:14px;height:14px;display:flex;align-items:center;justify-content:center;padding:0 3px;animation:badgePop .3s cubic-bezier(.34,1.56,.64,1);}
 @keyframes badgePop{from{transform:scale(0)}to{transform:scale(1)}}
 
@@ -235,9 +263,23 @@ nav{position:fixed;bottom:8px;left:8px;right:8px;border-radius:20px;background:r
 .header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.3rem;}
 .app-title{font-family:var(--font-orb);font-size:.85rem;font-weight:700;letter-spacing:.18em;color:var(--cyan);text-shadow:var(--neon-text-cyan);}
 .version-badge{font-size:.45rem;background:rgba(188,19,254,.12);border:1px solid rgba(188,19,254,.25);color:var(--purple);padding:.18rem .5rem;border-radius:20px;font-family:var(--font-head);letter-spacing:.12em;}
-.header-sub{font-size:.68rem;color:var(--muted);}
+.header-sub{font-size:.75rem;color:var(--muted);line-height:1.5;}
 .header-actions{display:flex;align-items:center;gap:.5rem;}
 .header-icon-btn{width:32px;height:32px;border-radius:var(--r8);background:var(--card);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;color:var(--muted2);transition:var(--trans);}
+.notif-badge{position:absolute;top:4px;right:4px;width:8px;height:8px;border-radius:50%;background:var(--danger,#ff4444);border:1.5px solid var(--bg);display:none;}
+.notif-badge.show{display:block;}
+.notif-panel{position:fixed;top:calc(3.5rem + env(safe-area-inset-top));right:.75rem;width:min(320px,92vw);background:var(--bg2);border:1px solid var(--border2);border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:150;display:none;overflow:hidden;max-height:70dvh;overflow-y:auto;}
+.notif-panel.open{display:block;}
+.notif-item{display:flex;align-items:flex-start;gap:.65rem;padding:.75rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .15s;}
+.notif-item:last-child{border-bottom:none;}
+.notif-item:active{background:rgba(255,255,255,.04);}
+.notif-item.unread{background:rgba(0,242,255,.03);}
+.notif-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);flex-shrink:0;margin-top:.3rem;}
+.notif-dot.read{background:transparent;border:1.5px solid var(--border2);}
+.notif-item-title{font-size:.72rem;font-weight:600;margin-bottom:.15rem;}
+.notif-item-body{font-size:.67rem;color:var(--muted2);line-height:1.5;}
+.notif-item-time{font-size:.58rem;color:var(--muted);margin-top:.2rem;}
+.notif-header{display:flex;align-items:center;justify-content:space-between;padding:.65rem 1rem;border-bottom:1px solid var(--border2);font-family:var(--font-head);font-size:.5rem;letter-spacing:.18em;color:var(--muted);}
 .header-icon-btn:hover{border-color:var(--cyan);color:var(--cyan);}
 
 
@@ -260,7 +302,7 @@ nav{position:fixed;bottom:8px;left:8px;right:8px;border-radius:20px;background:r
 .xp-bar-bg{height:5px;background:rgba(255,255,255,.05);border-radius:6px;overflow:hidden;margin-bottom:.85rem;}
 .xp-bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--cyan),var(--purple));position:relative;transition:width .8s cubic-bezier(.4,0,.2,1);}
 .xp-bar-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);background-size:200% 100%;animation:shimmer 2.5s infinite;}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}} @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .stats-row{display:flex;gap:.5rem;}
 .stat-chip{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:var(--r8);padding:.45rem .3rem;text-align:center;transition:var(--trans);cursor:pointer;}
 .stat-chip:hover{background:rgba(255,255,255,.06);border-color:var(--border);}
@@ -520,6 +562,7 @@ textarea.form-input{resize:none;}
 ══════════════════════════════════════════════════════ */
 .settings-section{margin:.5rem 1rem .75rem;background:var(--card);border:1px solid var(--border2);border-radius:var(--r16);overflow:hidden;}
 .settings-section-title{font-family:var(--font-head);font-size:.5rem;letter-spacing:.25em;color:var(--muted);padding:.75rem 1rem .5rem;border-bottom:1px solid rgba(255,255,255,.04);}
+.section-label{font-family:var(--font-head);font-size:.5rem;letter-spacing:.25em;color:var(--muted);padding:.65rem 1rem .4rem;position:sticky;top:0;z-index:10;background:var(--bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
 .settings-row{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1rem;border-bottom:1px solid rgba(255,255,255,.03);transition:background .2s;}
 .settings-row:last-child{border-bottom:none;}
 .settings-row:hover{background:rgba(255,255,255,.02);}
@@ -541,6 +584,7 @@ textarea.form-input{resize:none;}
 .settings-btn-small:hover{border-color:var(--cyan);box-shadow:var(--glow-cyan);}
 
 .privacy-text{padding:0 1rem .75rem;font-size:.75rem;color:var(--muted2);line-height:1.75;}
+
 .privacy-text h3{font-family:var(--font-head);font-size:.55rem;letter-spacing:.15em;color:var(--cyan);margin:1rem 0 .4rem;}
 .about-logo{font-family:var(--font-orb);font-size:1.2rem;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;margin:1rem 0 .3rem;}
 .about-company{font-family:var(--font-head);font-size:.45rem;letter-spacing:.4em;color:var(--muted);text-align:center;margin-bottom:1rem;}
@@ -687,6 +731,51 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
 .admin-gate-btn{width:100%;max-width:300px;padding:.8rem;background:transparent;border:1px solid #ff0040;border-radius:10px;color:#ff0040;font-family:var(--font-head);font-size:.6rem;letter-spacing:.2em;}
 .admin-gate-err{font-size:.7rem;color:#ff0040;margin-top:.5rem;opacity:0;transition:opacity .3s;text-align:center;}
 .admin-gate-err.show{opacity:1;}
+/* ══ ACADEMY PAGE ══ */
+.page-header-block{padding:max(3.5rem,calc(2rem + env(safe-area-inset-top))) 1.25rem 1rem;background:linear-gradient(180deg,rgba(0,242,255,.04) 0%,transparent 100%);}
+.page-title{font-family:var(--font-orb);font-size:.85rem;font-weight:700;letter-spacing:.18em;color:var(--cyan);text-shadow:var(--neon-text-cyan);margin-bottom:.2rem;}
+.page-sub{font-size:.68rem;color:var(--muted);}
+.section-label{font-family:var(--font-head);font-size:.5rem;letter-spacing:.28em;color:var(--muted);padding:.2rem 1.25rem .5rem;margin-top:.25rem;}
+
+/* ══ MENSTRUATION MODE — Soft red tint ══ */
+body.menses-mode{
+  --cyan:#ff4d6d;
+  --border:rgba(255,77,109,0.22);
+  --glow-cyan:0 0 20px rgba(255,77,109,0.15);
+  --neon-text-cyan:0 0 8px rgba(255,77,109,0.6);
+}
+body.menses-mode .xp-bar-fill{background:linear-gradient(90deg,#ff4d6d,#ff8fa3);}
+body.menses-mode .app-title{color:#ff4d6d;}
+body.menses-mode nav{border-top-color:rgba(255,77,109,0.25);}
+body.menses-mode .nav-btn.active{color:#ff4d6d;}
+body.menses-mode .nav-btn.active svg{filter:drop-shadow(0 0 5px #ff4d6d);}
+body.menses-mode .nav-btn::after{background:linear-gradient(90deg,#ff4d6d,#ff8fa3);}
+body.menses-mode .xp-panel::before{background:linear-gradient(90deg,transparent,rgba(255,77,109,0.4),transparent);}
+body.menses-mode .pp-fill{stroke:#ff4d6d !important;}
+body.menses-mode .task-check.checked{background:#ff4d6d;border-color:#ff4d6d;}
+body.menses-mode .level-name{background:linear-gradient(135deg,#ff4d6d,#ff8fa3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* ══ PROFILE DRAWER ══ */
+.profile-drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);z-index:300;opacity:0;pointer-events:none;transition:opacity .3s;}
+.profile-drawer-overlay.open{opacity:1;pointer-events:auto;}
+.profile-drawer{position:fixed;bottom:0;left:0;right:0;background:var(--bg3);border-radius:24px 24px 0 0;border-top:1px solid var(--border);z-index:301;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);max-height:88dvh;overflow-y:auto;padding-bottom:max(1.5rem,env(safe-area-inset-bottom));}
+.profile-drawer.open{transform:translateY(0);}
+.profile-drawer-handle{width:40px;height:4px;border-radius:4px;background:rgba(255,255,255,.12);margin:10px auto 0;}
+.profile-drawer-header{display:flex;flex-direction:column;align-items:center;padding:1rem 1rem .75rem;border-bottom:1px solid var(--border2);}
+.profile-drawer-avatar{width:70px;height:70px;border-radius:50%;background:var(--card);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:.6rem;position:relative;}
+.profile-drawer-avatar::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:1.5px solid var(--cyan);opacity:.4;}
+.profile-drawer-name{font-family:var(--font-orb);font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.04em;}
+.profile-drawer-sub{font-size:.65rem;color:var(--muted);margin-top:.15rem;}
+.profile-drawer-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;padding:.75rem 1rem;}
+.profile-drawer-stat{background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:.55rem .3rem;text-align:center;}
+.profile-drawer-stat-v{font-family:var(--font-orb);font-size:.8rem;display:block;}
+.profile-drawer-stat-l{font-size:.42rem;color:var(--muted);letter-spacing:.08em;font-family:var(--font-head);display:block;margin-top:.1rem;}
+.profile-drawer-section{margin:.25rem 1rem .5rem;background:var(--card);border:1px solid var(--border2);border-radius:14px;overflow:hidden;}
+.profile-drawer-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem .9rem;border-bottom:1px solid rgba(255,255,255,.03);}
+.profile-drawer-row:last-child{border-bottom:none;}
+.profile-drawer-key{font-size:.68rem;color:var(--muted);}
+.profile-drawer-val{font-size:.72rem;font-weight:500;color:var(--text);text-align:right;}
+.profile-drawer-close{width:100%;margin:.5rem 0 0;padding:.7rem;background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:12px;color:var(--muted2);font-family:var(--font-head);font-size:.55rem;letter-spacing:.15em;}
 </style>
 </head>
 <body>
@@ -796,8 +885,8 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
         <label class="ob-float-label">Your name</label>
       </div>
       <div class="ob-actions">
-        <button class="ob-cta ob-cta-secondary" onclick="obGoToSlide(0)">← Back</button>
-        <button class="ob-cta ob-cta-primary" id="ob-name-btn" onclick="obGoToSlide(2)" disabled>Continue →</button>
+        <button class="ob-cta ob-cta-secondary" onclick="playSound('tap');obGoToSlide(0)">← Back</button>
+        <button class="ob-cta ob-cta-primary" id="ob-name-btn" onclick="playSound('tap');obGoToSlide(2)" disabled>Continue →</button>
       </div>
     </div>
   </div>
@@ -831,8 +920,8 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
         Menstruation tracking unlocked. Prayers during this period can be individually skipped with no streak or XP loss.
       </div>
       <div class="ob-actions">
-        <button class="ob-cta ob-cta-secondary" onclick="obGoToSlide(1)">← Back</button>
-        <button class="ob-cta ob-cta-primary" id="ob-gender-btn" onclick="obGoToSlide(3)" disabled>Continue →</button>
+        <button class="ob-cta ob-cta-secondary" onclick="playSound('tap');obGoToSlide(1)">← Back</button>
+        <button class="ob-cta ob-cta-primary" id="ob-gender-btn" onclick="playSound('tap');obGoToSlide(3)" disabled>Continue →</button>
       </div>
     </div>
   </div>
@@ -856,11 +945,75 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
         </div>
       </div>
       <div class="ob-actions">
-        <button class="ob-cta ob-cta-secondary" onclick="obGoToSlide(2)">← Back</button>
-        <button class="ob-cta ob-cta-primary" id="ob-lang-btn" onclick="finishOnboarding()" disabled>Launch Prayerity →</button>
+        <button class="ob-cta ob-cta-secondary" onclick="playSound('tap');obGoToSlide(2)">← Back</button>
+        <button class="ob-cta ob-cta-primary" id="ob-lang-btn" onclick="playSound('tap');obGoToSlide(4)" disabled>Continue →</button>
         <div style="text-align:center;margin-top:1.5rem;">
   <span onclick="openAdminGate()" style="font-size:.4rem;color:rgba(255,255,255,0.3);font-family:var(--font-head);letter-spacing:.3em;user-select:none;">⬡</span>
 </div>
+      </div>
+    </div>
+  </div>
+  <!-- SLIDE 4: Student Info -->
+  <div class="ob-slide" id="ob-slide-4">
+    <div class="ob-form-slide">
+      <div class="ob-form-header">
+        <div class="ob-form-step" id="ob-s4-step">STEP 4 OF 4</div>
+        <div class="ob-form-title" id="ob-s4-title">Are you a student?</div>
+        <div class="ob-form-sub" id="ob-s4-sub">Connect to your academy for the leaderboard</div>
+      </div>
+      <div class="ob-gender-grid" style="margin-bottom:1rem">
+        <div class="ob-gender-card" id="ob-student-yes" onclick="obSelectStudent(true)">
+          <div class="ob-gender-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <div class="ob-gender-label" id="ob-s4-yes">YES</div>
+        </div>
+        <div class="ob-gender-card" id="ob-student-no" onclick="obSelectStudent(false)">
+          <div class="ob-gender-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
+          </div>
+          <div class="ob-gender-label" id="ob-s4-no">NO</div>
+        </div>
+      </div>
+      <div id="ob-student-fields" style="display:none;width:100%;max-width:420px">
+
+        <!-- Academy custom dropdown -->
+        <div class="ob-dropdown-wrap" id="ob-academy-wrap">
+          <button type="button" class="ob-dropdown-trigger" id="ob-academy-trigger" onclick="toggleAcademyDropdown()">
+            <span class="ob-dropdown-trigger-label" id="ob-academy-trigger-lbl">Academy / Institution</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="ob-dropdown-list" id="ob-academy-list"></div>
+        </div>
+
+        <!-- New academy name (shown inline when "Add new" chosen) -->
+        <div id="ob-new-academy-wrap" style="display:none;margin-bottom:.75rem">
+          <div class="ob-float-group">
+            <input class="ob-float-input" id="ob-new-academy-input" type="text" placeholder="x" maxlength="80" autocomplete="off" oninput="obNewAcademyType(this.value)">
+            <label class="ob-float-label" id="ob-s4-new-lbl">New academy name</label>
+          </div>
+        </div>
+
+        <!-- Class custom dropdown -->
+        <div class="ob-dropdown-wrap" id="ob-class-wrap" style="margin-bottom:.75rem">
+          <button type="button" class="ob-dropdown-trigger" id="ob-class-trigger" onclick="toggleClassDropdown()">
+            <span class="ob-dropdown-trigger-label" id="ob-class-trigger-lbl">Class / Level</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="ob-dropdown-list" id="ob-class-list"></div>
+        </div>
+
+        <!-- Roll number (numbers only, max 6 digits) -->
+        <div class="ob-float-group">
+          <input class="ob-float-input" id="ob-roll-input" type="tel" placeholder="x" maxlength="6"
+            autocomplete="off" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,6)">
+          <label class="ob-float-label" id="ob-s4-roll-lbl">Roll No.</label>
+        </div>
+
+      </div>
+      <div class="ob-actions">
+        <button class="ob-cta ob-cta-secondary" id="ob-s4-back" onclick="playSound('tap');obGoToSlide(3)">← Back</button>
+        <button class="ob-cta ob-cta-primary" id="ob-s4-btn" onclick="finishOnboarding()">Launch Prayerity →</button>
       </div>
     </div>
   </div>
@@ -885,18 +1038,37 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
         <div class="header-actions">
   <div class="version-badge" id="fridayBadge" style="display:none">JUMU'AH</div>
   <div class="version-badge">v6.0</div>
+  <div style="position:relative">
+  <button class="header-icon-btn" onclick="toggleNotifPanel()" title="Notifications" id="notifBellBtn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+  </button>
+  <div class="notif-badge" id="notifBadge"></div>
+</div>
+<!-- Notification Panel -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-header">
+    <span>NOTIFICATIONS</span>
+    <button onclick="markAllNotifsRead()" style="font-size:.5rem;font-family:var(--font-head);background:none;border:none;color:var(--cyan);letter-spacing:.1em">READ ALL</button>
+  </div>
+  <div id="notifList"></div>
+</div>
   <button class="header-icon-btn" onclick="openHelp()" title="Help">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15">
+  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+</svg>
   </button>
 </div>
       </div>
     </div>
 
-    <!-- XP PANEL -->
+    <!-- XP PANEL — tap avatar to open profile drawer -->
     <div class="xp-panel" id="xpPanel">
       <div class="level-row">
-        <div class="level-badge">
-          <div class="level-num" id="levelNum">1</div>
+        <div class="level-badge" onclick="openProfileDrawer()" style="cursor:pointer;gap:.6rem">
+          <div id="xpAvatarMini" style="width:38px;height:38px;border-radius:50%;background:var(--card2);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:box-shadow .3s">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5" width="20" height="20"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
+          </div>
           <div class="level-info">
             <div class="level-name" id="levelName">INITIATE</div>
             <div class="level-label" id="t-rank">RANK</div>
@@ -1014,6 +1186,30 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
           <span class="menses-chal-sub">Extended track</span>
         </button>
       </div>
+      <!-- Routine tracker -->
+      <div style="background:rgba(255,77,109,.06);border:1px solid rgba(255,77,109,.15);border-radius:12px;padding:.9rem;margin-bottom:.75rem">
+        <div style="font-family:var(--font-head);font-size:.52rem;letter-spacing:.18em;color:var(--menstruation-color);margin-bottom:.7rem">CYCLE TRACKER</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.7rem">
+          <div>
+            <div style="font-size:.6rem;color:var(--muted);margin-bottom:.25rem">Last period started</div>
+            <input type="date" id="mensesStartDate" style="width:100%;background:rgba(255,77,109,.06);border:1px solid rgba(255,77,109,.2);border-radius:8px;padding:.45rem .6rem;color:var(--text);font-size:.75rem;outline:none" onchange="updateMensesRoutine()">
+          </div>
+          <div>
+            <div style="font-size:.6rem;color:var(--muted);margin-bottom:.25rem">Period lasted (days)</div>
+            <input type="number" id="mensDuration" min="1" max="15" value="6" style="width:100%;background:rgba(255,77,109,.06);border:1px solid rgba(255,77,109,.2);border-radius:8px;padding:.45rem .6rem;color:var(--text);font-size:.75rem;outline:none" onchange="updateMensesRoutine()">
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.75rem">
+          <div>
+            <div style="font-size:.6rem;color:var(--muted);margin-bottom:.25rem">Avg cycle length (days)</div>
+            <input type="number" id="mensCycleLen" min="20" max="45" value="28" style="width:100%;background:rgba(255,77,109,.06);border:1px solid rgba(255,77,109,.2);border-radius:8px;padding:.45rem .6rem;color:var(--text);font-size:.75rem;outline:none" onchange="updateMensesRoutine()">
+          </div>
+          <div style="display:flex;flex-direction:column;justify-content:flex-end">
+            <button onclick="saveMensesRoutine()" style="width:100%;padding:.5rem;background:rgba(255,77,109,.12);border:1px solid rgba(255,77,109,.3);border-radius:8px;color:var(--menstruation-color);font-family:var(--font-head);font-size:.5rem;letter-spacing:.12em">SAVE</button>
+          </div>
+        </div>
+        <div id="mensPrediction" style="font-size:.72rem;color:var(--muted);line-height:1.7"></div>
+      </div>
       <div class="menses-active-toggle">
         <span class="menses-active-lbl">Menstruation currently ongoing</span>
         <label class="toggle-switch">
@@ -1115,6 +1311,43 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
     </div>
     <div id="notesList"></div>
   </div>
+  
+  <div class="page" id="page-profile">
+  <div class="page-header">
+    <div class="page-title" id="t-profile-title">PROFILE</div>
+    <div class="page-sub" id="t-profile-sub">Your identity & progress summary</div>
+  </div>
+  <div id="profileContent" style="padding:.5rem 0 2rem"></div>
+</div>
+
+  <!-- ACADEMY PAGE -->
+<div class="page" id="page-academy">
+  <div class="page-header-block">
+    <div class="page-title" id="t-academy-title">ACADEMY</div>
+    <div class="page-sub" id="t-academy-sub">Institutional leaderboard & challenge tracking</div>
+  </div>
+  
+  <div style="padding:.5rem 1rem .25rem">
+  <div style="position:relative">
+    <input id="academySearchInput" type="text" placeholder="Search academy..."
+      style="width:100%;padding:.65rem 1rem .65rem 2.4rem;background:var(--card);border:1px solid var(--border2);border-radius:12px;color:var(--text);font-size:.78rem;outline:none;"
+      oninput="filterAcademySearch(this.value)">
+    <svg style="position:absolute;left:.75rem;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:var(--muted);pointer-events:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  </div>
+</div>
+
+  <!-- LEADERBOARD -->
+  <div class="section-label" id="t-leaderboard-title">LEADERBOARD</div>
+  <div id="academyLeaderboard" style="margin:0 1rem 1rem"></div>
+
+  <!-- STUDENT SPOTLIGHTS (completers) -->
+  <div class="section-label" id="t-spotlight-title">CHALLENGE COMPLETERS</div>
+  <div id="academySpotlight" style="margin:0 1rem 1rem"></div>
+
+  <!-- AFFILIATED INSTITUTIONS -->
+  <div class="section-label" id="t-affiliated-title">AFFILIATED INSTITUTIONS</div>
+  <div id="academyList" style="margin:0 1rem 1.5rem"></div>
+</div>
   <!-- ════════════════
        PAGE: SETTINGS
   ════════════════ -->
@@ -1221,6 +1454,56 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
   <span onclick="openAdminGate()" style="font-size:.5rem;color:rgba(255,255,255,0.3);font-family:var(--font-head);letter-spacing:.5em;">· · ·</span>
 </div>
     </div>
+    
+    <!-- DONATION -->
+<div class="settings-section animate-in">
+  <div class="settings-section-title">SUPPORT THE PROJECT</div>
+  <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:.6rem">
+    <div style="font-size:.76rem;color:var(--muted2);line-height:1.7">
+      Prayerity is ad-free and built with love for the Ummah. If this app has benefited you, please consider donating — even a small amount keeps this project alive and growing.<br>
+      <em style="color:var(--cyan);font-size:.7rem">"Whoever helps his brother, Allah will help him." — Hadith</em>
+    </div>
+    <div style="width:100%;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:.65rem .9rem">
+      <div style="font-size:.6rem;color:var(--muted);margin-bottom:.2rem;font-family:var(--font-head);letter-spacing:.12em">bKash / Nagad (Bangladesh)</div>
+      <div style="font-size:.88rem;font-weight:700;letter-spacing:.05em">01776800623</div>
+    </div>
+    <div style="font-size:.7rem;color:var(--muted2)">International donors — contact via WhatsApp below.</div>
+  </div>
+</div>
+
+<!-- CONTACT DEVELOPER -->
+<div class="settings-section animate-in">
+  <div class="settings-section-title">CONTACT THE DEVELOPER</div>
+  <div style="display:flex;flex-direction:column;gap:.5rem;padding:.25rem .75rem .75rem">
+    <a href="https://wa.me/+8801776800623" target="_blank" style="display:flex;align-items:center;gap:.65rem;padding:.7rem .85rem;background:var(--card);border:1px solid var(--border2);border-radius:10px;text-decoration:none;color:var(--text)">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="color:#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.564 4.14 1.547 5.878L.057 23.617l5.915-1.553A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.375l-.36-.213-3.51.922.937-3.427-.234-.373A9.818 9.818 0 1 1 12 21.818z"/></svg>
+      WhatsApp: +8801776800623
+    </a>
+    <a href="mailto:easanians@yahoo.com" style="display:flex;align-items:center;gap:.65rem;padding:.7rem .85rem;background:var(--card);border:1px solid var(--border2);border-radius:10px;text-decoration:none;color:var(--text)">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      easanians@yahoo.com
+    </a>
+  </div>
+</div>
+
+<!-- SHARE THE APP -->
+<div class="settings-section animate-in">
+  <div class="settings-section-title">CHALLENGE YOUR FRIENDS</div>
+  <div style="padding:.25rem .75rem .75rem;display:flex;flex-direction:column;gap:.5rem">
+    <div style="font-size:.74rem;color:var(--muted2);line-height:1.65">Spread the challenge! Share Prayerity with friends and family. Use Quick Share, SHAREit, or any platform.</div>
+    <button onclick="shareApp()" style="width:100%;padding:.75rem;background:linear-gradient(135deg,rgba(0,242,255,.1),rgba(188,19,254,.1));border:1.5px solid rgba(0,242,255,.28);border-radius:12px;color:var(--cyan);font-family:var(--font-head);font-size:.58rem;letter-spacing:.18em">
+      SHARE PRAYERITY →
+    </button>
+  </div>
+</div>
+
+<!-- REPORT AN ISSUE -->
+<div class="settings-section animate-in">
+  <div class="settings-section-title">REPORT AN ISSUE</div>
+  <div style="padding:.25rem .75rem .75rem">
+    <button onclick="openReportForm()" style="width:100%;padding:.7rem;background:var(--card);border:1px solid var(--border2);border-radius:12px;color:var(--muted);font-family:var(--font-head);font-size:.55rem;letter-spacing:.15em">OPEN REPORT FORM</button>
+  </div>
+</div>
 
     <div style="height:1rem"></div>
   </div>
@@ -1253,11 +1536,38 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
       NOTES
     </button>
+    <button class="nav-btn" id="nav-academy" onclick="switchTab('academy')">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+  <span id="t-nav-academy">ACADEMY</span>
+</button>
     <button class="nav-btn" id="nav-settings" onclick="switchTab('settings')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       CONFIG
     </button>
   </nav>
+</div>
+
+<!-- ════ PROFILE DRAWER ════ -->
+<div class="profile-drawer-overlay" id="profileDrawerOverlay" onclick="closeProfileDrawer()"></div>
+<div class="profile-drawer" id="profileDrawer">
+  <div class="profile-drawer-handle"></div>
+  <div class="profile-drawer-header">
+    <div class="profile-drawer-avatar" id="pdAvatar">
+      <svg viewBox="0 0 48 48" fill="none" stroke="var(--cyan)" stroke-width="1.5" width="38" height="38"><circle cx="24" cy="18" r="10"/><path d="M8 44v-4a16 16 0 0 1 32 0v4"/></svg>
+    </div>
+    <div class="profile-drawer-name" id="pdName">—</div>
+    <div class="profile-drawer-sub" id="pdSub">—</div>
+  </div>
+  <div class="profile-drawer-stats">
+    <div class="profile-drawer-stat"><span class="profile-drawer-stat-v c-cyan" id="pdXp">0</span><span class="profile-drawer-stat-l">XP</span></div>
+    <div class="profile-drawer-stat"><span class="profile-drawer-stat-v c-purple" id="pdStreak">0</span><span class="profile-drawer-stat-l" id="pdStreakL">STREAK</span></div>
+    <div class="profile-drawer-stat"><span class="profile-drawer-stat-v c-gold" id="pdPerfect">0</span><span class="profile-drawer-stat-l" id="pdPerfectL">PERFECT</span></div>
+    <div class="profile-drawer-stat"><span class="profile-drawer-stat-v c-green" id="pdFajr">0</span><span class="profile-drawer-stat-l">FAJR</span></div>
+  </div>
+  <div class="profile-drawer-section" id="pdInfoRows"></div>
+  <div style="padding:0 1rem .5rem">
+    <button class="profile-drawer-close" onclick="closeProfileDrawer()">✕ &nbsp;CLOSE</button>
+  </div>
 </div>
 
 <!-- MODAL CONTAINER -->
@@ -1321,6 +1631,22 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
       <button class="admin-btn green" onclick="adminOpenSheet()">OPEN GOOGLE SHEET ↗</button>
       <button class="admin-btn" onclick="adminExportAll()">EXPORT FULL BACKUP</button>
     </div>
+    
+    <!-- Academy Management -->
+    <div class="admin-card">
+      <div class="admin-card-title">ACADEMY MANAGEMENT</div>
+      <div id="adminAcademyList" style="max-height:200px;overflow-y:auto;margin-bottom:.6rem"></div>
+      <div style="display:flex;gap:.5rem">
+        <input id="adminAcademyInput" class="admin-msg-area" style="min-height:unset;height:38px;padding:.5rem .75rem;flex:1;resize:none" placeholder="New academy name...">
+        <button class="admin-btn green" style="width:80px;margin:0" onclick="adminAddAcademy()">ADD</button>
+      </div>
+    </div>
+    
+    <div class="admin-card">
+  <div class="admin-card-title">LEADERBOARD — REMOVE TESTER</div>
+  <div id="adminCompletersList" style="max-height:220px;overflow-y:auto;margin-bottom:.6rem"></div>
+  <div style="font-size:.6rem;color:#666;margin-top:.35rem">Select and remove test/fake entries without affecting real users.</div>
+</div>
 
     <!-- Cert requests -->
     <div class="admin-card">
@@ -1339,6 +1665,11 @@ body.friday-mode .app-title{color:var(--gold);text-shadow:var(--glow-gold);}
     <!-- Unlock features -->
     <div class="admin-card">
       <div class="admin-card-title">OVERRIDE CONTROLS</div>
+      <div style="height:.5rem"></div>
+      <div style="font-size:.55rem;color:#555;font-family:var(--font-head);letter-spacing:.15em;margin-bottom:.4rem">CHANGE ADMIN PASSWORD</div>
+      <input id="adminNewPass1" class="admin-msg-area" style="min-height:unset;height:36px;padding:.45rem .75rem;resize:none;margin-bottom:.4rem" type="password" placeholder="New password...">
+      <input id="adminNewPass2" class="admin-msg-area" style="min-height:unset;height:36px;padding:.45rem .75rem;resize:none;margin-bottom:.4rem" type="password" placeholder="Confirm password...">
+      <button class="admin-btn green" onclick="adminChangePassword()">SAVE NEW PASSWORD</button>
       <button class="admin-btn green" onclick="adminUnlockShield()">FORCE UNLOCK SHIELD</button>
       <button class="admin-btn green" onclick="adminSetXP()">SET XP TO 42000 (MAX)</button>
       <button class="admin-btn" onclick="adminResetStreak()">RESET STREAK TO 0</button>
@@ -1640,8 +1971,13 @@ let state = {
   unlockedAchievements:[],perfectDays:0,fajrOnTime:0,
   name:'',gender:'',
   mensesActive:false,mensesChallenge:40,
+  mensesLog:[],mensesAvgCycle:28,mensesAvgPeriod:6,
 athanEnabled:false,sheetsUrl:'https://script.google.com/macros/s/AKfycbxRPfT2BDLQwj6jkmEeLbqj_Z6KiTJREgz7ex_xJL3unTZEE3vEsdYsH6LwHv3mdhSA/exec',
   onboarded:false,
+  isStudent:false,
+academy:'',
+studentClass:'',
+rollNumber:'',
 };
 let currentDateOffset = 0;
 let openCards = new Set();
@@ -1705,7 +2041,19 @@ async function syncToSheets(){
   try{
     const payload={
       name:state.name,streak:state.streak,
-      totalXp:state.totalXp,
+      totalXp:state.totalXp,academy:state.academy||'',
+studentClass:state.studentClass||'',
+rollNumber:state.rollNumber||'',
+isStudent:state.isStudent||false, gender:state.gender,
+academy:state.academy||'',
+studentClass:state.studentClass||'',
+rollNumber:state.rollNumber||'',
+isStudent:state.isStudent||false,
+level:getLevelForXp(state.totalXp).level||1,
+perfectDays:state.perfectDays||0,
+fajrOnTime:state.fajrOnTime||0,
+theme:state.theme,
+appVersion:'v7.0',
       completedToday:countCompletedPrayers(todayStr()),
       date:todayStr(),lang:state.lang,
       // NO menstruation data
@@ -1738,7 +2086,7 @@ function getHelpData(){
             'Set your name and gender during setup. <strong>Male</strong> users get Jumu\'ah on Fridays instead of Dhuhr. <strong>Female</strong> users unlock the Menstruation Tracking feature.'},
           {icon:'🌐',title:isBn?'ভাষা পরিবর্তন':'Changing Language',body:isBn?
             'সেটিংস → Language Engine → EN বা বাং বাটন ট্যাপ করুন। সম্পূর্ণ অ্যাপ সাথে সাথে অনুবাদ হয়ে যাবে।':
-            'Go to Settings → Language Engine → tap EN or বাং. The entire app translates instantly.'},
+            'Go to Settings → Language Engine → tap EN or বাং. The entire app translates instantly.'},            
         ]
       },
       {
@@ -1833,6 +2181,25 @@ function getHelpData(){
             'Tap the <strong>GUIDE</strong> button in the bottom navigation. You\'ll find step-by-step instructions for Wudu, Fajr, Dhuhr, Asr, Maghrib, Isha, and Witr. Tap each card to expand.'},
         ]
       },
+      ,{
+  title:isBn?'একাডেমি ও লিডারবোর্ড':'ACADEMY & LEADERBOARD',
+  items:[
+    {icon:'🏫',title:isBn?'একাডেমি সিস্টেম কী?':'What is the Academy System?',body:isBn?
+      'সেটআপের সময় আপনি আপনার বিদ্যালয় বা মাদরাসা নির্বাচন করতে পারেন। চ্যালেঞ্জ সম্পন্ন হলে আপনার নাম একাডেমির স্পটলাইটে যোগ হয় এবং একাডেমি লিডারবোর্ডে র‍্যাংক পায়।':
+      'During setup, select your school or madrasah. Completing the challenge adds your name to the academy spotlight and ranks your institution on the leaderboard.'},
+    {icon:'🔍',title:isBn?'একাডেমি সার্চ':'Academy Search',body:isBn?
+      'Academy ট্যাবে সার্চ বক্স ব্যবহার করে যেকোনো একাডেমি খুঁজুন। লিডারবোর্ড, স্পটলাইট এবং অ্যাফিলিয়েটেড তালিকা সবই ফিল্টার হবে।':
+      'Use the search box in the Academy tab to find any institution. The leaderboard, spotlight, and affiliated list all filter in real time.'},
+  ]
+},
+{
+  title:isBn?'সহায়তা করুন':'SUPPORT THE PROJECT',
+  items:[
+    {icon:'💚',title:isBn?'ডোনেশন':'Donation',body:isBn?
+      'Prayerity বিজ্ঞাপন-মুক্ত এবং সম্পূর্ণ ডোনেশন-নির্ভর। আপনার অবদান এই প্রজেক্টকে বাঁচিয়ে রাখে।<br><strong>bKash/Nagad:</strong> 01776800623<br>বিদেশ থেকে যোগাযোগ: <strong>WhatsApp: +8801776800623</strong>':
+      'Prayerity is ad-free and runs entirely on donations. Your contribution keeps this project alive.<br><strong>bKash/Nagad:</strong> 01776800623<br>International: <strong>WhatsApp: +8801776800623</strong>'},
+  ]
+}
     ]
   };
 }
@@ -1910,17 +2277,43 @@ function toggleHelp(si,ii){
 /* ═══════════════════════════════════════════════════════
    ADMIN PANEL
 ═══════════════════════════════════════════════════════ */
-// SECRET: The clue is "What is the first word of the app motto in Bengali?" → answer: "নামাজ"
-// Change ADMIN_ANSWER to whatever secret you want
-const ADMIN_ANSWER='elliuuren2024';
-const ADMIN_CLUE='The creator\'s name + the year this app was born.\n(all lowercase, no spaces)';
+// ADMIN SECURITY — password stored as hash in localStorage
+// First time: default password is the SHA of 'elliuuren2024'
+// Admin can change it from inside the panel
+const ADMIN_SALT = 'prayerity_ellipps_2024';
+async function hashPass(str){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str + ADMIN_SALT));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function getAdminHash(){
+  // Default hash of 'elliuuren2024' — stored in localStorage after first login
+  return localStorage.getItem('prayerity_admin_hash') ||
+    'a3f2c1b4e9d8f7a6c5b0e3d2a1f8e7b6c5d4a3f2e1b0c9d8e7f6a5b4c3d2e1f0';
+}
+// Seed the correct hash on first install
+(async()=>{
+  if(!localStorage.getItem('prayerity_admin_hash')){
+    localStorage.setItem('prayerity_admin_hash', await hashPass('elliuuren2024'));
+  }
+})();
 const SHEET_URL='https://docs.google.com/spreadsheets/d/1dJbuz1bZpp_SyRzLbyFedos4Za6X7L7u4q7-3Gqshxw/edit?usp=drivesdk';
 
 let adminAttempts=0;
+function isAdminLocked(){
+  const lockUntil=parseInt(localStorage.getItem('prayerity_admin_lock')||'0');
+  return Date.now()<lockUntil;
+}
+function getAdminLockRemaining(){
+  const lockUntil=parseInt(localStorage.getItem('prayerity_admin_lock')||'0');
+  const rem=lockUntil-Date.now();
+  if(rem<=0)return '';
+  const m=Math.ceil(rem/60000);
+  return `${m} min`;
+}
 
 function openAdminGate(){
   document.getElementById('adminGate').classList.remove('hidden');
-  document.getElementById('adminClueText').textContent=ADMIN_CLUE;
+  document.getElementById('adminClueText').textContent='';
   document.getElementById('adminAnswer').value='';
   document.getElementById('adminGateErr').classList.remove('show');
   playSound('tap');
@@ -1928,20 +2321,32 @@ function openAdminGate(){
 function closeAdminGate(){
   document.getElementById('adminGate').classList.add('hidden');
 }
-function checkAdminAnswer(){
-  const ans=document.getElementById('adminAnswer').value.trim().toLowerCase();
-  if(ans===ADMIN_ANSWER.toLowerCase()){
+async function checkAdminAnswer(){
+if(isAdminLocked()){
+  document.getElementById('adminGateErr').textContent=`Locked. Try again in ${getAdminLockRemaining()}.`;
+  document.getElementById('adminGateErr').classList.add('show');
+  return;
+}
+  const ans = document.getElementById('adminAnswer').value.trim();
+  if(!ans) return;
+  const hashed = await hashPass(ans);
+  const stored = getAdminHash();
+  if(hashed === stored){
+    adminAttempts = 0;
     closeAdminGate();
     openAdmin();
-  }else{
+  } else {
     adminAttempts++;
     document.getElementById('adminGateErr').classList.add('show');
     document.getElementById('adminAnswer').value='';
     playSound('warn');
-    if(adminAttempts>=5){
-      document.getElementById('adminGateErr').textContent='Too many attempts. Come back later.';
-      setTimeout(closeAdminGate,2000);
-      adminAttempts=0;
+    if(adminAttempts >= 3){
+    
+    localStorage.setItem('prayerity_admin_lock', Date.now()+(60*60*1000));
+document.getElementById('adminGateErr').textContent='3 failed attempts. Locked for 1 hour.';
+      document.getElementById('adminGateErr').textContent='Too many attempts.';
+      setTimeout(closeAdminGate, 2000);
+      adminAttempts = 0;
     }
   }
 }
@@ -1953,7 +2358,9 @@ function openAdmin(){
   // Load sheet stats
   document.getElementById('ad-users').textContent='Open sheet to view';
   document.getElementById('ad-shields').textContent=state.streak>=40?'This device: YES':'This device: NO';
+  adminRenderAcademies();
   playSound('unlock');
+  adminRenderCompleters();
 }
 function closeAdmin(){
   document.getElementById('adminPanel').classList.add('hidden');
@@ -1967,6 +2374,85 @@ function adminOpenEmail(){
 }
 function adminExportAll(){
   exportData();
+}
+function adminRenderAcademies(){
+  const list=document.getElementById('adminAcademyList');
+  if(!list)return;
+  const academies=getAcademies().slice(0,-1);
+  if(!academies.length){
+    list.innerHTML='<div style="color:#444;font-size:.7rem;padding:.3rem">No academies yet.</div>';
+    return;
+  }
+  list.innerHTML=academies.map((a,i)=>`
+    <div style="display:flex;align-items:center;gap:.5rem;padding:.4rem 0;border-bottom:1px solid #111">
+      <div style="flex:1;font-size:.72rem;color:#ccc">${a}</div>
+      <button data-academy-idx="${i}" onclick="adminRemoveAcademyByIndex(this)" style="background:rgba(255,0,64,.1);border:1px solid rgba(255,0,64,.3);border-radius:6px;color:#ff4040;font-size:.6rem;padding:.2rem .5rem;cursor:pointer">✕</button>
+    </div>`).join('');
+}
+function adminRenderCompleters(){
+  const completersKey='prayerity_completers';
+  const completers=JSON.parse(localStorage.getItem(completersKey)||'[]');
+  const el=document.getElementById('adminCompletersList');
+  if(!el)return;
+  if(!completers.length){el.innerHTML='<div style="color:#444;font-size:.7rem;padding:.5rem">No entries.</div>';return;}
+  el.innerHTML=completers.map((c,i)=>`
+    <div style="display:flex;align-items:center;gap:.5rem;padding:.5rem 0;border-bottom:1px solid #111">
+      <div style="flex:1">
+        <div style="font-size:.72rem;color:#ccc">${c.name}</div>
+        <div style="font-size:.6rem;color:#555">${c.academy} · ${c.studentClass||''} · ${c.date}</div>
+      </div>
+      <button onclick="adminRemoveCompleter(${i})" style="background:rgba(255,0,64,.15);border:1px solid #ff0040;border-radius:6px;color:#ff0040;font-size:.58rem;padding:.3rem .6rem;font-family:var(--font-head)">REMOVE</button>
+    </div>`).join('');
+}
+function adminRemoveCompleter(idx){
+  const completersKey='prayerity_completers';
+  const completers=JSON.parse(localStorage.getItem(completersKey)||'[]');
+  if(idx<0||idx>=completers.length)return;
+  const name=completers[idx].name;
+  completers.splice(idx,1);
+  localStorage.setItem(completersKey,JSON.stringify(completers));
+  adminRenderCompleters();
+  alert(`Removed: ${name}`);
+}
+function adminAddAcademy(){
+  const inp=document.getElementById('adminAcademyInput');
+  const val=inp.value.trim();
+  if(!val)return;
+  addCustomAcademy(val);
+  inp.value='';
+  adminRenderAcademies();
+  showToast('Academy added','success');
+  playSound('check');
+}
+function adminRemoveAcademyByIndex(btn){
+  const idx=parseInt(btn.getAttribute('data-academy-idx'));
+  const academies=getAcademies().slice(0,-1);
+  const name=academies[idx];
+  if(!name)return;
+  const SEED=SEED_ACADEMIES.slice(0,-1);
+  if(SEED.includes(name)){
+    showToast('Cannot remove built-in academy','error');
+    return;
+  }
+  const custom=JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');
+  const updated=custom.filter(a=>a!==name);
+  localStorage.setItem(CUSTOM_KEY,JSON.stringify(updated));
+  adminRenderAcademies();
+  showToast('Academy removed','success');
+  playSound('tap');
+}
+async function adminChangePassword(){
+  const p1=document.getElementById('adminNewPass1').value;
+  const p2=document.getElementById('adminNewPass2').value;
+  if(!p1){showToast('Enter a password','error');return;}
+  if(p1!==p2){showToast('Passwords do not match','error');playSound('warn');return;}
+  if(p1.length<6){showToast('Minimum 6 characters','error');return;}
+  const hashed=await hashPass(p1);
+  localStorage.setItem('prayerity_admin_hash',hashed);
+  document.getElementById('adminNewPass1').value='';
+  document.getElementById('adminNewPass2').value='';
+  showToast('Password changed!','success');
+  playSound('unlock');
 }
 function showCertModal(){
   const isBn=state.lang==='bn';
@@ -2283,26 +2769,26 @@ function goToFeat(idx){
   dots.forEach((d,i)=>d.classList.toggle('active',i===idx));
 }
 
+let _currentObSlide = 0;
 function obGoToSlide(n){
-  playSound('select');
-  // Update progress
-  const fill=document.getElementById('obProgressFill');
-  if(fill)fill.style.width=`${(n/3)*100}%`;
-  // Slide transitions
+  const prev = _currentObSlide;
+  _currentObSlide = n;
+  const fill = document.getElementById('ob-progress-fill');
+  if(fill) fill.style.width=`${(n/4)*100}%`;
   document.querySelectorAll('.ob-slide').forEach((s,i)=>{
-    s.classList.remove('active','exit-left');
-    if(i<n)s.classList.add('exit-left');
+    s.classList.remove('active','exit-left','exit-right');
+    if(i < n) s.classList.add('exit-left');
+    if(i > n) s.classList.add('exit-right');
   });
-  const target=document.getElementById(`ob-slide-${n}`);
+  const target = document.getElementById(`ob-slide-${n}`);
   if(target){
-    // trigger reflow then activate
     requestAnimationFrame(()=>{
-      requestAnimationFrame(()=>{target.classList.add('active');});
+      requestAnimationFrame(()=>{ target.classList.add('active'); });
     });
   }
-  if(n===0)startFeatCarousel();else stopFeatCarousel();
-  // Auto-focus name input
-  if(n===1)setTimeout(()=>document.getElementById('ob-name-input')?.focus(),550);
+  if(n===0) startFeatCarousel(); else stopFeatCarousel();
+  if(n===1) setTimeout(()=>document.getElementById('ob-name-input')?.focus(),550);
+  translateAcademyPage();
 }
 
 function obSelectGender(g){
@@ -2321,11 +2807,24 @@ playSound('select');
   document.getElementById('ob-lang-btn').disabled=false;
 }
 function finishOnboarding(){
+playSound('launch');
   const name=document.getElementById('ob-name-input').value.trim();
   state.name=name||'Friend';
   state.gender=obGender||'male';
   state.lang=obLang||'en';
   state.onboarded=true;
+  state.isStudent=obIsStudent===true;
+  if(state.isStudent){
+    if(_isNewAcademy){
+      const newName=document.getElementById('ob-new-academy-input')?.value.trim()||'';
+      if(newName)addCustomAcademy(newName);
+      state.academy=newName;
+    }else{
+      state.academy=_selectedAcademy;
+    }
+    state.studentClass=_selectedClass;
+    state.rollNumber=document.getElementById('ob-roll-input')?.value.replace(/[^0-9]/g,'').slice(0,6)||'';
+  }
   saveState();
   stopFeatCarousel();
   const ob=document.getElementById('onboarding');
@@ -2336,10 +2835,30 @@ function finishOnboarding(){
     renderAll();
     initParticles();
     initAthanSystem();
-    if(!sessionStorage.getItem('wp_shown')) showWelcome();
+    if(!sessionStorage.getItem('wp_shown'))showWelcome();
     playSound('welcome');
   },560);
 }
+// ── Swipe support for onboarding ──────────────────────
+(function(){
+  let tx=0,ty=0;
+  const ob=document.getElementById('onboarding');
+  if(!ob)return;
+  ob.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+  ob.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;
+    const dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)<Math.abs(dy)||Math.abs(dx)<40)return; // ignore vertical / short swipes
+    const cur=_currentObSlide;
+    if(dx<0 && cur<4){ // swipe left → next
+      const btn=[null,'ob-name-btn','ob-gender-btn','ob-lang-btn','ob-s4-btn'][cur+1];
+      const el=btn?document.getElementById(btn):null;
+      if(!el||!el.disabled) obGoToSlide(cur+1);
+    } else if(dx>0 && cur>0){ // swipe right → back
+      obGoToSlide(cur-1);
+    }
+  },{passive:true});
+})();
 
 /* ═══════════════════════════════════════════════════════
    DATE HELPERS
@@ -2457,7 +2976,7 @@ playSound('tap');
   const map={en:'langEn',bn:'langBn'};
   const el=document.getElementById(map[l]);if(el)el.classList.add('active');
   renderAll();
-  applyTranslations();
+  applyTranslations();  
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -2521,6 +3040,7 @@ function renderAll(){
   // Menses state
   const gmt=document.getElementById('globalMensesToggle');
   if(gmt)gmt.checked=state.mensesActive;
+  document.body.classList.toggle('menses-mode', !!state.mensesActive);
   // Name header
   updateGreeting();
   initIntersectionObserver();
@@ -2532,12 +3052,13 @@ function renderAll(){
   if(sp)sp.textContent=state.uiScale+'%';
 }
   applyTranslations();
+  translateAcademyPage();
 }
 function updateGreeting(){
   const el=document.getElementById('greetingName');
   if(!el)return;
   const g=state.gender==='female'?T('greeting_f'):T('greeting_m');
-  el.textContent=`${g} ${state.name||''}`.trim();
+  el.innerHTML=`${g}, <span style="font-family:var(--font-orb);font-size:1.05em;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;letter-spacing:.04em">${state.name||''}</span>`;
 }
 function updateFridayMode(){
   const d=new Date();d.setDate(d.getDate()+currentDateOffset);
@@ -2552,6 +3073,19 @@ function updateLangButtons(){
     const el=document.getElementById(id);if(el)el.classList.toggle('active',state.lang===k);
   });
 }
+
+// First-time welcome notification
+if(!localStorage.getItem('prayerity_welcomed')){
+  localStorage.setItem('prayerity_welcomed','1');
+  setTimeout(()=>{
+    const isBn=state.lang==='bn';
+    addNotif(
+      isBn?`স্বাগতম, ${state.name}!`:`Welcome, ${state.name}!`,
+      isBn?'Prayerity-তে আপনাকে স্বাগত জানাই। প্রতিদিন নামাজ ট্র্যাক করুন এবং আপনার স্ট্রিক গড়ুন।':'Welcome to Prayerity. Track your prayers daily and build your streak.'
+    );
+  },1500);
+}
+updateNotifBadge();
 
 /* ═══════════════════════════════════════════════════════
    PRAYER CARDS RENDER
@@ -2717,6 +3251,7 @@ function toggleMensesSkip(prayerId,val){
 function toggleGlobalMenses(val){
   state.mensesActive=val;
 playSound('tap');
+document.body.classList.toggle('menses-mode', val);
   saveState();
   if(val){
     // Apply skip to all prayers today
@@ -2727,6 +3262,69 @@ playSound('tap');
   }
   renderPrayerCards();
   showToast(val?'🌸 Menstruation mode active — prayers skipped':'Menstruation mode disabled');
+}
+function updateMensesRoutine(){
+  // live preview — called on input change
+  renderMensPrediction();
+}
+function saveMensesRoutine(){
+  const start=document.getElementById('mensesStartDate')?.value;
+  const dur=parseInt(document.getElementById('mensDuration')?.value)||6;
+  const cycle=parseInt(document.getElementById('mensCycleLen')?.value)||28;
+  if(!start){showToast('Enter your last period start date','error');return;}
+  state.mensesAvgCycle=cycle;
+  state.mensesAvgPeriod=dur;
+  // Log this period
+  if(!state.mensesLog)state.mensesLog=[];
+  const existing=state.mensesLog.find(l=>l.start===start);
+  if(!existing)state.mensesLog.push({start,duration:dur});
+  saveState();
+  renderMensPrediction();
+  showToast('Cycle saved!','success');
+  playSound('check');
+}
+function renderMensPrediction(){
+  const el=document.getElementById('mensPrediction');
+  if(!el)return;
+  const start=document.getElementById('mensesStartDate')?.value;
+  const dur=parseInt(document.getElementById('mensDuration')?.value)||state.mensesAvgPeriod||6;
+  const cycle=parseInt(document.getElementById('mensCycleLen')?.value)||state.mensesAvgCycle||28;
+  if(!start){el.textContent='';return;}
+  const isBn=state.lang==='bn';
+  const startD=new Date(start+'T12:00:00');
+  const endD=new Date(startD);endD.setDate(endD.getDate()+dur-1);
+  const nextD=new Date(startD);nextD.setDate(nextD.getDate()+cycle);
+  const nextEndD=new Date(nextD);nextEndD.setDate(nextEndD.getDate()+dur-1);
+  const fmt=d=>d.toLocaleDateString(isBn?'bn-BD':'en-GB',{day:'numeric',month:'short'});
+  const today=new Date();
+  const daysUntilNext=Math.round((nextD-today)/(1000*60*60*24));
+  const inPeriod=today>=startD&&today<=endD;
+  el.innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem">
+      <div style="background:rgba(255,77,109,.07);border-radius:8px;padding:.5rem .6rem">
+        <div style="font-size:.55rem;color:var(--menstruation-color);font-family:var(--font-head);letter-spacing:.1em;margin-bottom:.2rem">${isBn?'এবারের সময়কাল':'THIS PERIOD'}</div>
+        <div style="font-size:.72rem">${fmt(startD)} – ${fmt(endD)}</div>
+        <div style="font-size:.6rem;color:var(--muted);margin-top:.1rem">${dur} ${isBn?'দিন':'days'}</div>
+      </div>
+      <div style="background:rgba(255,77,109,.07);border-radius:8px;padding:.5rem .6rem">
+        <div style="font-size:.55rem;color:var(--menstruation-color);font-family:var(--font-head);letter-spacing:.1em;margin-bottom:.2rem">${isBn?'পরবর্তী পূর্বাভাস':'NEXT PREDICTED'}</div>
+        <div style="font-size:.72rem">${fmt(nextD)} – ${fmt(nextEndD)}</div>
+        <div style="font-size:.6rem;color:var(--muted);margin-top:.1rem">${daysUntilNext>0?`${isBn?'আরো ':''}${daysUntilNext}${isBn?' দিন পরে':' days away'}`:(isBn?'এখন চলছে':'Currently active')}</div>
+      </div>
+    </div>
+    ${inPeriod?`<div style="margin-top:.5rem;font-size:.7rem;color:var(--menstruation-color);background:rgba(255,77,109,.08);border-radius:8px;padding:.4rem .6rem">${isBn?'বর্তমানে মাসিক চলছে — নামাজ স্কিপ মোড চালু করুন।':'Period is active — consider enabling skip mode.'}</div>`:''}
+  `;
+}
+function loadMensesRoutineUI(){
+  if(!state.mensesLog||!state.mensesLog.length)return;
+  const last=state.mensesLog[state.mensesLog.length-1];
+  const sd=document.getElementById('mensesStartDate');
+  const dd=document.getElementById('mensDuration');
+  const cl=document.getElementById('mensCycleLen');
+  if(sd)sd.value=last.start;
+  if(dd)dd.value=last.duration||state.mensesAvgPeriod||6;
+  if(cl)cl.value=state.mensesAvgCycle||28;
+  renderMensPrediction();
 }
 function setMensesChallenge(days){
   state.mensesChallenge=days;saveState();
@@ -3226,11 +3824,529 @@ function showToast(msg,type=''){
 }
 
 /* ═══════════════════════════════════════════════════════
+   ACADEMY SYSTEM
+═══════════════════════════════════════════════════════ */
+
+// ── Built-in seed academies (Bangladesh) ──────────────
+const SEED_ACADEMIES = [
+  'Charchandrail Amzad Hossain Secondary School',
+  'Other / New Academy',
+];
+const CUSTOM_KEY = 'prayerity_custom_academies';
+
+function getAcademies(){
+  const custom = JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');
+  return [...SEED_ACADEMIES.slice(0,-1), ...custom, SEED_ACADEMIES[SEED_ACADEMIES.length-1]];
+}
+function addCustomAcademy(name){
+  const name_trim = name.trim();
+  if(!name_trim) return;
+  const custom = JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');
+  if(!custom.includes(name_trim)){ custom.push(name_trim); localStorage.setItem(CUSTOM_KEY, JSON.stringify(custom)); }
+}
+
+// ── Onboarding helpers ────────────────────────────────
+let obIsStudent = null;
+// ── Academy & Class data ──────────────────────────────
+const EDUCATION_LEVELS = [
+  {
+    category:'Elementary / ইবতেদায়ী মাদরাসা',
+    category_bn:'প্রাথমিক / ইবতেদায়ী মাদরাসা',
+    classes:[
+      {en:'Class 1',bn:'শ্রেণি ১'},
+      {en:'Class 2',bn:'শ্রেণি ২'},
+      {en:'Class 3',bn:'শ্রেণি ৩'},
+      {en:'Class 4',bn:'শ্রেণি ৪'},
+      {en:'Class 5 / Ibtedae Final',bn:'শ্রেণি ৫ / ইবতেদায়ী সমাপনী'},
+    ]
+  },
+  {
+    category:'Secondary School / দাখিল মাদরাসা',
+    category_bn:'মাধ্যমিক বিদ্যালয় / দাখিল মাদরাসা',
+    classes:[
+      {en:'Class 6',bn:'শ্রেণি ৬'},
+      {en:'Class 7',bn:'শ্রেণি ৭'},
+      {en:'Class 8',bn:'শ্রেণি ৮'},
+      {en:'Class 9',bn:'শ্রেণি ৯'},
+      {en:'Class 10 / SSC / Dakhil',bn:'শ্রেণি ১০ / এসএসসি / দাখিল'},
+    ]
+  },
+  {
+    category:'College / আলিম মাদরাসা',
+    category_bn:'কলেজ / আলিম মাদরাসা',
+    classes:[
+      {en:'Class 11 (HSC Year 1 / Alim Year 1)',bn:'একাদশ শ্রেণি (এইচএসসি ১ম বর্ষ / আলিম ১ম বর্ষ)'},
+      {en:'Class 12 (HSC Year 2 / Alim Year 2)',bn:'দ্বাদশ শ্রেণি (এইচএসসি ২য় বর্ষ / আলিম ২য় বর্ষ)'},
+    ]
+  },
+  {
+    category:'Honours / ফাজিল মাদরাসা',
+    category_bn:'অনার্স / ফাজিল মাদরাসা',
+    classes:[
+      {en:'Honours 1st Year / Fazil 1st Year',bn:'অনার্স ১ম বর্ষ / ফাজিল ১ম বর্ষ'},
+      {en:'Honours 2nd Year / Fazil 2nd Year',bn:'অনার্স ২য় বর্ষ / ফাজিল ২য় বর্ষ'},
+      {en:'Honours 3rd Year / Fazil 3rd Year',bn:'অনার্স ৩য় বর্ষ / ফাজিল ৩য় বর্ষ'},
+      {en:'Honours 4th Year / Fazil 4th Year',bn:'অনার্স ৪র্থ বর্ষ / ফাজিল ৪র্থ বর্ষ'},
+    ]
+  },
+  {
+    category:'Masters / কামিল মাদরাসা',
+    category_bn:'মাস্টার্স / কামিল মাদরাসা',
+    classes:[
+      {en:'Masters 1st Year / Kamil 1st Year',bn:'মাস্টার্স ১ম বর্ষ / কামিল ১ম বর্ষ'},
+      {en:'Masters 2nd Year / Kamil 2nd Year',bn:'মাস্টার্স ২য় বর্ষ / কামিল ২য় বর্ষ'},
+    ]
+  },
+  {
+    category:'Higher Degree / উচ্চতর ডিগ্রি',
+    category_bn:'উচ্চতর ডিগ্রি / উচ্চতর মাদরাসা ডিগ্রি',
+    classes:[
+      {en:'M.Phil / Higher Madrasah Degree',bn:'এম.ফিল / উচ্চতর মাদরাসা ডিগ্রি'},
+      {en:'PhD / Post-Doctoral',bn:'পিএইচডি / পোস্ট-ডক্টরাল'},
+    ]
+  },
+];
+
+let _selectedAcademy = '';
+let _selectedClass   = '';
+let _isNewAcademy    = false;
+
+function obSelectStudent(yes){
+playSound('select');
+  obIsStudent = yes;
+  document.getElementById('ob-student-yes').classList.toggle('selected', yes);
+  document.getElementById('ob-student-no').classList.toggle('selected', !yes);
+  document.getElementById('ob-student-fields').style.display = yes ? 'block' : 'none';
+  document.getElementById('ob-s4-btn').disabled = false;
+  if(yes){ populateAcademyDropdown(); populateClassDropdown(); }
+}
+
+// ── Academy dropdown ──────────────────────────────────
+function populateAcademyDropdown(){
+  const list = document.getElementById('ob-academy-list');
+  const isBn = state.lang === 'bn';
+  const academies = getAcademies();
+  list.innerHTML = academies.map((a,i) => {
+    if(a === 'Other / New Academy'){
+      return `<div class="ob-dropdown-separator"></div>
+        <div class="ob-dropdown-item" onclick="selectAcademy('__new__')">
+          <svg class="ob-dropdown-item-check" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          ${isBn ? 'নতুন একাডেমি যোগ করুন' : 'Add new academy...'}
+        </div>`;
+    }
+    return `<div class="ob-dropdown-item" id="ob-acad-item-${i}" onclick="selectAcademy('${a.replace(/'/g,"\\'")}')">
+      <svg class="ob-dropdown-item-check" viewBox="0 0 24 24" fill="none" stroke="transparent" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      ${a}
+    </div>`;
+  }).join('');
+}
+function toggleAcademyDropdown(){
+  const trigger = document.getElementById('ob-academy-trigger');
+  const list    = document.getElementById('ob-academy-list');
+  const isOpen  = list.classList.contains('open');
+  closeAllDropdowns();
+  if(!isOpen){ trigger.classList.add('open'); list.classList.add('open'); }
+}
+function selectAcademy(val){
+  const isBn = state.lang === 'bn';
+  _isNewAcademy = val === '__new__';
+  document.getElementById('ob-new-academy-wrap').style.display = _isNewAcademy ? 'block' : 'none';
+  if(!_isNewAcademy){
+    _selectedAcademy = val;
+    const lbl = document.getElementById('ob-academy-trigger-lbl');
+    lbl.textContent = val;
+    lbl.classList.add('chosen');
+    // tick mark
+    document.querySelectorAll('#ob-academy-list .ob-dropdown-item').forEach(el=>{
+      const svg = el.querySelector('svg');
+      if(svg) svg.style.stroke = el.textContent.trim()===val ? 'var(--cyan)' : 'transparent';
+    });
+  }
+  closeAllDropdowns();
+}
+function obNewAcademyType(val){
+  _selectedAcademy = val.trim();
+  const lbl = document.getElementById('ob-academy-trigger-lbl');
+  lbl.textContent = val.trim() || (state.lang==='bn' ? 'একাডেমি / প্রতিষ্ঠান' : 'Academy / Institution');
+  lbl.classList.toggle('chosen', !!val.trim());
+}
+
+// ── Class dropdown ────────────────────────────────────
+function populateClassDropdown(){
+  const list  = document.getElementById('ob-class-list');
+  const isBn  = state.lang === 'bn';
+  list.innerHTML = EDUCATION_LEVELS.map(level => {
+    const catLabel = isBn ? level.category_bn : level.category;
+    const items = level.classes.map(cls => {
+      const label = isBn ? cls.bn : cls.en;
+      return `<div class="ob-dropdown-item" onclick="selectClass('${label.replace(/'/g,"\\'")}')">
+        <svg class="ob-dropdown-item-check" viewBox="0 0 24 24" fill="none" stroke="transparent" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        ${label}
+      </div>`;
+    }).join('');
+    return `<div style="padding:.45rem .9rem .1rem;font-size:.58rem;color:var(--muted);font-family:var(--font-head);letter-spacing:.1em">${catLabel}</div>${items}`;
+  }).join('<div class="ob-dropdown-separator"></div>');
+}
+function toggleClassDropdown(){
+  const trigger = document.getElementById('ob-class-trigger');
+  const list    = document.getElementById('ob-class-list');
+  const isOpen  = list.classList.contains('open');
+  closeAllDropdowns();
+  if(!isOpen){ trigger.classList.add('open'); list.classList.add('open'); }
+}
+function selectClass(val){
+  _selectedClass = val;
+  const lbl = document.getElementById('ob-class-trigger-lbl');
+  lbl.textContent = val;
+  lbl.classList.add('chosen');
+  document.querySelectorAll('#ob-class-list .ob-dropdown-item').forEach(el=>{
+    const svg = el.querySelector('svg');
+    if(svg) svg.style.stroke = el.textContent.trim()===val ? 'var(--cyan)' : 'transparent';
+  });
+  closeAllDropdowns();
+}
+function closeAllDropdowns(){
+  document.querySelectorAll('.ob-dropdown-trigger').forEach(t=>t.classList.remove('open'));
+  document.querySelectorAll('.ob-dropdown-list').forEach(l=>l.classList.remove('open'));
+}
+// Close dropdowns on outside tap
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.ob-dropdown-wrap')) closeAllDropdowns();
+});
+
+// ── Translation for academy page ──────────────────────
+function translateAcademyPage(){
+  const isBn = state.lang === 'bn';
+  const e = id => document.getElementById(id);
+  if(e('t-nav-academy'))      e('t-nav-academy').textContent      = isBn ? 'একাডেমি' : 'ACADEMY';
+  if(e('t-academy-title'))    e('t-academy-title').textContent    = isBn ? 'একাডেমি' : 'ACADEMY';
+  if(e('t-academy-sub'))      e('t-academy-sub').textContent      = isBn ? 'প্রাতিষ্ঠানিক লিডারবোর্ড ও চ্যালেঞ্জ ট্র্যাকিং' : 'Institutional leaderboard & challenge tracking';
+  if(e('t-leaderboard-title'))e('t-leaderboard-title').textContent= isBn ? 'লিডারবোর্ড' : 'LEADERBOARD';
+  if(e('t-spotlight-title'))  e('t-spotlight-title').textContent  = isBn ? 'চ্যালেঞ্জ সম্পন্নকারীরা' : 'CHALLENGE COMPLETERS';
+  if(e('t-affiliated-title')) e('t-affiliated-title').textContent = isBn ? 'অ্যাফিলিয়েটেড প্রতিষ্ঠান' : 'AFFILIATED INSTITUTIONS';
+  // Onboarding slide 4 labels
+  if(e('ob-s4-step'))         e('ob-s4-step').textContent         = isBn ? 'ধাপ ৪ / ৪' : 'STEP 4 OF 4';
+  if(e('ob-s4-title'))        e('ob-s4-title').textContent        = isBn ? 'আপনি কি শিক্ষার্থী?' : 'Are you a student?';
+  if(e('ob-s4-sub'))          e('ob-s4-sub').textContent          = isBn ? 'লিডারবোর্ডে আপনার একাডেমি সংযুক্ত করুন' : 'Connect to your academy for the leaderboard';
+  if(e('ob-s4-yes'))          e('ob-s4-yes').textContent          = isBn ? 'হ্যাঁ' : 'YES';
+  if(e('ob-s4-no'))           e('ob-s4-no').textContent           = isBn ? 'না' : 'NO';
+  if(e('ob-s4-academy-lbl'))  e('ob-s4-academy-lbl').textContent  = isBn ? 'একাডেমি / প্রতিষ্ঠান' : 'Academy / Institution';
+  if(e('ob-s4-new-lbl'))      e('ob-s4-new-lbl').textContent      = isBn ? 'নতুন একাডেমির নাম' : 'New academy name';
+  if(e('ob-s4-class-lbl'))    e('ob-s4-class-lbl').textContent    = isBn ? 'শ্রেণি' : 'Class';
+  if(e('ob-s4-roll-lbl'))     e('ob-s4-roll-lbl').textContent     = isBn ? 'রোল নং' : 'Roll No.';
+  if(e('ob-s4-back'))         e('ob-s4-back').textContent         = isBn ? '← পেছনে' : '← Back';
+  if(e('ob-s4-btn'))          e('ob-s4-btn').textContent          = isBn ? 'Prayerity চালু করুন →' : 'Launch Prayerity →';
+}
+
+function filterAcademySearch(query){
+  const q=query.toLowerCase().trim();
+  // Filter leaderboard rows
+  document.querySelectorAll('#academyLeaderboard [data-academy]').forEach(el=>{
+    el.style.display=(!q||el.getAttribute('data-academy').toLowerCase().includes(q))?'':'none';
+  });
+  // Filter affiliated list rows
+  document.querySelectorAll('#academyList [data-academy]').forEach(el=>{
+    el.style.display=(!q||el.getAttribute('data-academy').toLowerCase().includes(q))?'':'none';
+  });
+  // Filter spotlight
+  document.querySelectorAll('#academySpotlight [data-academy]').forEach(el=>{
+    el.style.display=(!q||el.getAttribute('data-academy').toLowerCase().includes(q))?'':'none';
+  });
+}
+
+function openProfileDrawer(){
+  playSound('tap');
+  const isBn=state.lang==='bn';
+  const lv=getLevelForXp(state.totalXp);
+  // Header
+  document.getElementById('pdName').textContent=state.name||'—';
+  document.getElementById('pdSub').textContent=`${state.gender==='female'?(isBn?'মহিলা':'Female'):(isBn?'পুরুষ':'Male')} · Lv.${lv.level} ${lv.name}`;
+  // Avatar gender swap
+  const av=document.getElementById('pdAvatar');
+  if(av&&state.gender==='female'){
+    av.innerHTML=`<svg viewBox="0 0 48 48" fill="none" stroke="var(--cyan)" stroke-width="1.5" width="38" height="38"><circle cx="24" cy="18" r="10"/><path d="M8 44v-4a16 16 0 0 1 32 0v4"/><path d="M24 34v8M18 42h12"/></svg>`;
+  }
+  // Stats
+  document.getElementById('pdXp').textContent=state.totalXp.toLocaleString();
+  document.getElementById('pdStreak').textContent=state.streak;
+  document.getElementById('pdPerfect').textContent=state.perfectDays||0;
+  document.getElementById('pdFajr').textContent=state.fajrOnTime||0;
+  document.getElementById('pdStreakL').textContent=isBn?'স্ট্রিক':'STREAK';
+  document.getElementById('pdPerfectL').textContent=isBn?'নিখুঁত':'PERFECT';
+  // Info rows
+  const rows=[
+    [isBn?'নাম':'Name', state.name||'—'],
+    [isBn?'লিঙ্গ':'Gender', state.gender==='female'?(isBn?'মহিলা':'Female'):(isBn?'পুরুষ':'Male')],
+    [isBn?'ভাষা':'Language', state.lang==='bn'?'বাংলা':'English'],
+    [isBn?'থিম':'Theme', state.theme||'night'],
+    [isBn?'শিক্ষার্থী':'Student', state.isStudent?(isBn?'হ্যাঁ':'Yes'):(isBn?'না':'No')],
+    ...(state.isStudent?[
+      [isBn?'একাডেমি':'Academy', state.academy||'—'],
+      [isBn?'শ্রেণি':'Class', state.studentClass||'—'],
+      [isBn?'রোল নং':'Roll No.', state.rollNumber||'—'],
+    ]:[]),
+    [isBn?'মোট দিন লগ':'Days Logged', Object.values(state.history||{}).filter(d=>d.synced).length],
+  ];
+  const section=document.getElementById('pdInfoRows');
+  if(section)section.innerHTML=rows.map(([k,v])=>`
+    <div class="profile-drawer-row">
+      <span class="profile-drawer-key">${k}</span>
+      <span class="profile-drawer-val">${v}</span>
+    </div>`).join('');
+  // Open
+  document.getElementById('profileDrawerOverlay').classList.add('open');
+  document.getElementById('profileDrawer').classList.add('open');
+}
+function closeProfileDrawer(){
+  playSound('tap');
+  document.getElementById('profileDrawerOverlay').classList.remove('open');
+  document.getElementById('profileDrawer').classList.remove('open');
+}
+
+function renderProfile(){
+  const el=document.getElementById('profileContent');if(!el)return;
+  const isBn=state.lang==='bn';
+  const lv=getLevelForXp(state.totalXp);
+  const nextLv=getNextLevel(state.totalXp);
+  const gender=state.gender==='female';
+  const avatarSVG=gender
+    ?`<svg viewBox="0 0 48 48" fill="none" stroke="var(--cyan)" stroke-width="1.5" width="56" height="56"><circle cx="24" cy="18" r="10"/><path d="M8 44v-4a16 16 0 0 1 32 0v4"/><path d="M24 34v8M18 42h12" stroke-width="1.5"/></svg>`
+    :`<svg viewBox="0 0 48 48" fill="none" stroke="var(--cyan)" stroke-width="1.5" width="56" height="56"><circle cx="24" cy="18" r="10"/><path d="M8 44v-4a16 16 0 0 1 32 0v4"/></svg>`;
+  el.innerHTML=`
+    <!-- Avatar + name -->
+    <div style="display:flex;flex-direction:column;align-items:center;padding:1.5rem 1rem 1rem;gap:.5rem">
+      <div style="width:80px;height:80px;border-radius:50%;background:var(--card);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center">${avatarSVG}</div>
+      <div style="font-family:var(--font-head);font-size:.85rem;letter-spacing:.1em">${state.name||'—'}</div>
+      <div style="font-size:.65rem;color:var(--muted)">${gender?(isBn?'মহিলা':'Female'):(isBn?'পুরুষ':'Male')} · Lv.${lv.level} ${lv.name}</div>
+    </div>
+    <!-- Stats grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:0 1rem .75rem">
+      ${[
+        [isBn?'মোট XP':'Total XP', state.totalXp.toLocaleString(), 'var(--cyan)'],
+        [isBn?'স্ট্রিক':'Streak', state.streak+' '+( isBn?'দিন':'days'), 'var(--purple)'],
+        [isBn?'পারফেক্ট দিন':'Perfect Days', state.perfectDays||0, 'var(--gold,#ffd700)'],
+        [isBn?'ফজর সময়মতো':'Fajr On Time', state.fajrOnTime||0, 'var(--cyan)'],
+      ].map(([label,val,color])=>`<div style="background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:.75rem 1rem">
+        <div style="font-family:var(--font-head);font-size:.9rem;color:${color}">${val}</div>
+        <div style="font-size:.6rem;color:var(--muted);margin-top:.2rem">${label}</div>
+      </div>`).join('')}
+    </div>
+    <!-- Identity info -->
+    <div style="margin:0 1rem;background:var(--card);border:1px solid var(--border2);border-radius:14px;overflow:hidden">
+      ${[
+        [isBn?'নাম':'Name', state.name||'—'],
+        [isBn?'লিঙ্গ':'Gender', state.gender==='female'?(isBn?'মহিলা':'Female'):(isBn?'পুরুষ':'Male')],
+        [isBn?'ভাষা':'Language', state.lang==='bn'?'বাংলা':'English'],
+        [isBn?'থিম':'Theme', state.theme],
+        [isBn?'শিক্ষার্থী':'Student', state.isStudent?(isBn?'হ্যাঁ':'Yes'):(isBn?'না':'No')],
+        ...(state.isStudent?[
+          [isBn?'একাডেমি':'Academy', state.academy||'—'],
+          [isBn?'শ্রেণি':'Class', state.studentClass||'—'],
+          [isBn?'রোল নং':'Roll No.', state.rollNumber||'—'],
+        ]:[]),
+      ].map(([k,v])=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:.65rem 1rem;border-bottom:1px solid rgba(255,255,255,.04)">
+        <span style="font-size:.72rem;color:var(--muted)">${k}</span>
+        <span style="font-size:.75rem;font-weight:500">${v}</span>
+      </div>`).join('')}
+    </div>`;
+}
+
+// ── Main render ───────────────────────────────────────
+function renderAcademy(){
+  translateAcademyPage();
+  const isBn = state.lang === 'bn';
+  // Show skeleton first
+  ['academyLeaderboard','academySpotlight','academyList'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.innerHTML=`<div style="height:60px;background:linear-gradient(90deg,var(--card) 25%,var(--card2) 50%,var(--card) 75%);background-size:200% 100%;animation:shimmer 1.2s infinite;border-radius:12px;margin-bottom:.5rem"></div>`.repeat(2);
+  });
+
+  // Pull all user records from the Google Sheet cache
+  // Since we can't fetch live without CORS, we use locally-stored
+  // challengers that synced their data. Each sync writes to sheetsUrl
+  // and we store a local mirror of completers in localStorage.
+  const completersKey = 'prayerity_completers';
+  let completers = JSON.parse(localStorage.getItem(completersKey)||'[]');
+
+  // Add yourself to local mirror when you complete the challenge
+  if(state.streak >= state.mensesChallenge && state.isStudent && state.academy){
+    const existing = completers.find(c=>c.name===state.name && c.academy===state.academy);
+    if(!existing){
+      completers.push({
+        name: state.name,
+        gender: state.gender,
+        academy: state.academy,
+        studentClass: state.studentClass,
+        rollNumber: state.rollNumber,
+        streak: state.streak,
+        xp: state.totalXp,
+        days: state.mensesChallenge,
+        date: todayStr(),
+      });
+      localStorage.setItem(completersKey, JSON.stringify(completers));
+    }
+  }
+
+  // ── Leaderboard (by academy completer count) ──
+  const lb = document.getElementById('academyLeaderboard');
+  const byAcademy = {};
+  completers.forEach(c=>{
+    if(!byAcademy[c.academy]) byAcademy[c.academy]={count:0,name:c.academy};
+    byAcademy[c.academy].count++;
+  });
+  const sorted = Object.values(byAcademy).sort((a,b)=>b.count-a.count);
+  if(sorted.length===0){
+    lb.innerHTML = `<div style="text-align:center;padding:1.5rem;color:var(--muted);font-size:.75rem">${isBn?'এখনো কোনো চ্যালেঞ্জ সম্পন্ন হয়নি।':'No completed challenges yet.'}</div>`;
+  } else {
+    lb.innerHTML = sorted.map((a,i)=>`
+      <div style="display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;background:var(--card);border:1px solid var(--border2);border-radius:12px;margin-bottom:.5rem">
+        <div style="font-family:var(--font-head);font-size:1rem;color:${i===0?'var(--gold)':i===1?'#aaa':i===2?'#cd7f32':'var(--muted)'};min-width:1.5rem;text-align:center">${i+1}</div>
+        <div style="flex:1">
+          <div style="font-size:.8rem;font-weight:600">${a.name}</div>
+          <div style="font-size:.65rem;color:var(--muted)">${a.count} ${isBn?'জন সম্পন্ন':'completers'}</div>
+        </div>
+        <div style="font-family:var(--font-head);font-size:.55rem;color:var(--cyan)">#${i+1}</div>
+      </div>`).join('');
+  }
+
+  // ── Spotlight (individual completers) ──
+  const sp = document.getElementById('academySpotlight');
+  if(completers.length===0){
+    sp.innerHTML = `<div style="text-align:center;padding:1.5rem;color:var(--muted);font-size:.75rem">${isBn?'এখনো কোনো শিক্ষার্থী চ্যালেঞ্জ সম্পন্ন করেনি।':'No students have completed the challenge yet.'}</div>`;
+  } else {
+    sp.innerHTML = completers.slice().reverse().map(c=>`
+      <div style="display:flex;align-items:center;gap:.85rem;padding:.85rem 1rem;background:var(--card);border:1px solid var(--border2);border-radius:14px;margin-bottom:.55rem">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--card2);border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          ${c.gender==='female'
+            ? `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/><path d="M12 16v4M9 20h6" stroke-width="1.5"/></svg>`
+            : `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>`}
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.name}</div>
+          <div style="font-size:.65rem;color:var(--muted);margin-top:.1rem">${c.academy}${c.studentClass?' · Class '+c.studentClass:''}${c.rollNumber?' · Roll '+c.rollNumber:''}</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-family:var(--font-head);font-size:.6rem;color:var(--gold)">${c.days}${isBn?' দিন':' days'}</div>
+          <div style="font-size:.6rem;color:var(--muted)">${c.date}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  // ── All affiliated institutions ──
+  const al = document.getElementById('academyList');
+  const allAcad = [...new Set([...getAcademies().slice(0,-1), ...completers.map(c=>c.academy)])];
+  al.innerHTML = allAcad.map(a=>{
+    const count = completers.filter(c=>c.academy===a).length;
+    return `<div style="display:flex;align-items:center;gap:.75rem;padding:.7rem 1rem;background:var(--card);border:1px solid var(--border2);border-radius:12px;margin-bottom:.45rem">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      <div style="flex:1;font-size:.78rem">${a}</div>
+      <div style="font-size:.62rem;color:var(--muted)">${count} ${isBn?'জন':'completed'}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════════
+   IN-APP NOTIFICATION SYSTEM
+═══════════════════════════════════════════════════════ */
+function getNotifs(){return JSON.parse(localStorage.getItem('prayerity_notifs')||'[]');}
+function saveNotifs(arr){localStorage.setItem('prayerity_notifs',JSON.stringify(arr));}
+function addNotif(title,body){
+  const notifs=getNotifs();
+  notifs.unshift({id:Date.now(),title,body,read:false,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
+  if(notifs.length>50)notifs.pop();
+  saveNotifs(notifs);
+  updateNotifBadge();
+  renderNotifList();
+}
+function updateNotifBadge(){
+  const unread=getNotifs().filter(n=>!n.read).length;
+  const badge=document.getElementById('notifBadge');
+  if(badge)badge.classList.toggle('show',unread>0);
+}
+function toggleNotifPanel(){
+  const panel=document.getElementById('notifPanel');
+  const isOpen=panel.classList.contains('open');
+  panel.classList.toggle('open',!isOpen);
+  if(!isOpen){renderNotifList();playSound('tap');}
+  // Close when clicking outside
+  if(!isOpen) setTimeout(()=>document.addEventListener('click',closeNotifOnOutside,{once:true}),50);
+}
+function closeNotifOnOutside(e){
+  if(!e.target.closest('#notifPanel')&&!e.target.closest('#notifBellBtn'))
+    document.getElementById('notifPanel')?.classList.remove('open');
+}
+function renderNotifList(){
+  const list=document.getElementById('notifList');if(!list)return;
+  const notifs=getNotifs();
+  if(!notifs.length){list.innerHTML='<div style="padding:1.5rem;text-align:center;font-size:.72rem;color:var(--muted)">No notifications yet</div>';return;}
+  list.innerHTML=notifs.map((n,i)=>`
+    <div class="notif-item${n.read?'':' unread'}" onclick="markNotifRead(${i})">
+      <div class="notif-dot${n.read?' read':''}"></div>
+      <div style="flex:1">
+        <div class="notif-item-title">${n.title}</div>
+        <div class="notif-item-body">${n.body}</div>
+        <div class="notif-item-time">${n.time}</div>
+      </div>
+    </div>`).join('');
+}
+function markNotifRead(idx){
+  const notifs=getNotifs();
+  if(notifs[idx])notifs[idx].read=true;
+  saveNotifs(notifs);renderNotifList();updateNotifBadge();
+}
+function markAllNotifsRead(){
+  const notifs=getNotifs().map(n=>({...n,read:true}));
+  saveNotifs(notifs);renderNotifList();updateNotifBadge();playSound('tap');
+}
+
+function shareApp(){
+  const text='I\'m using Prayerity to track my daily prayers and build a 40-day streak! Join me: https://ellipps.github.io/prayerity/';
+  if(navigator.share){navigator.share({title:'Prayerity',text,url:'https://ellipps.github.io/prayerity/'}).catch(()=>{});}
+  else{navigator.clipboard?.writeText(text);showToast('Link copied!','success');}
+  playSound('tap');
+}
+function openReportForm(){
+  playSound('tap');
+  const isBn=state.lang==='bn';
+  showModal({
+    icon:'🐛',
+    title:isBn?'সমস্যা রিপোর্ট করুন':'REPORT AN ISSUE',
+    titleClass:'',
+    body:`
+      <div style="text-align:left">
+        <div style="font-size:.65rem;color:var(--muted);margin-bottom:.75rem">Issue type:</div>
+        <label style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;font-size:.75rem"><input type="checkbox" id="r-bug"> Bug / App crash</label>
+        <label style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;font-size:.75rem"><input type="checkbox" id="r-ui"> UI / Display issue</label>
+        <label style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;font-size:.75rem"><input type="checkbox" id="r-data"> Data / Sync issue</label>
+        <label style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem;font-size:.75rem"><input type="checkbox" id="r-other"> Other</label>
+        <textarea id="r-msg" placeholder="Describe the issue..." style="width:100%;min-height:80px;background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:.6rem .75rem;color:var(--text);font-size:.78rem;resize:none;outline:none"></textarea>
+        <div style="font-size:.62rem;color:var(--muted);margin-top:.4rem">Your name (${state.name}), streak (${state.streak}), and app version will be included.</div>
+      </div>`,
+    actions:[
+      {label:'CANCEL',cls:'cancel',fn:()=>{}},
+      {label:'SEND REPORT',cls:'confirm-primary',fn:()=>{
+        const types=[];
+        if(document.getElementById('r-bug')?.checked) types.push('Bug');
+        if(document.getElementById('r-ui')?.checked) types.push('UI Issue');
+        if(document.getElementById('r-data')?.checked) types.push('Data/Sync');
+        if(document.getElementById('r-other')?.checked) types.push('Other');
+        const msg=document.getElementById('r-msg')?.value.trim()||'';
+        if(!msg&&!types.length){showToast('Please describe the issue','warn');return;}
+        const subject=encodeURIComponent(`[Prayerity Report] ${types.join(', ')}`);
+        const body=encodeURIComponent(`Issue Type: ${types.join(', ')}\n\nDescription:\n${msg}\n\n---\nUser: ${state.name}\nGender: ${state.gender}\nStreak: ${state.streak}\nXP: ${state.totalXp}\nApp Version: v7.0\nLang: ${state.lang}`);
+        window.open(`mailto:easanians@yahoo.com?subject=${subject}&body=${body}`,'_blank');
+        showToast('Report ready — confirm send in your email app','success');
+      }},
+    ]
+  });
+}
+
+/* ═══════════════════════════════════════════════════════
    NAV
 ═══════════════════════════════════════════════════════ */
 function switchTab(tab){
   playSound('tap');
-  const tabs=['rituals','calendar','shield','stats','manual','notes','settings'];
+  const tabs=['rituals','calendar','shield','stats','manual','notes','academy','settings'];
   tabs.forEach(t=>{
     const pg=document.getElementById(`page-${t}`);
     const nb=document.getElementById(`nav-${t}`);
@@ -3239,12 +4355,17 @@ function switchTab(tab){
   });
   document.querySelectorAll('.page').forEach(p=>{if(p.classList.contains('active'))p.classList.add('page-enter');});
   setTimeout(()=>document.querySelectorAll('.page').forEach(p=>p.classList.remove('page-enter')),400);
-  if(tab==='shield'){renderShield();renderAchievements();}
+  if(tab==='shield'){renderShield();renderAchievements();if(state.gender==='female')loadMensesRoutineUI();}
   if(tab==='notes')renderNotes();
   if(tab==='manual')renderArchive();
   if(tab==='calendar')renderCalendar();
   if(tab==='stats')renderStats();
+  if(tab==='academy') renderAcademy();
+  if(tab==='profile') renderProfile();
   initIntersectionObserver();
+  // scroll active nav item into center view
+  const activeBtn=document.getElementById(`nav-${tab}`);
+  if(activeBtn) activeBtn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -3362,6 +4483,39 @@ window.addEventListener('DOMContentLoaded',()=>{
     setTimeout(()=>{
       boot.style.display='none';
       if(!state.onboarded){
+      
+      // Friday 10:00 AM donation reminder
+function checkFridayDonation(){
+  const now=new Date();
+  const isFriday=now.getDay()===5;
+  const is10am=now.getHours()===10&&now.getMinutes()<5;
+  const key=`prayerity_fri_notif_${now.toDateString()}`;
+  if(isFriday&&is10am&&!localStorage.getItem(key)){
+    localStorage.setItem(key,'1');
+    const isBn=state.lang==='bn';
+    showModal({
+      icon:'💚',
+      title:isBn?'জুমু\'আহ মুবারক!':'Jumu\'ah Mubarak!',
+      titleClass:'',
+      body:isBn?
+        `আজ শুক্রবার — সপ্তাহের সেরা দিন। Prayerity আপনার ইবাদতকে সহজ করে তুলছে। যদি এই অ্যাপ আপনার উপকারে আসে, তাহলে ডেভেলপারকে সহায়তা করুন।<br><br><strong>bKash/Nagad: 01776800623</strong>`:
+        `Today is Friday — the best day of the week. Prayerity helps you on your worship journey. If it has benefited you, please consider supporting the developer.<br><br><strong>bKash/Nagad: 01776800623</strong><br>International: WhatsApp +8801776800623`,
+      actions:[
+        {label:isBn?'পরে':'LATER',cls:'cancel',fn:()=>{}},
+        {label:isBn?'সহায়তা করুন':'SUPPORT US',cls:'confirm-primary',fn:()=>{
+          if(/Bangladesh|BD/.test(Intl.DateTimeFormat().resolvedOptions().timeZone)){
+            window.open('https://bKash.com','_blank');
+          } else {
+            window.open('https://wa.me/+8801776800623','_blank');
+          }
+        }},
+      ]
+    });
+  }
+}
+setInterval(checkFridayDonation, 5*60*1000); // check every 5 min
+checkFridayDonation(); // check on load too
+      
         // Show onboarding
         document.getElementById('onboarding').classList.remove('hidden');
       }else{
@@ -3371,6 +4525,15 @@ window.addEventListener('DOMContentLoaded',()=>{
         renderAll();
         initParticles();
         initAthanSystem();
+        // Streak break warning at 9 PM
+setInterval(()=>{
+  const h=new Date().getHours();
+  if(h>=21 && !isTodaySynced() && state.streak>0){
+    const isBn=state.lang==='bn';
+    showToast(isBn?`${state.name}, আজকের সিঙ্ক হয়নি!`:`${state.name}, you haven't synced today!`,
+              isBn?'স্ট্রিক হারাবেন না।':'Don\'t break your streak.','warning');
+  }
+},60000);
       }
     },700);
   },2800);
