@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Privacy Policy — Namazy</title>
+  <style>
+/* ---------- Base dark theme ---------- */
+:root{
+  --bg:#0a0a0f;
+  --panel:#0f0f14;
+  --muted:#bfc7cf;
+  --cyan:#00fff7;
+  --magenta:#ff00ff;
+  --gold:#ffd700;
+  --accent:#00c896;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body {
+  background: var(--bg);
+  color: #e6eef6;
+  font-family: 'Outfit', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  margin: 0;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+  overflow-x:hidden;
+}
+
+/* ---------- Cyberpunk animated gradient background -------- */
+body {
+  background: #0a0a0f;
+  color: #e0e0e0;
+  font-family: 'Outfit', Arial, sans-serif;
+  margin: 0;
+  line-height: 1.7;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Animated gradient overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(120deg, rgba(0,255,247,0.08), rgba(255,0,255,0.08), rgba(255,215,0,0.06));
+  background-size: 200% 200%;
+  animation: gradientShift 20s ease infinite;
+  z-index: -2;
+}
+
+/* Subtle moving grid overlay */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background:
+    repeating-linear-gradient(0deg, rgba(0,255,247,0.05) 0px, rgba(0,255,247,0.05) 2px, transparent 2px, transparent 40px),
+    repeating-linear-gradient(90deg, rgba(255,0,255,0.05) 0px, rgba(255,0,255,0.05) 2px, transparent 2px, transparent 40px);
+  animation: gridPulse 12s ease-in-out infinite;
+  z-index: -1;
+}
+
+/* Gradient animation */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Grid pulsing animation */
+@keyframes gridPulse {
+  0% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.02); }
+  100% { opacity: 0.15; transform: scale(1); }
+}
+
+/* ---------- Header ---------- */
+header{
+  background: linear-gradient(135deg,#0f0c29 0%, #302b63 50%, #24243e 100%);
+  padding:36px 20px;
+  text-align:center;
+  color: #fff;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+header h1{
+  font-family:'Orbitron', sans-serif;
+  font-size:2.2rem;
+  margin:0;
+  color:var(--gold);
+  text-shadow:0 0 8px rgba(255,215,0,0.12);
+}
+header p{margin:10px 0 0; color:var(--muted)}
+
+/* ---------- Layout container ---------- */
+.container{
+  max-width:1100px;
+  margin:28px auto;
+  padding:0 18px 60px;
+}
+
+/* ---------- Collapsible section styling ---------- */
+.policy-section{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.04);
+  border-radius:10px;
+  margin:18px 0;
+  overflow:hidden;
+  box-shadow: 0 6px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  transition: transform .28s ease, box-shadow .28s ease;
+}
+.policy-section:hover{ transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.7) }
+
+/* header bar inside section */
+.policy-section > h2{
+  margin:0;
+  padding:16px 18px;
+  background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+  color:var(--cyan);
+  font-family:'Syncopate', sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+  user-select:none;
+  border-bottom:1px solid rgba(255,255,255,0.02);
+}
+.policy-section > h2 .title-left{display:flex; gap:12px; align-items:center}
+.policy-section > h2 .title-left .icon{
+  width:36px; height:36px; border-radius:8px;
+  background:linear-gradient(135deg,var(--cyan),var(--magenta));
+  box-shadow:0 6px 18px rgba(0,255,247,0.08), 0 0 18px rgba(255,0,255,0.03) inset;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-weight:700; color:#071018;
+}
+
+/* arrow indicator */
+.policy-section > h2 .chev{
+  font-size:0.95rem;
+  color:var(--muted);
+  transition: transform .36s cubic-bezier(.2,.9,.2,1), color .2s;
+}
+.policy-section.collapsed > h2 .chev{ transform: rotate(-90deg); color:var(--gold) }
+
+/* content area */
+.policy-section .content{
+  padding:20px 22px 26px;
+  max-height:2000px;
+  overflow:hidden;
+  transition: max-height .6s ease, padding .4s ease;
+}
+.policy-section.collapsed .content{
+  max-height:0;
+  padding:0 22px;
+}
+
+/* ---------- Typography and small elements ---------- */
+h3{ color:var(--accent); margin-top:8px }
+h4{ color:var(--magenta); margin-top:12px }
+p, li { color: #dbe9f2; font-size:0.98rem; margin:8px 0 }
+ul{ margin:8px 0 16px 20px }
+
+/* ---------- Tables (keep semantic) ---------- */
+/* Cyberpunk table styling (desktop) */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(0,255,247,0.2);
+  box-shadow: 0 0 12px rgba(0,255,247,0.08);
+}
+th, td {
+  padding: 12px 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  text-align: left;
+  font-size: 0.95rem;
+  color: #e6eef6;
+}
+th {
+  background: rgba(0,255,247,0.08);
+  color: #ffd700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+tr:hover {
+  background: rgba(255,0,255,0.06);
+  transition: background 0.3s ease;
+}
+
+/* Responsive stacking for mobile */
+@media (max-width: 720px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+  }
+  thead { display: none; } /* hide header row */
+  tr {
+    margin-bottom: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 8px;
+    background: rgba(255,255,255,0.01);
+  }
+  td {
+    border: none;
+    padding: 8px 0;
+    position: relative;
+    padding-left: 50%;
+    word-break: break-word; /* prevents overlap */
+  }
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 12px;
+    top: 8px;
+    font-weight: bold;
+    color: #00fff7;
+    white-space: nowrap;
+  }
+}
+
+/* ---------- Neon link/button styles ---------- */
+a.neon{
+  color:var(--cyan);
+  border:1px solid rgba(0,255,247,0.18);
+  padding:6px 10px;
+  border-radius:6px;
+  display:inline-block;
+  transition: all .22s ease;
+  text-decoration:none;
+  box-shadow: 0 6px 18px rgba(0,255,247,0.04);
+}
+a.neon:hover{
+  color:var(--magenta);
+  border-color:rgba(255,0,255,0.28);
+  box-shadow: 0 10px 30px rgba(255,0,255,0.08), 0 0 18px rgba(255,0,255,0.06);
+  text-shadow:0 0 10px rgba(255,0,255,0.12);
+}
+
+/* ---------- Footer ---------- */
+footer{
+  margin-top:28px;
+  padding:18px 12px;
+  text-align:center;
+  color:var(--muted);
+  border-top:1px solid rgba(255,255,255,0.02);
+  font-size:0.95rem;
+}
+
+/* ---------- small utilities ---------- */
+.kv { font-weight:600; color:var(--gold) }
+.small { font-size:0.9rem; color:var(--muted) }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Privacy Policy — Namazy</h1>
+  <p><strong>Effective Date:</strong> [Write today's date here, e.g. June 15, 2025] <br>
+  <strong>Developer:</strong> Elliuuren | <strong>Contact:</strong> easanians@yahoo.com</p>
+</header>
+
+<section class="policy-section">
+  <h2>1. Introduction</h2>
+  <div class="content">
+  <p>Namazy ("the App") is a free Islamic prayer tracking application. This Privacy Policy explains what data the App collects, how it is used, and what rights you have regarding your data. By using Namazy, you agree to this policy.</p>
+  </div>
+</section>
+
+<section class="policy-section">
+  <h2>2. Data We Collect</h2>
+  <div class="content">
+  <h3>2.1 Data Stored Locally on Your Device Only</h3>
+  <p>The following data is stored exclusively in your device's local storage (browser localStorage / app storage) and is <strong>never transmitted to any external server</strong>:</p>
+  
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td data-label="Data">Your first name</td>
+      <td data-label="Purpose">Personalized greetings</td>
+    </tr>
+    <tr>
+      <td data-label="Data">Gender selection</td>
+      <td data-label="Purpose">Gender-appropriate features</td>
+    </tr>
+    <tr>
+      <td data-label="Data">Language preference</td>
+      <td data-label="Purpose">Interface language</td>
+    </tr>
+    <tr>
+      <td data-label="Data">Theme preference</td>
+      <td data-label="Purpose">UI appearance</td>
+    </tr>
+    <tr>
+      <td data-label="Data">Prayer task completion history</td>
+      <td data-label="Purpose">Streak and XP tracking</td>
+    </tr>
+    <tr>
+      <td data-label="Data">XP and streak count</td>
+      <td data-label="Purpose">Gamification</td>
+    </tr>
+    <tr>
+      <td data-label="Data">Notes (Notepad)</td>
+      <td data-label="Purpose">Personal reflections</td>
+    </tr>
+    <tr>
+      <td data-label="Data">Menstruation tracking data</td>
+      <td data-label="Purpose">Female cycle-aware features</td>
+    </tr>
+    <tr>
+      <td data-label="Data">Menstruation history</td>
+      <td data-label="Purpose">Cycle pattern detection</td>
+    </tr>
+    <tr>
+      <td data-label="Data">Academy, class, roll number</td>
+      <td data-label="Purpose">Academy leaderboard</td>
+    </tr>
+    <tr>
+      <td data-label="Data">Achievement badges unlocked</td>
+      <td data-label="Purpose">Progress tracking</td>
+    </tr>
+    <tr>
+      <td data-label="Data">In-app notification log</td>
+      <td data-label="Purpose">Activity history</td>
+    </tr>
+    <tr>
+      <td data-label="Data">Prayer time offsets</td>
+      <td data-label="Purpose">User-customized athan times</td>
+    </tr>
+    <tr>
+      <td data-label="Data">App settings</td>
+      <td data-label="Purpose">User preferences</td>
+    </tr>
+  </tbody>
+</table>
+
+  <p><strong>⚠️ Critical:</strong> Menstruation tracking data is stored ONLY on your device. It is never uploaded, synced, or transmitted anywhere under any circumstances.</p>
+
+  <h3>2.2 Data Sent to External Services</h3>
+  <h4>a) Prayer Times (Aladhan.com API)</h4>
+  <ul>
+    <li><strong>What is sent:</strong> Your GPS latitude and longitude</li>
+    <li><strong>Why:</strong> To calculate accurate local prayer times</li>
+    <li><strong>When:</strong> Once per day when you open the app with location permission granted</li>
+    <li><strong>Aladhan Privacy Policy:</strong> <a href="https://aladhan.com/privacy-policy">https://aladhan.com/privacy-policy</a></li>
+    <li><strong>You can disable this:</strong> Deny location permission. Prayer times will use default estimates.</li>
+  </ul>
+
+  <h4>b) Progress Sync (Google Sheets via Apps Script)</h4>
+  <ul>
+    <li><strong>What is sent:</strong> Name, streak count, total XP, level, days logged, perfect days, is-student flag, academy name, class, roll number, challenge completion status, app version, sync date</li>
+    <li><strong>What is NOT sent:</strong> Menstruation data, notes, full prayer history, passwords, device identifiers</li>
+    <li><strong>Why:</strong> Allows the developer (Elliuuren) to monitor challenge participation for academy leaderboard management</li>
+    <li><strong>When:</strong> When you tap "Sync Daily Data"</li>
+    <li><strong>You can disable this:</strong> The sync is automatic on each daily sync. If you do not sync, no data is sent.</li>
+  </ul>
+
+  <h4>c) Email (Report an Issue / Claim Authentication)</h4>
+  <ul>
+    <li><strong>What is sent:</strong> Your typed message, selected issue type, app version, streak, XP, device user-agent</li>
+    <li><strong>Why:</strong> To process your support request or shield authentication</li>
+    <li><strong>When:</strong> Only when you manually tap "Send Report" or "Submit Authentication"</li>
+    <li><strong>This opens your device's email app</strong> — you control whether to send it</li>
+  </ul>
+
+  <h4>d) AI / Gemini API (if enabled)</h4>
+  <p>The app does not currently use an AI feature by default. If added in future versions, this policy will be updated.</p>
+  </div>
+</section>
+
+<section class="policy-section">
+  <h2>3. Data We Do NOT Collect</h2>
+  <div class="content">
+  <ul>
+    <li>Device identifiers (IMEI, advertising ID, etc.)</li>
+    <li>Browsing history or cross-app behavior</li>
+    <li>Financial or payment information</li>
+    <li>Biometric data</li>
+    <li>Passwords (admin password is hashed using SHA-256 locally)</li>
+    <li>Photos, camera, or microphone data</li>
+    <li>Contact lists</li>
+    <li>Precise location beyond what is needed for prayer times</li>
+    <li>Any data from children under 13 knowingly</li>
+  </ul>
+  </div>
+</section>
+
+<section class="policy-section">
+  <h2>4. Permissions Requested</h2>
+  <div class="content">
+  <table>
+  <thead>
+    <tr>
+      <th>Permission</th>
+      <th>Reason</th>
+      <th>Required?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td data-label="Permission">Location (Approximate)</td>
+      <td data-label="Reason">Calculate local prayer times</td>
+      <td data-label="Required?">Optional</td>
+    </tr>
+    <tr>
+      <td data-label="Permission">Notifications</td>
+      <td data-label="Reason">Prayer time reminders and app alerts</td>
+      <td data-label="Required?">Optional</td>
+    </tr>
+    <tr>
+      <td data-label="Permission">Storage / File Access</td>
+      <td data-label="Reason">Export and import backup .json files</td>
+      <td data-label="Required?">Optional</td>
+    </tr>
+  </tbody>
+</table>
+  <p>Namazy does <strong>not</strong> request: Camera, Microphone, Contacts, Phone, SMS, Bluetooth, or any other sensitive permissions.</p>
+  </div>
+</section>
+
+<section class="policy-section">
+  <h2>5. Data Retention</h2>
+  <div class="content">
+  <ul>
+    <li><strong>Local data:</strong> Stored on your device until you use Hard System Reset or uninstall the app</li>
+    <li><strong>Google Sheets:</strong> Progress data sent at each sync is retained by the developer for leaderboard and challenge tracking purposes. You may request deletion by emailing easanians@yahoo.com</li>
+    <li><strong>Aladhan API:</strong> Prayer time requests are not logged by the app. Aladhan's own retention policy applies</li>
+    <li><strong>Notification log:</strong> Stored locally, capped at 50 entries, auto-cleared on Hard Reset</li>
+  </ul>
+  </div>
+</section>
+
+<section class="policy-section">
+  <h2>6. Children's Privacy</h2>
+  <div class="content">
+  <p>Namazy is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has provided data through this app, please contact us at <a href="mailto:easanians@yahoo.com">easanians@yahoo.com</a> and we will take steps to remove it.</p>
+  <p>Users aged 13–17 should use the app with parental awareness.</p>
+  </div>
+</section>
+
+<section class="policy-section">
+  <h2>7. Data Security</h2>
+  <div class="content">
+  <ul>
+    <li>All local data is stored in the device's sandboxed localStorage — inaccessible to other apps</li>
+    <li>Admin password is hashed client-side using SHA-256 before comparison — never stored in plaintext</li>
+    <li>Google Sheets sync uses HTTPS</li>
+    <li>Menstruation data has zero external exposure by design</li>
+  </ul>
+  </div>
+</section>
+
+<section class="policy-section">
+  <h2>8. Your Rights</h2>
+  <div class="content">
+  <ul>
+    <li><strong>Access</strong> your data: All your data is visible within the app itself</li>
+    <li><strong>Delete</strong> your data: Use Settings → Hard System Reset to wipe all local data</li>
+    <li><strong>Request deletion</strong> of synced data: Email <a href="mailto:easanians@yahoo.com">easanians@yahoo.com</a></li>
+    <li><strong>Withdraw consent</strong> to location: Deny/revoke location permission in your device settings</li>
+    <li><strong>Withdraw consent</strong> to notifications: Revoke notification permission in device settings</li>
+  </ul>
+  </div>
+</section>
+
+<section class="policy-section">
+  <h2>9. Third-Party Services Used</h2>
+  <div class="content">
+<table>
+  <thead>
+    <tr>
+      <th>Service</th>
+      <th>Purpose</th>
+      <th>Privacy Policy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td data-label="Service">Aladhan API (aladhan.com)</td>
+      <td data-label="Purpose">Prayer times calculation</td>
+      <td data-label="Privacy Policy"><a class="neon" href="https://aladhan.com/privacy-policy">https://aladhan.com/privacy-policy</a></td>
+    </tr>
+    <tr>
+      <td data-label="Service">Google Apps Script / Sheets</td>
+      <td data-label="Purpose">Progress data storage for leaderboard</td>
+      <td data-label="Privacy Policy"><a class="neon" href="https://policies.google.com/privacy">https://policies.google.com/privacy</a></td>
+    </tr>
+    <tr>
+      <td data-label="Service">Google Fonts</td>
+      <td data-label="Purpose">Font loading (Orbitron, Syncopate, Outfit)</td>
+      <td data-label="Privacy Policy"><a class="neon" href="https://policies.google.com/privacy">https://policies.google.com/privacy</a></td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</section>
+
+<section class="policy-section">
+  <h2>10. Changes to This Policy</h2>
+  <div class="content">
+  <p>If we make material changes to this Privacy Policy, we will update the Effective Date at the top. Continued use of the app after changes constitutes acceptance of the updated policy. Major changes will also be noted in the app's update release notes.</p>
+  </div>
+</section>
+
+<section class="policy-section">
+  <h2>11. Contact</h2>
+  <div class="content">
+  <p>If you have any questions about this Privacy Policy or your data:</p>
+  <p><strong>Developer:</strong> Elliuuren<br>
+  <strong>Email:</strong> <a href="mailto:easanians@yahoo.com">easanians@yahoo.com</a><br>
+  <strong>WhatsApp:</strong> +8801776800623</p>
+  </div>
+</section>
+
+<footer>
+  <p>Developer: Elliuuren | Email: easanians@yahoo.com | WhatsApp: +8801776800623</p>
+  <p>Compliant with Google Play Store requirements, GDPR principles, and general mobile app data protection standards.</p>
+</footer>
+
+</body>
+<script>
+/* Collapsible sections with persistence */
+(function(){
+  const KEY = 'namazy_policy_collapsed_v1';
+  // load saved state (object mapping index->collapsed boolean)
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ saved = {}; }
+
+  const sections = Array.from(document.querySelectorAll('.policy-section'));
+  sections.forEach((sec, idx) => {
+    // ensure structure: h2 then .content
+    const header = sec.querySelector('h2');
+    const content = sec.querySelector('.content');
+    if(!header || !content) return;
+
+    // set initial collapsed state from storage
+    if(saved[idx]) sec.classList.add('collapsed');
+
+    // make header keyboard accessible
+    header.setAttribute('role','button');
+    header.setAttribute('tabindex','0');
+    header.setAttribute('aria-expanded', !sec.classList.contains('collapsed'));
+
+    // click & key handlers
+    const toggle = () => {
+      sec.classList.toggle('collapsed');
+      const collapsed = sec.classList.contains('collapsed');
+      header.setAttribute('aria-expanded', !collapsed);
+      saved[idx] = collapsed;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e){}
+    };
+    header.addEventListener('click', toggle);
+    header.addEventListener('keydown', (ev) => {
+      if(ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); toggle(); }
+    });
+  });
+})();
+</script>
+</html>
